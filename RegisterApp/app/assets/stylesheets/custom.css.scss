@@ -204,9 +204,9 @@ input {
   }
 }
 
-/* microposts */
+/* appregistrations */
 
-.microposts {
+.appregistrations {
   list-style: none;
   padding: 0;
   li {
@@ -235,6 +235,11 @@ input {
     margin-right: 10px;
     margin-top: 5px;
   }
+}
+
+#appregistration_content {
+  padding: 10px;
+  font-size: 16px;
 }
 
 aside {

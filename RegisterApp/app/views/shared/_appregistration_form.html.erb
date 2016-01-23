@@ -1,7 +1,7 @@
 <%= form_for(@appregistration) do |f| %>
     <%= render 'shared/error_messages', object: f.object %>
     <div class="field">
-      <%= f.text_area :content, placeholder: "Compose new appregistration..." %>
+      <%= f.text_field :content, placeholder: "Fill in your application's name..." %>
     </div>
-    <%= f.submit "Post", class: "btn btn-primary" %>
+    <%= f.submit "Register Application", class: "btn btn-primary" %>
 <% end %>

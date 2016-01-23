@@ -2,8 +2,8 @@
   <%= link_to gravatar_for(appregistration.user, size: 50), appregistration.user %>
   <span class="user"><%= link_to appregistration.user.name, appregistration.user %></span>
   <span class="content"><%= appregistration.content %></span>
+  <span class="apikey"><%= appregistration.apikey %></span>
   <span class="timestamp">
-    Posted <%= time_ago_in_words(appregistration.created_at) %> ago.
     <% if current_user?(appregistration.user) %>
       <%= link_to "delete", appregistration, method: :delete,
                   data: { confirm: "You sure?" } %>
