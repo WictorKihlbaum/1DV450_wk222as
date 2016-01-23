@@ -1,8 +1,8 @@
 <li id="appregistration-<%= appregistration.id %>">
   <%= link_to gravatar_for(appregistration.user, size: 50), appregistration.user %>
   <span class="user"><%= link_to appregistration.user.name, appregistration.user %></span>
-  <span class="content"><%= appregistration.content %></span>
-  <span class="apikey"><%= appregistration.apikey %></span>
+  <span class="content">App: <%= appregistration.content %></span>
+  <span class="apikey">API-Key: <%= appregistration.apikey %></span>
   <span class="timestamp">
     <% if current_user?(appregistration.user) %>
       <%= link_to "delete", appregistration, method: :delete,

@@ -6,7 +6,7 @@ class AppregistrationsController < ApplicationController
   def create
     @appregistration = current_user.appregistrations.build(appregistration_params)
     if @appregistration.save
-      flash[:success] = "Appregistration created!"
+      flash[:success] = "Your application has been registered!"
       redirect_to root_url
     else
       @feed_items = []
@@ -16,7 +16,7 @@ class AppregistrationsController < ApplicationController
 
   def destroy
     @appregistration.destroy
-    flash[:success] = "Appregistration deleted"
+    flash[:success] = "Application deleted"
     redirect_to request.referrer || root_url
   end
 

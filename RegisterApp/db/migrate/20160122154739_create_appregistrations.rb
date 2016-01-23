@@ -7,6 +7,6 @@ class CreateAppregistrations < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_index :appregistrations, [:user_id, :created_at] # Ta bort eventuellt.
+    add_index :appregistrations, [:user_id, :created_at]
   end
 end
