@@ -1,12 +1,25 @@
 <li id="appregistration-<%= appregistration.id %>">
-  <%= link_to gravatar_for(appregistration.user, size: 50), appregistration.user %>
-  <span class="user"><%= link_to appregistration.user.name, appregistration.user %></span>
-  <span class="content">App: <%= appregistration.content %></span>
-  <span class="apikey">API-Key: <%= appregistration.apikey %></span>
+
+  <span class="user">
+    <span class="bold-text">Owner: </span>
+      <%= appregistration.user.name %>
+  </span>
+
+  <span class="content">
+    <span class="bold-text">App:</span>
+    <%= appregistration.content %>
+  </span>
+
+  <span class="apikey">
+    <span class="bold-text">API-Key:</span>
+    <%= appregistration.apikey %>
+  </span>
+
   <span class="timestamp">
     <% if current_user?(appregistration.user) %>
-      <%= link_to "delete", appregistration, method: :delete,
+      <%= link_to "Delete", appregistration, method: :delete,
                   data: { confirm: "You sure?" } %>
     <% end %>
   </span>
+
 </li>

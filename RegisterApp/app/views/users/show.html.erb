@@ -10,7 +10,7 @@
   </aside>
   <div class="col-md-8">
     <% if @user.appregistrations.any? %>
-        <h3>Appregistrations (<%= @user.appregistrations.count %>)</h3>
+        <h3>Registered Apps (<%= @user.appregistrations.count %>)</h3>
         <ol class="appregistrations">
           <%= render @appregistrations %>
         </ol>
