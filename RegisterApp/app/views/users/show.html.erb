@@ -15,6 +15,8 @@
           <%= render @appregistrations %>
         </ol>
         <%= will_paginate @appregistrations %>
+    <% else %>
+        <h3>No Registered Apps</h3>
     <% end %>
   </div>
 </div>

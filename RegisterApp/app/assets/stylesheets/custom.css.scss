@@ -32,7 +32,7 @@ textarea {
   }
 }
 
-/* typography */
+/* Typography */
 
 h1, h2, h3, h4, h5, h6 {
   line-height: 1;
@@ -77,7 +77,7 @@ p {
   }
 }
 
-/* footer */
+/* Footer */
 
 footer {
   margin-top: 45px;
@@ -103,7 +103,7 @@ footer {
   }
 }
 
-/* miscellaneous */
+/* Miscellaneous */
 
 .debug_dump {
   clear: both;
@@ -113,7 +113,7 @@ footer {
   @include box_sizing;
 }
 
-/* sidebar */
+/* Sidebar */
 
 aside {
   section.user_info {
@@ -150,7 +150,7 @@ aside {
   margin-top: 15px;
 }
 
-/* forms */
+/* Forms */
 
 input, textarea, select, .uneditable-input {
   border: 1px solid #bbb;
@@ -204,7 +204,7 @@ input {
   }
 }
 
-/* appregistrations */
+/* AppRegistrations */
 
 .appregistrations {
   list-style: none;
@@ -259,3 +259,36 @@ span.picture {
 .bold-text {
   font-weight: bold;
 }
+
+/* Navigation */
+/*
+.navbar {
+  background-color: #26C281 !important;
+  border: none !important;
+}
+
+.dropdown-menu {
+  background-color: #C8F7C5 !important;
+  color: black !important;
+}
+
+.dropdown-toggle {
+  background-color: #26C281 !important;
+}
+
+.divider {
+  color: white !important;
+}
+
+nav a:link {
+  color: white !important;
+}
+
+nav a:visited {
+  color: white !important;
+}
+
+nav a:hover {
+  background-color: #66CC99 !important;
+}
+*/
