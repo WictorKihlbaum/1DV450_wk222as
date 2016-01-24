@@ -11,7 +11,7 @@ $gray-medium-light: #eaeaea;
   box-sizing:         border-box;
 }
 
-/* universal */
+/* Universal */
 
 body {
   padding-top: 60px;
@@ -40,14 +40,14 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
   font-size: 3em;
-  letter-spacing: -2px;
+  /*letter-spacing: -2px;*/
   margin-bottom: 30px;
   text-align: center;
 }
 
 h2 {
   font-size: 1.2em;
-  letter-spacing: -1px;
+  /*letter-spacing: -1px;*/
   margin-bottom: 30px;
   text-align: center;
   font-weight: normal;
@@ -60,7 +60,7 @@ p {
 }
 
 
-/* header */
+/* Header */
 
 #logo {
   float: left;
@@ -83,7 +83,7 @@ footer {
   margin-top: 45px;
   padding-top: 5px;
   border-top: 1px solid $gray-medium-light;
-  color: $gray-light;
+  color: #59ABE3;
   a {
     color: $gray;
     &:hover {
@@ -258,6 +258,60 @@ span.picture {
 
 .bold-text {
   font-weight: bold;
+}
+
+.main-topic {
+  color: #446CB3;
+}
+
+/* Home */
+
+.jumbotron {
+  background-image: url("home_main_image2") !important;
+  background-size: cover !important;
+  border-radius: 15px !important;
+  height: 400px;
+
+    h1, h2 {
+      color: white;
+    }
+
+    h2 {
+      text-align: left !important;
+    }
+
+    #home-page-text {
+      margin: 0 auto;
+      max-width: 500px;
+    }
+}
+
+/* Forms */
+
+.new_user,
+.col-md-6, .col-md-offset-3 {
+
+  label {
+    color: #4183D7;
+  }
+
+  input[type=text],
+  input[type=email],
+  input[type=password] {
+    color: #89C4F4;
+    border: 1px solid #E4F1FE;
+  }
+}
+
+/* Buttons */
+
+.btn-primary {
+  background-color: #22A7F0 !important;
+  border: none !important;
+
+  &:hover {
+    background-color: #6BB9F0 !important;
+  }
 }
 
 /* Navigation */
