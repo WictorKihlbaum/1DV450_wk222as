@@ -16,9 +16,9 @@
   </span>
 
   <span class="timestamp">
-    <% if current_user?(appregistration.user) %>
+    <% if current_user.admin? || current_user?(appregistration.user) %>
       <%= link_to "Delete", appregistration, method: :delete,
-                  data: { confirm: "You sure?" } %>
+                  data: { confirm: "You are about to delete a registered application, are you sure?" } %>
     <% end %>
   </span>
 
