@@ -5,12 +5,22 @@ class UsersController < ApplicationController
   before_action :admin_user,     only: :destroy
 
   def index
-    @users = User.paginate(page: params[:page])
+    # In case a non-admin try to force url.
+    if users_url && !current_user.admin?
+      redirect_to root_url
+    else
+      @users = User.paginate(page: params[:page])
+    end
   end
 
   def show
     @user = User.find(params[:id])
-    @appregistrations = @user.appregistrations.paginate(page: params[:page])
+    # In case a non-admin try to force url.
+    if current_user?(@user)
+      @appregistrations = @user.appregistrations.paginate(page: params[:page])
+    else
+      redirect_to root_url
+    end
   end
 
   def new
