@@ -15,7 +15,6 @@ class AppregistrationsController < ApplicationController
   end
 
   def destroy
-    #@appregistration.destroy
     Appregistration.find(params[:id]).destroy
     flash[:success] = "Application has been deleted"
     redirect_to request.referrer || root_url
