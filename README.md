@@ -14,3 +14,15 @@ The application database has been seeded with 26 different users and 10 register
 </p>
 * **Email**: admin@user.com
 * **Password**: "Password" (without quotations)
+
+<p>
+**Installation**
+* 1. Go to [this](https://github.com/WictorKihlbaum/RoR-RegisterApp) repository.
+* 2. Download the Zip-file and extract it.
+* 3. Open the terminal on your computer. 
+* 4. Navigate to the extracted directory.
+* 5. Type "bundle install --without production"
+* 6. Type "bundle exec rake db:seed"
+* 7. Open your webbrowser and type "localhost:3000" in the address bar.
+* 8. Done! Start using the application locally.
+</p>
