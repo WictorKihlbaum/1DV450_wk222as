@@ -9,5 +9,5 @@
 * The published applicationfiles are pushed from [another](https://github.com/WictorKihlbaum/RoR-RegisterApp) repository. However, it's the exact same files as in this repository.
 
 * The application database has been seeded with 26 different users. One of which is an Admin. To be able to login as admin please use this credentials:
-* Email: admin@user.com
-* Password: "Password" (without quotations)
+Email: admin@user.com
+Password: "Password" (without quotations)
