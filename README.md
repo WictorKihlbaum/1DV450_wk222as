@@ -1,5 +1,5 @@
 # 1DV450_wk222as
-This repository contains my collected laboratories in course "1DV450 Webbramverk".
+** This repository contains my collected laboratories in course "1DV450 Webbramverk". **
 
 ## Ruby on Rails ##
 
