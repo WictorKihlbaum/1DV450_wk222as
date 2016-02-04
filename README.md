@@ -4,4 +4,4 @@
 ## Ruby on Rails ##
 
 ### RegisterApp  ###
-* I have been following [this guide](https://www.railstutorial.org/book/frontmatter) to accomplish major parts of this application.
+* I have been following [this guide](https://www.railstutorial.org/book/frontmatter) to accomplish major parts of this [application](https://github.com/WictorKihlbaum/1DV450_wk222as/tree/master/RegisterApp).
