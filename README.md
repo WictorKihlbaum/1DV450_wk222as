@@ -17,7 +17,7 @@ The application database has been seeded with 26 different users and 10 register
 
 
 **Installation**
-* 1. Go to [this](https://github.com/WictorKihlbaum/RoR-RegisterApp) repository.
+1. Go to [this](https://github.com/WictorKihlbaum/RoR-RegisterApp) repository.
 * 2. Download the Zip-file and extract it.
 * 3. Open the terminal on your computer. 
 * 4. Navigate to the extracted directory.
