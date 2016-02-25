@@ -2,12 +2,15 @@ module V1
   class EventsController < ApplicationController
     require 'ErrorMessage'
 
-    before_action :set_event, only: [:show, :update, :destroy]
     rescue_from ActionController::UnknownFormat, with: :raise_bad_format
+
+    before_action :set_event, only: [:show, :update, :destroy]
+    before_action offset_params, only [:index, :nearby]
+
 
     # GET /events
     def index
-      @events = Event.all
+      @events = Event.limit(@limit).offset(@offset)
 
       if @category = params[:category]
         @events = @events.where(category: @category)
