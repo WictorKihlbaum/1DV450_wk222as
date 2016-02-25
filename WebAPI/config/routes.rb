@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
-  get '/events(.:format)' => 'events#index'
-  get '/events/:id(.:format)' => 'events#show'
+  get '/v1/events(.:format)' => 'v1/events#index'
+  get '/v1/events/:id(.:format)' => 'v1/events#show'
 
   resources :events, only: [:index, :show]
 
