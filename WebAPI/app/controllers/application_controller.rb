@@ -16,4 +16,10 @@ class ApplicationController < ActionController::API
     @limit ||= LIMIT
   end
 
+  def api_key
+    api_key = request.headers['X-ApiKey']
+    # Check that API-key is valid.
+    return true
+  end
+
 end

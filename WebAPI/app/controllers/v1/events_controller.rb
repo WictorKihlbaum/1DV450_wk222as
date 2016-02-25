@@ -6,6 +6,7 @@ module V1
     rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
     before_action :set_event, only: [:show, :update, :destroy]
+    before_action :api_key
     before_action :offset_params, only: [:index]
 
 
