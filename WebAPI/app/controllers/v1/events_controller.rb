@@ -31,10 +31,6 @@ module V1
         format.json { render json: @event, status: :ok }
         format.xml { render xml: @event, status: :ok }
       end
-
-    #rescue ActiveRecord::RecordNotFound
-     # @error = ErrorMessage('Could not find requested resource. Are you using a valid ID?')
-      #render json: @error, status: :not_found
     end
 
     # POST /events
