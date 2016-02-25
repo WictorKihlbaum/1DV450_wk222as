@@ -3,9 +3,10 @@ module V1
     require 'ErrorMessage'
 
     rescue_from ActionController::UnknownFormat, with: :raise_bad_format
+    rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
     before_action :set_event, only: [:show, :update, :destroy]
-    before_action offset_params, only [:index, :nearby]
+    before_action :offset_params, only: [:index]
 
 
     # GET /events
@@ -30,6 +31,10 @@ module V1
         format.json { render json: @event, status: :ok }
         format.xml { render xml: @event, status: :ok }
       end
+
+    #rescue ActiveRecord::RecordNotFound
+     # @error = ErrorMessage('Could not find requested resource. Are you using a valid ID?')
+      #render json: @error, status: :not_found
     end
 
     # POST /events
@@ -65,6 +70,11 @@ module V1
       def raise_bad_format
         @error = ErrorMessage.new('The API does not support the requested format, please use JSON or XML.')
         render json: @error, status: :bad_request
+      end
+
+      def record_not_found
+        @error = ErrorMessage.new('Could not find the requested resource, please use a valid ID.')
+        render json: @error, status: :not_found
       end
 
       def set_event
