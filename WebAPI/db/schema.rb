@@ -11,13 +11,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160225161737) do
+ActiveRecord::Schema.define(version: 20160225214436) do
+
+  create_table "creators", force: :cascade do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "events", force: :cascade do |t|
     t.string   "category"
     t.string   "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "creator_id"
+    t.integer  "position_id"
+    t.integer  "tag_id"
+  end
+
+  add_index "events", ["creator_id"], name: "index_events_on_creator_id"
+  add_index "events", ["position_id"], name: "index_events_on_position_id"
+  add_index "events", ["tag_id"], name: "index_events_on_tag_id"
+
+  create_table "positions", force: :cascade do |t|
+    t.float    "longitude"
+    t.float    "latitude"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

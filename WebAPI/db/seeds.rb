@@ -6,6 +6,8 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+
+=begin
 Event.create!(
     category: "Paintball",
     description: 'Test your skills against your friends in Kalmar paintball-arena!'
@@ -15,3 +17,4 @@ Event.create!(
     category: "Winetasting",
     description: 'Taste all our wines for a cheap price!'
 )
+=end
