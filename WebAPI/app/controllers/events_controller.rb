@@ -1,5 +1,9 @@
 class EventsController < ApplicationController
+  require 'ErrorMessage'
+
   # before_action :set_event, only: [:show, :update, :destroy]
+
+  rescue_from ActionController::UnknownFormat, with: :raise_bad_format
 
   # GET /events
   def index
@@ -57,6 +61,10 @@ class EventsController < ApplicationController
 =end
 
   private
+    def raise_bad_format
+      @error = ErrorMessage.new('The API does not support the requested format, please use JSON or XML.')
+      render json: @error, status: :bad_request
+    end
 
     def set_event
       @event = Event.find(params[:id])
