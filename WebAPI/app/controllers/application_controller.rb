@@ -18,7 +18,7 @@ class ApplicationController < ActionController::API
 
   def api_key
     api_key = request.headers['X-ApiKey']
-    # Check that API-key is valid.
+    # Check if API-key is valid.
     return true
   end
 

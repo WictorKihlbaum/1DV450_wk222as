@@ -2,15 +2,18 @@ module V1
   class EventsController < ApplicationController
     require 'ErrorMessage'
 
+    # Error handling.
     rescue_from ActionController::UnknownFormat, with: :raise_bad_format
     rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
     before_action :set_event, only: [:show, :update, :destroy]
+    # Verify if correct API-key has been passed along.
     before_action :api_key
+    # Check if user has set custom limit/offset.
     before_action :offset_params, only: [:index]
 
 
-    # GET /events
+    # GET /v1/events
     def index
       @events = Event.limit(@limit).offset(@offset)
 
@@ -24,7 +27,7 @@ module V1
       end
     end
 
-    # GET /events/id
+    # GET /v1/events/id
     def show
       @event = Event.find(params[:id])
 
@@ -34,7 +37,7 @@ module V1
       end
     end
 
-    # POST /events
+    # POST /v1/events
     def create
       @event = Event.new(event_params)
 
@@ -45,7 +48,7 @@ module V1
       end
     end
 
-    # PATCH/PUT /events/1
+    # PATCH/PUT /v1/events/1
     def update
       @event = Event.find(params[:id])
 
