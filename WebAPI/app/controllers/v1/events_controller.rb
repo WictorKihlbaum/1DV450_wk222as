@@ -11,7 +11,13 @@ module V1
     before_action :api_key
     # Check if user has set custom limit/offset.
     before_action :offset_params, only: [:index]
+    # Render resource(s) in JSON if none is set by user.
+    before_filter :default_format_json
 
+
+    def default_format_json
+      request.format = 'json' unless params[:format]
+    end
 
     # GET /v1/events
     def index
