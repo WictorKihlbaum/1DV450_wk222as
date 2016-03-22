@@ -25,14 +25,7 @@ ActiveRecord::Schema.define(version: 20160225214436) do
     t.string   "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.integer  "creator_id"
-    t.integer  "position_id"
-    t.integer  "tag_id"
   end
-
-  add_index "events", ["creator_id"], name: "index_events_on_creator_id"
-  add_index "events", ["position_id"], name: "index_events_on_position_id"
-  add_index "events", ["tag_id"], name: "index_events_on_tag_id"
 
   create_table "positions", force: :cascade do |t|
     t.float    "longitude"

@@ -42,15 +42,42 @@ end
 # Create 10 example apps for each user.
 @users = User.all
 @users.each do |user|
-
   10.times do |n|
-
     Appregistration.create!(
         content: "ExampleApp#{n+1}",
-        apikey: "api_key_" + SecureRandom.hex(32),
+        apikey: SecureRandom.hex(32),
         user_id: user.id
     )
-
   end
-
 end
+
+
+Position.create!(
+    longitude: 16.3666667,
+    latitude: 56.6666667
+)
+
+Tag.create!(
+    name: 'Paintball',
+)
+
+Creator.create!(
+    first_name: 'Wictor',
+    last_name: 'Kihlbaum'
+)
+
+Event.create!(
+    category: "Paintball",
+    description: 'Test your skills against your friends in Kalmar paintball-arena!',
+    creator_id: 1,
+    position_id: 1,
+    tag_id: 1
+)
+
+Event.create!(
+    category: "Winetasting",
+    description: 'Taste all our wines for a cheap price!',
+    creator_id: 1,
+    position_id: 1,
+    tag_id: 1
+)

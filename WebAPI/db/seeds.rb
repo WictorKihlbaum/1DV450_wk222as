@@ -13,7 +13,7 @@ Position.create!(
 )
 
 Tag.create!(
-    name: 'Paintball'
+    name: 'Paintball',
 )
 
 Creator.create!(
