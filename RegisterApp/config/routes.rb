@@ -19,7 +19,7 @@ Rails.application.routes.draw do
       put 'api/v1/events/:id(.:format)' => 'api/v1/events#update'
       delete 'api/v1/events/:id(.:format)' => 'api/v1/events#destroy'
 
-      resources :events#, only: [:index, :show]
+      resources :events
     end
   end
 

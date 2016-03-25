@@ -2,6 +2,40 @@ require 'test_helper'
 
 class EventsControllerTest < ActionController::TestCase
 
+  # GET
+
+  setup { host! 'localhost:3000/api/v1' }
+
+  test 'returns list of all events' do
+    get '/events'
+    assert_equal 200, response.status
+    refute_empty response.body
+  end
+
+  test 'returns events filtered by category' do
+    event1 = Event.create!(category: 'Paintball', description: 'It will be fun!')
+    event2 = Event.create!(category: 'Winetasting', description: 'It will be great!')
+
+    get '/events?category=Paintball'
+    assert_equal 200, response.status
+
+    events = json(response.body) # Helper method.
+    categories = events.collect { |c| c[:category] }
+    assert_includes categories, 'Paintball'
+    refute_includes categories, 'Winetasting'
+  end
+
+  test 'returns event by id' do
+    event = Event.create!(category: 'Laserdoom', description: 'It will be awesome!')
+
+    get '/events/#{event.id}'
+    assert_equal 200, response.status
+
+    event_response = json(response.body) # Helper method.
+    assert_equal event.category, event_response[:category]
+  end
+
+
   # POST
 
   test 'creates events' do
