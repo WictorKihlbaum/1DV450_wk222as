@@ -5,6 +5,7 @@ class AppregistrationsController < ApplicationController
 
   def create
     @appregistration = current_user.appregistrations.build(appregistration_params)
+
     if @appregistration.save
       flash[:success] = "Application has been registered!"
       redirect_to root_url
@@ -20,13 +21,12 @@ class AppregistrationsController < ApplicationController
     redirect_to request.referrer || root_url
   end
 
+
   private
 
   def appregistration_params
     params.require(:appregistration).permit(:content)
   end
-
-  # Before filters
 
   # Confirms the correct user.
   def valid_user

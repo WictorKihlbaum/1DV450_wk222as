@@ -9,22 +9,19 @@ module API
       rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
       before_action :set_event, only: [:show, :update, :destroy]
-      # Verify if correct API-key has been passed along.
-      before_action :api_key
+      before_action :api_authenticate, only: [:create]
       # Check if user has set custom limit/offset.
       before_action :offset_params, only: [:index]
       # Render resource(s) in JSON by default if format is not set by user.
       before_filter :default_format_json
 
 
-      def default_format_json
-        request.format = 'json' unless params[:format]
-      end
-
       # GET api/v1/events
       def index
         @events = Event.limit(@limit).offset(@offset)
+        #@events = Event.filter(params.slice(:category))
 
+        # Adding "category"-filtering.
         if @category = params[:category]
           @events = @events.where(category: @category)
         end
@@ -61,18 +58,23 @@ module API
         @event = Event.find(params[:id])
 
         if @event.update(event_params)
-          head :no_content
+          render json: @event, status: :ok
         else
           render json: @event.errors, status: :unprocessable_entity
         end
       end
 
-      # DELETE /events/id
+      # DELETE api/v1/events/id
       def destroy
+        @event = Event.find(params[:id])
         @event.destroy
-
         head :no_content
       end
+
+      def default_format_json
+        request.format = 'json' unless params[:format]
+      end
+
 
       private
 

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  # Registration Application.
   root                'static_pages#home'
   get    'signup'  => 'users#new'
   get    'login'   => 'sessions#new'
@@ -7,11 +8,18 @@ Rails.application.routes.draw do
   resources :users
   resources :appregistrations, only: [:create, :destroy]
 
+  # WebAPI Backend.
   namespace :api do
     namespace :v1 do
       get 'api/v1/events(.:format)' => 'api/v1/events#index'
+      post 'api/v1/events(.:format)' => 'api/v1/events#create'
+
       get 'api/v1/events/:id(.:format)' => 'api/v1/events#show'
-      resources :events, only: [:index, :show]
+      patch 'api/v1/events/:id(.:format)' => 'api/v1/events#update'
+      put 'api/v1/events/:id(.:format)' => 'api/v1/events#update'
+      delete 'api/v1/events/:id(.:format)' => 'api/v1/events#destroy'
+
+      resources :events#, only: [:index, :show]
     end
   end
 
