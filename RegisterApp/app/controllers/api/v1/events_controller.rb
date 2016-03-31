@@ -3,6 +3,8 @@ module API
     class EventsController < APIController
 
       require 'ErrorMessage'
+      UNSUPPORTED_FORMAT = 'The API does not support the requested format, please use JSON or XML.'
+      RESOURCE_NOT_FOUND = 'Could not find the requested resource, please use a valid ID.'
 
       # Error handling.
       rescue_from ActionController::UnknownFormat, with: :raise_bad_format
@@ -79,12 +81,12 @@ module API
       private
 
       def raise_bad_format
-        @error = ErrorMessage.new('The API does not support the requested format, please use JSON or XML.')
+        @error = ErrorMessage.new(UNSUPPORTED_FORMAT)
         render json: @error, status: :bad_request
       end
 
       def record_not_found
-        @error = ErrorMessage.new('Could not find the requested resource, please use a valid ID.')
+        @error = ErrorMessage.new(RESOURCE_NOT_FOUND)
         render json: @error, status: :not_found
       end
 
