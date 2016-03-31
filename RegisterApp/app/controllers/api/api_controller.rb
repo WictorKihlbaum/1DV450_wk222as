@@ -18,9 +18,20 @@ class API::APIController < ActionController::Base
     @limit ||= LIMIT
   end
 
-  def api_authenticate
-    # TODO: Implement JWT
-    return true
+  def api_key
+    api_key = request.headers['X-ApiKey']
+    if Appregistration.find_by_apikey(api_key)
+      return true
+    else
+      render json: 'No valid API-key has been passed along this request.',
+             status: :unauthorized
+    end
+  end
+
+  def restrict_access
+    authenticate_or_request_with_http_token do |token, options|
+      Appregistration.exists?(apikey: token)
+    end
   end
 
   def render_unauthorized

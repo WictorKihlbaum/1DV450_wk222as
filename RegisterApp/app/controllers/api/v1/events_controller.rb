@@ -9,7 +9,7 @@ module API
       rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
       before_action :set_event, only: [:show, :update, :destroy]
-      before_action :api_authenticate, only: [:create]
+      before_action :api_key, only: [:create]
       # Check if user has set custom limit/offset.
       before_action :offset_params, only: [:index]
       # Render resource(s) in JSON by default if format is not set by user.
@@ -47,7 +47,7 @@ module API
         @event = Event.new(event_params)
 
         if @event.save
-          render json: @event, status: :created, location: @event
+          render json: @event, status: :created#, location: @event
         else
           render json: @event.errors, status: :unprocessable_entity
         end

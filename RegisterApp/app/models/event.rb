@@ -11,4 +11,6 @@ class Event < ActiveRecord::Base
   before_save { self.creator_id = 1 }
   before_save { self.position_id = 1 }
   before_save { self.tag_id = 1 }
+
+  # remove_column :events, :tag_id
 end
