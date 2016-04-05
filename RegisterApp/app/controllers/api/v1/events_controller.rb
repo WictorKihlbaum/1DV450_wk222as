@@ -3,15 +3,18 @@ module API
     class EventsController < APIController
 
       require 'ErrorMessage'
+
+      # Error messages.
       UNSUPPORTED_FORMAT = 'The API does not support the requested format, please use JSON or XML.'
-      RESOURCE_NOT_FOUND = 'Could not find the requested resource, please use a valid ID.'
+      RESOURCES_NOT_FOUND = 'Could not find any resources. Try changing the filters if you used any.'
+      RESOURCE_NOT_FOUND = 'Could not find the requested resource, please be sure to use a valid ID.'
+      RESOURCE_NOT_CREATED = 'Resource could not be created.'
 
       # Error handling.
-      rescue_from ActionController::UnknownFormat, with: :raise_bad_format
-      rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+      rescue_from ActionController::UnknownFormat, with: :unsupported_format
+      rescue_from ActiveRecord::RecordNotFound, with: :resource_not_found
 
       before_action :set_event, only: [:show, :update, :destroy]
-      before_action :api_key, only: [:create]
       # Check if user has set custom limit/offset.
       before_action :offset_params, only: [:index]
       # Render resource(s) in JSON by default if format is not set by user.
@@ -20,83 +23,86 @@ module API
 
       # GET api/v1/events
       def index
-        @events = Event.limit(@limit).offset(@offset)
-        #@events = Event.filter(params.slice(:category))
+        events = Event.filter(
+            params.slice(
+                :category,
+                :desc_starts_with,
+                :creator,
+                :position
+            )
+        )
 
-        # Adding "category"-filtering.
-        if @category = params[:category]
-          @events = @events.where(category: @category)
-        end
+        # TODO: Add offset and limit.
 
-        respond_to do |format|
-          format.json { render json: @events, status: :ok }
-          format.xml { render xml: @events, status: :ok }
+        if events.count > 0
+          render_response(events, :ok)
+        else
+          error = ErrorMessage.new(RESOURCES_NOT_FOUND)
+          render_response(error, :not_found)
         end
       end
 
       # GET api/v1/events/id
       def show
-        @event = Event.find(params[:id])
-
-        respond_to do |format|
-          format.json { render json: @event, status: :ok }
-          format.xml { render xml: @event, status: :ok }
-        end
+        event = Event.find(params[:id])
+        render_response(event, :ok)
       end
 
       # POST api/v1/events
       def create
-        @event = Event.new(event_params)
+        event = Event.new(event_params)
 
-        if @event.save
-          render json: @event, status: :created#, location: @event
+        if event.save
+          render_response(event, :created)
         else
-          render json: @event.errors, status: :unprocessable_entity
+          error = { message: RESOURCE_NOT_CREATED, reasons: event.errors }
+          render_response(error, :unprocessable_entity)
         end
       end
 
       # PATCH/PUT api/v1/events/id
       def update
-        @event = Event.find(params[:id])
+        event = Event.find(params[:id])
 
-        if @event.update(event_params)
-          render json: @event, status: :ok
+        if event.update(event_params)
+          render_response(event, :ok)
         else
-          render json: @event.errors, status: :unprocessable_entity
+          render_response(event.errors, :unprocessable_entity)
         end
       end
 
       # DELETE api/v1/events/id
       def destroy
-        @event = Event.find(params[:id])
-        @event.destroy
+        event = Event.find(params[:id])
+        event.destroy
         head :no_content
-      end
-
-      def default_format_json
-        request.format = 'json' unless params[:format]
       end
 
 
       private
 
-      def raise_bad_format
-        @error = ErrorMessage.new(UNSUPPORTED_FORMAT)
-        render json: @error, status: :bad_request
-      end
+        # A list of the param names that can be used for filtering the Events list.
+        def filtering_params(params)
+          params.slice(:category, :desc_starts_with, :creator, :position)
+        end
 
-      def record_not_found
-        @error = ErrorMessage.new(RESOURCE_NOT_FOUND)
-        render json: @error, status: :not_found
-      end
+        def unsupported_format
+          error = ErrorMessage.new(UNSUPPORTED_FORMAT)
+          render_response(error, :bad_request)
+        end
 
-      def set_event
-        @event = Event.find(params[:id])
-      end
+        def resource_not_found
+          error = ErrorMessage.new(RESOURCE_NOT_FOUND)
+          render_response(error, :not_found)
+        end
 
-      def event_params
-        params.require(:event).permit(:category, :description)
-      end
+        def set_event
+          @event = Event.find(params[:id])
+        end
+
+        def event_params
+          params.require(:event).permit(:category, :description)
+        end
 
     end
   end
