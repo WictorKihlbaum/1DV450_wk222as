@@ -1,9 +1,12 @@
 class API::APIController < ActionController::Base
 
+  include Knock::Authenticable
+
   require 'ErrorMessage'
 
   protect_from_forgery with: :null_session
   before_action :restrict_access_by_apikey
+  before_action :authenticate
 
   # Error messages
   INVALID_APIKEY = 'Invalid API-key has been passed along the request.'
@@ -28,7 +31,7 @@ class API::APIController < ActionController::Base
   def restrict_access_by_apikey
     apikey = request.headers['X-APIKey']
 
-    unless Appregistration.find_by_apikey(apikey)
+    unless Appregistration.where(apikey: apikey)
       error = ErrorMessage.new(INVALID_APIKEY)
       render_response(error, :unauthorized)
     end

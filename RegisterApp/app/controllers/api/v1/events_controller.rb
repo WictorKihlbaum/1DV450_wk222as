@@ -2,8 +2,6 @@ module API
   module V1
     class EventsController < APIController
 
-      require 'ErrorMessage'
-
       # Error messages.
       UNSUPPORTED_FORMAT = 'The API does not support the requested format, please use JSON or XML.'
       RESOURCES_NOT_FOUND = 'Could not find any resources. Try changing the filters if you used any.'

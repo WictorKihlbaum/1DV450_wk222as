@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  mount Knock::Engine => '/knock'
+
   # Registration Application.
   root                'static_pages#home'
   get    'signup'  => 'users#new'

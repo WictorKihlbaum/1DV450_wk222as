@@ -1,5 +1,5 @@
 class Event < ActiveRecord::Base
-
+  
   include Filterable
 
   belongs_to :creator
