@@ -32,9 +32,8 @@ module API
             )
         )
 
-        # TODO: Add offset and limit.
-
         if events.count > 0
+          events = events.limit(@limit).offset(@offset)
           render_response(events, :ok)
         else
           error = ErrorMessage.new(RESOURCES_NOT_FOUND)
