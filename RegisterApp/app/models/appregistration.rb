@@ -6,9 +6,9 @@ class Appregistration < ActiveRecord::Base
   validates :content, presence: true, length: { maximum: 50 }
 
   def generate_apikey
-    begin
+    #begin
       self.apikey = SecureRandom.hex
-    end while self.class.exists?(apikey: apikey)
+    #end while self.class.exists?(apikey: apikey)
   end
 
 end

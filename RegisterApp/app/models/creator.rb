@@ -1,4 +1,5 @@
 class Creator < ActiveRecord::Base
+
   has_many :events, dependent: :destroy
 
   before_save { self.email = email.downcase }

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  mount Knock::Engine => '/knock'
+  mount Knock::Engine => "/knock"
 
   # Registration Application.
   root                'static_pages#home'

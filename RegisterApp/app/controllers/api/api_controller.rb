@@ -6,7 +6,7 @@ class API::APIController < ActionController::Base
 
   protect_from_forgery with: :null_session
   before_action :restrict_access_by_apikey
-  before_action :authenticate
+  before_action :authenticate, only: [:create]
 
   # Error messages
   INVALID_APIKEY = 'Invalid API-key has been passed along the request.'
