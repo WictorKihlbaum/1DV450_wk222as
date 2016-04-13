@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  mount Knock::Engine => "/knock"
+  mount Knock::Engine => '/knock'
 
   # Registration Application.
   root                'static_pages#home'
@@ -23,6 +23,10 @@ Rails.application.routes.draw do
       delete 'api/v1/events/:id(.:format)' => 'api/v1/events#destroy'
 
       resources :events
+      resources :creators
+      resources :positions
+      resources :tags
+
     end
   end
 
