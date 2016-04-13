@@ -27,13 +27,15 @@ class API::V1::EventsController < API::APIController
 
     if events.count > 0
 
+=begin
       if params[:long].present? && params[:lat].present?
         events = get_nearby_events_based_on_position
         render_response(events, :ok)
       end
+=end
 
-      #events = events.limit(@limit).offset(@offset)
-      #render_response(events, :ok)
+      events = events.limit(@limit).offset(@offset)
+      render_response(events, :ok)
     else
       error = ErrorMessage.new(RESOURCES_NOT_FOUND)
       render_response(error, :not_found)
@@ -52,8 +54,7 @@ class API::V1::EventsController < API::APIController
 
   # GET api/v1/events/id
   def show
-    event = Event.find(params[:id])
-    render_response(event, :ok)
+    render_response(@event, :ok)
   end
 
   # POST api/v1/events
@@ -70,19 +71,16 @@ class API::V1::EventsController < API::APIController
 
   # PATCH/PUT api/v1/events/id
   def update
-    event = Event.find(params[:id])
-
-    if event.update(event_params)
-      render_response(event, :ok)
+    if @event.update(event_params)
+      render_response(@event, :ok)
     else
-      render_response(event.errors, :unprocessable_entity)
+      render_response(@event.errors, :unprocessable_entity)
     end
   end
 
   # DELETE api/v1/events/id
   def destroy
-    event = Event.find(params[:id])
-    event.destroy
+    @event.destroy
     head :no_content
   end
 

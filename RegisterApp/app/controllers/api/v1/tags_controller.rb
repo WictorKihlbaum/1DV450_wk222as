@@ -2,6 +2,7 @@ class API::V1::TagsController < API::APIController
 
   before_action :offset_params, only: [:index]
 
+
   def index
 
   end
@@ -9,5 +10,5 @@ class API::V1::TagsController < API::APIController
   def show
 
   end
-  
+
 end
