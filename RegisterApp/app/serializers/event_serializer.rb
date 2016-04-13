@@ -1,4 +1,5 @@
 class EventSerializer < ActiveModel::Serializer
+
   attributes :id, :category, :description
 
   belongs_to :creator
