@@ -1,6 +1,6 @@
 class CreatorSerializer < ActiveModel::Serializer
 
-  attributes :id, :name, :email
+  attributes :id, :name, :email, :links
 
   def links
     {
