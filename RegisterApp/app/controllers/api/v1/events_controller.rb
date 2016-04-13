@@ -13,10 +13,7 @@ module API
       rescue_from ActiveRecord::RecordNotFound, with: :resource_not_found
 
       before_action :set_event, only: [:show, :update, :destroy]
-      # Check if user has set custom limit/offset.
       before_action :offset_params, only: [:index]
-      # Render resource(s) in JSON by default if format is not set by user.
-      before_filter :default_format_json
 
 
       # GET api/v1/events
@@ -31,12 +28,28 @@ module API
         )
 
         if events.count > 0
-          events = events.limit(@limit).offset(@offset)
-          render_response(events, :ok)
+
+          if params[:long].present? && params[:lat].present?
+            events = get_nearby_events_based_on_position
+            render_response(events, :ok)
+          end
+
+          #events = events.limit(@limit).offset(@offset)
+          #render_response(events, :ok)
         else
           error = ErrorMessage.new(RESOURCES_NOT_FOUND)
           render_response(error, :not_found)
         end
+      end
+
+      def get_nearby_events_based_on_position
+        events = []
+        positions = Position.near([params[:long].to_f, params[:lat].to_f], 20)
+
+        positions.each do |position|
+          events << position.event
+        end
+        events
       end
 
       # GET api/v1/events/id

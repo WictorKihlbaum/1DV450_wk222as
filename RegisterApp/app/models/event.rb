@@ -3,12 +3,13 @@ class Event < ActiveRecord::Base
   include Filterable
 
   belongs_to :creator
-  belongs_to :position
+  #belongs_to :position
+  has_one :position
   has_and_belongs_to_many :tags
 
-  # Remove
-  before_save { self.creator_id = 1 }
-  before_save { self.position_id = 1 }
+  # Remove later.
+  # before_save { self.creator_id = 1 }
+  # before_save { self.position_id = 1 }
 
   validates :category, presence: true
   validates :description, presence: true

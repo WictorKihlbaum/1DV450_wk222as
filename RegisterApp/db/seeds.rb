@@ -56,6 +56,16 @@ Position.create!(
     latitude: 56.6666667
 )
 
+Position.create!(
+    longitude: 17.3666667,
+    latitude: 57.6666667
+)
+
+Position.create!(
+    longitude: 15.3666667,
+    latitude: 55.6666667
+)
+
 Tag.create!(
     name: 'Paintball',
 )
@@ -77,5 +87,12 @@ Event.create!(
     category: "Winetasting",
     description: 'Taste all our wines for a cheap price!',
     creator_id: 1,
-    position_id: 1
+    position_id: 2
+)
+
+Event.create!(
+    category: "Test Event",
+    description: 'Taste all our wines for a cheap price!',
+    creator_id: 1,
+    position_id: 3
 )
