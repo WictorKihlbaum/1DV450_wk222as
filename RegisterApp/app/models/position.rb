@@ -1,11 +1,14 @@
 class Position < ActiveRecord::Base
 
-  #has_and_belongs_to_many :events
-  has_one :event
+  attr_accessor :address, :latitude, :longitude
 
-  reverse_geocoded_by :longitude, :latitude
-  after_validation :reverse_geocode
+  has_many :events
 
-  validates :longitude, presence: true
+  geocoded_by :address
+  reverse_geocoded_by :latitude, :longitude
+  after_validation :geocode, :reverse_geocode
+
   validates :latitude, presence: true
+  validates :longitude, presence: true
+
 end

@@ -1,6 +1,7 @@
 class API::V1::PositionsController < API::APIController
 
   before_action :offset_params, only: [:index]
+  before_action :set_position, only: [:show]
 
 
   def index

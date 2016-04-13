@@ -52,18 +52,18 @@ end
 
 
 Position.create!(
-    longitude: 16.3666667,
-    latitude: 56.6666667
+    latitude: 56.6666667,
+    longitude: 16.3666667
 )
 
 Position.create!(
-    longitude: 17.3666667,
-    latitude: 57.6666667
+    latitude: 56.668213,
+    longitude: 16.356047
 )
 
 Position.create!(
-    longitude: 15.3666667,
-    latitude: 55.6666667
+    latitude: 56.665100,
+    longitude: 16.319741
 )
 
 Tag.create!(
@@ -79,6 +79,13 @@ Creator.create!(
 Event.create!(
     category: "Paintball",
     description: 'Test your skills against your friends in Kalmar paintball-arena!',
+    creator_id: 1,
+    position_id: 1
+)
+
+Event.create!(
+    category: "Test Event 2",
+    description: 'Event event 2',
     creator_id: 1,
     position_id: 1
 )

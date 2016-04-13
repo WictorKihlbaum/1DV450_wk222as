@@ -45,8 +45,9 @@ ActiveRecord::Schema.define(version: 20160321194631) do
   add_index "events", ["position_id"], name: "index_events_on_position_id"
 
   create_table "positions", force: :cascade do |t|
-    t.float    "longitude"
+    t.string   "address"
     t.float    "latitude"
+    t.float    "longitude"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

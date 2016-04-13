@@ -1,6 +1,7 @@
 class API::V1::CreatorsController < API::APIController
 
   before_action :offset_params, only: [:index]
+  before_action :set_creator, only: [:show]
 
 
   def index

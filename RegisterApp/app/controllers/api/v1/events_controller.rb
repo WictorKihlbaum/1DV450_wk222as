@@ -12,44 +12,50 @@ class API::V1::EventsController < API::APIController
 
   before_action :set_event, only: [:show, :update, :destroy]
   before_action :offset_params, only: [:index]
+  before_action :get_nearby_events, only: [:index]
 
 
   # GET api/v1/events
   def index
-    events = Event.filter(
-        params.slice(
-            :category,
-            :desc_starts_with,
-            :creator,
-            :position
-        )
-    )
 
-    if events.count > 0
-
-=begin
-      if params[:long].present? && params[:lat].present?
-        events = get_nearby_events_based_on_position
-        render_response(events, :ok)
-      end
-=end
-
-      events = events.limit(@limit).offset(@offset)
-      render_response(events, :ok)
+    if coordinates_is_present
+      render_response(@nearby_events, :ok)
     else
-      error = ErrorMessage.new(RESOURCES_NOT_FOUND)
-      render_response(error, :not_found)
+      events = Event.filter(
+          params.slice(
+              :category,
+              :desc_starts_with,
+              :creator,
+              :position
+          )
+      )
+
+      if events.count > 0
+        events = events.limit(@limit).offset(@offset)
+        render_response(events, :ok)
+      else
+        error = ErrorMessage.new(RESOURCES_NOT_FOUND)
+        render_response(error, :not_found)
+      end
     end
   end
 
-  def get_nearby_events_based_on_position
-    events = []
-    positions = Position.near([params[:long].to_f, params[:lat].to_f], 20)
+  def get_nearby_events
+    @nearby_events = []
 
-    positions.each do |position|
-      events << position.event
+    if coordinates_is_present
+      positions = Position.near([params[:lat], params[:long]], 1)
+
+      positions.each do |position|
+        @nearby_events.push(position.events)
+      end
+    else
+      @nearby_events = Event.all
     end
-    events
+  end
+
+  def coordinates_is_present
+    return true if params[:lat].present? && params[:long].present?
   end
 
   # GET api/v1/events/id

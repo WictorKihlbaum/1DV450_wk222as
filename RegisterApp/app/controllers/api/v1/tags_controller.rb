@@ -1,6 +1,7 @@
 class API::V1::TagsController < API::APIController
 
   before_action :offset_params, only: [:index]
+  before_action :set_tag, only: [:show]
 
 
   def index

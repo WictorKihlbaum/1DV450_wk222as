@@ -3,13 +3,9 @@ class Event < ActiveRecord::Base
   include Filterable
 
   belongs_to :creator
-  #belongs_to :position
-  has_one :position
+  belongs_to :position
+  #has_one :position
   has_and_belongs_to_many :tags
-
-  # Remove later.
-  # before_save { self.creator_id = 1 }
-  # before_save { self.position_id = 1 }
 
   validates :category, presence: true
   validates :description, presence: true
@@ -19,5 +15,7 @@ class Event < ActiveRecord::Base
   scope :desc_starts_with, -> (description) { where("description like ?", "#{description}%") }
   scope :creator, -> (creator_id) { where creator_id: creator_id }
   scope :position, -> (position_id) { where position_id: position_id }
+
+  #events = Event.includes(position: [:address, :latitude, :longitude])
 
 end
