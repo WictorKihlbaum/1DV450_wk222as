@@ -11,7 +11,6 @@ class API::V1::EventsController < API::APIController
   rescue_from ActiveRecord::RecordNotFound, with: :resource_not_found
 
   before_action :set_event, only: [:show, :update, :destroy]
-  before_action :offset_params, only: [:index]
   before_action :get_nearby_events, only: [:index]
 
 

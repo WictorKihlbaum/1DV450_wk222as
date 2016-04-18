@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  # Needed for JWT-Authentication.
   mount Knock::Engine => '/knock'
 
   # Registration Application.
@@ -14,13 +15,6 @@ Rails.application.routes.draw do
   # WebAPI Backend.
   namespace :api do
     namespace :v1 do
-      get 'api/v1/events(.:format)' => 'api/v1/events#index'
-      post 'api/v1/events(.:format)' => 'api/v1/events#create'
-
-      get 'api/v1/events/:id(.:format)' => 'api/v1/events#show'
-      patch 'api/v1/events/:id(.:format)' => 'api/v1/events#update'
-      put 'api/v1/events/:id(.:format)' => 'api/v1/events#update'
-      delete 'api/v1/events/:id(.:format)' => 'api/v1/events#destroy'
 
       resources :events
       resources :creators

@@ -5,12 +5,13 @@ class API::APIController < ActionController::Base
   require 'ErrorMessage'
 
   protect_from_forgery with: :null_session
+  before_filter :default_format_json
   before_action :restrict_access_by_apikey
   before_action :authenticate, except: [:index, :show]
-  before_filter :default_format_json
+  before_action :offset_params, only: [:index]
 
   # Error messages
-  INVALID_APIKEY = 'Invalid API-key has been passed along the request.'
+  INVALID_APIKEY = 'Invalid API-key has been sent with the request.'
 
   OFFSET = 0
   LIMIT = 15
@@ -18,11 +19,11 @@ class API::APIController < ActionController::Base
 
   def offset_params
     if params[:offset].present?
-      @offset = params[:offset].to_i
+      @offset = params[:offset]
     end
 
     if params[:limit].present?
-      @limit = params[:limit].to_i
+      @limit = params[:limit]
     end
 
     @offset ||= OFFSET
@@ -32,7 +33,7 @@ class API::APIController < ActionController::Base
   def restrict_access_by_apikey
     apikey = request.headers['X-APIKey']
 
-    unless Appregistration.where(apikey: apikey)
+    unless Appregistration.find_by_apikey(apikey)
       error = ErrorMessage.new(INVALID_APIKEY)
       render_response(error, :unauthorized)
     end
