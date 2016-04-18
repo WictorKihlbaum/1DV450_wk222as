@@ -1,0 +1,20 @@
+<h1>Login</h1>
+
+<p>
+    email: wictor@gmail.com<br />
+    password: password
+</p>
+
+<p>
+    <input type="email" ng-model="main.email" placeholder="Email"><br>
+    <input type="password" ng-model="main.password" placeholder="Password"><br>
+</p>
+
+<p>
+    <button ng-click="main.login()">Login</button>
+    <button ng-click="main.logout()" ng-show="main.isAuthed()">Logout</button>
+</p>
+
+<p>
+    {{main.message}}
+</p>

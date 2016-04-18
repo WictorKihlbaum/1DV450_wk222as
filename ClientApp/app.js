@@ -93,7 +93,7 @@
         }
     }
 
-    angular.module('app', ['ngMaterial'])
+    angular.module('app', ['ngMaterial', 'ngRoute'])
         .factory('authInterceptor', authInterceptor)
         .service('user', userService)
         .service('auth', authService)
@@ -105,5 +105,19 @@
         .config($httpProvider => {
             $httpProvider.interceptors.push('authInterceptor');
         })
+        .config(['$routeProvider', '$locationProvider',
+            ($routeProvider, $locationProvider) => {
+                $routeProvider.
+                    when('/', {
+                        templateUrl: 'partials/login.html',
+                        controller: 'MainCtrl',
+                        controllerAs: 'Main'
+            }).
+            otherwise({
+                redirectTo: '/'
+            });
+
+            $locationProvider.html5Mode(true);
+        }])
         .controller('Main', MainCtrl)
 })();
