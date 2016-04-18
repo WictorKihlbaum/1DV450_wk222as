@@ -1,20 +1,20 @@
-;(function(){
+;(() => {
     function authInterceptor(API, auth) {
         return {
-            // automatically attach Authorization header
-            request: function(config) {
-                var token = auth.getToken();
-                if(config.url.indexOf(API) === 0 && token) {
-                    config.headers.Authorization = 'Bearer ' + token;
+            // Automatically attach Authorization header.
+            request: config => {
+                const token = auth.getToken();
+                if (config.url.indexOf(API.baseURL) == 0 && token) {
+                    console.log('Test: '+token);
+                    config.headers.Authorization = `Bearer ${token}`;
                 }
                 return config;
             },
 
-            // If a token was sent back, save it
-            response: function(res) {
-                if(res.config.url.indexOf(API) === 0 && res.data.token) {
-                    auth.saveToken(res.data.token);
-                }
+            // If a token was sent back, save it.
+            response: res => {
+                if (res.config.url.indexOf(API.baseURL) == 0 && res.data.jwt)
+                    auth.saveToken(res.data.jwt);
                 return res;
             }
 
@@ -22,96 +22,71 @@
     }
 
     function authService($window) {
-        var self = this;
+        const self = this;
 
-        // Add JWT methods here
-
-        self.parseJwt = function(token) {
-            var base64Url = token.split('.')[1];
-            var base64 = base64Url.replace('-', '+').replace('_', '/');
+        self.parseJwt = token => {
+            const base64Url = token.split('.')[1];
+            const base64 = base64Url.replace('-', '+').replace('_', '/');
             return JSON.parse($window.atob(base64));
         }
 
-        self.saveToken = function(token) {
+        self.saveToken = token =>
             $window.localStorage['jwtToken'] = token;
-        }
 
-        self.getToken = function() {
+        self.getToken = () => {
             return $window.localStorage['jwtToken'];
         }
 
-        self.isAuthed = function() {
-            var token = self.getToken();
-            if(token) {
-                var params = self.parseJwt(token);
+        self.isAuthed = () => {
+            const token = self.getToken();
+            if (token) {
+                const params = self.parseJwt(token);
                 return Math.round(new Date().getTime() / 1000) <= params.exp;
             } else {
                 return false;
             }
         }
 
-        self.logout = function() {
+        self.logout = () =>
             $window.localStorage.removeItem('jwtToken');
-        }
-
     }
 
     function userService($http, API, auth) {
-        var self = this;
-        self.getQuote = function() {
-            return $http.get(API + '/auth/quote')
-        }
+        const self = this;
 
-        // add authentication methods here
+        self.login = (email, password) => {
+            const auth = {email: email, password: password};
+            const headers = {
+                'Content-Type': API.format,
+                'X-APIKey': API.apiKey
+            };
 
-        self.register = function(email, password) {
-            return $http.post(API + '/auth/register', {
-                email: email,
-                password: password
-            })
-        }
-
-        self.login = function(email, password) {
-            return $http.post(API.baseURL + '/knock/auth_token', {
-                auth: {
-                    email: email,
-                    password: password
-                },
-                headers: {
-                    'Content-Type': API.format,
-                    'X-APIKey': API.apiKey
-                }
+            return $http.post(`${API.baseURL}/knock/auth_token`, {
+                auth: auth,
+                headers: headers
             })
         };
-
     }
 
-// We won't touch anything in here
     function MainCtrl(user, auth) {
-        var self = this;
+        const self = this;
 
         function handleRequest(res) {
-            var token = res.data ? res.data.token : null;
-            if(token) { console.log('JWT:', token); }
+            const token = res.data ? res.data.jwt : null;
+            if (token) console.log('JWT:', token);
             self.message = res.data.message;
         }
 
-        self.login = function() {
+        self.login = () => {
             user.login(self.email, self.password)
                 .then(handleRequest, handleRequest)
         }
-        self.register = function() {
-            user.register(self.email, self.password)
-                .then(handleRequest, handleRequest)
-        }
-        self.getQuote = function() {
-            user.getQuote()
-                .then(handleRequest, handleRequest)
-        }
-        self.logout = function() {
+
+        self.logout = () => {
             auth.logout && auth.logout()
         }
-        self.isAuthed = function() {
+
+        self.isAuthed = () => {
             return auth.isAuthed ? auth.isAuthed() : false
         }
     }
@@ -125,7 +100,7 @@
             'apiKey': '181d7e9aa1afc17a8eb69a0542c67c4d',
             'format': 'application/json'
         })
-        .config(function($httpProvider) {
+        .config($httpProvider => {
             $httpProvider.interceptors.push('authInterceptor');
         })
         .controller('Main', MainCtrl)
