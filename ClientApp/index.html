@@ -17,24 +17,32 @@
     </head>
     <body ng-app="app" ng-controller="Main as main">
 
-        <h1>Simple Angular Auth - Thinkster</h1>
+        <div ng-include src="'partials/shared/menu.html'"></div>
+
+
+
+
+
+        <h1>Login</h1>
 
         <p>
             email: wictor@gmail.com<br />
             password: password
         </p>
 
-        <input type="email" ng-model="main.email" placeholder="Email"><br>
-        <input type="password" ng-model="main.password" placeholder="Password"><br>
-        <br />
+        <p>
+            <input type="email" ng-model="main.email" placeholder="Email"><br>
+            <input type="password" ng-model="main.password" placeholder="Password"><br>
+        </p>
 
-        <button ng-click="main.register()">Register</button>
-        <button ng-click="main.login()">Login</button>
-        <button ng-click="main.logout()" ng-show="main.isAuthed()">Logout</button>
+        <p>
+            <button ng-click="main.login()">Login</button>
+            <button ng-click="main.logout()" ng-show="main.isAuthed()">Logout</button>
+        </p>
 
-        <button ng-click="main.getQuote()">get quote</button>
-        <br /><br />
-        {{main.message}}
+        <p>
+            {{main.message}}
+        </p>
 
     </body>
 </html>
