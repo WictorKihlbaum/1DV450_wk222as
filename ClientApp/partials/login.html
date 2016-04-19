@@ -1,20 +1,38 @@
-<h1>Login</h1>
+<div id="login-div">
 
-<p>
-    email: wictor@gmail.com<br />
-    password: password
-</p>
+    <h1>Login</h1>
 
-<p>
-    <input type="email" ng-model="main.email" placeholder="Email"><br>
-    <input type="password" ng-model="main.password" placeholder="Password"><br>
-</p>
+    <p>
+        email: wictor@gmail.com<br />
+        password: password
+    </p>
 
-<p>
-    <button ng-click="main.login()">Login</button>
-    <button ng-click="main.logout()" ng-show="main.isAuthed()">Logout</button>
-</p>
+    <md-input-container>
+        <input type="email" required
+               name="email"
+               id="email-field"
+               ng-model="login.email"
+               placeholder="Type in your email" />
+    </md-input-container><br />
 
-<p>
-    {{main.message}}
-</p>
+    <md-input-container>
+        <input type="password" required
+               name="password"
+               id="password-field"
+               ng-model="login.password"
+               placeholder="Type in your password" />
+    </md-input-container><br />
+
+
+    <md-button class="md-raised md-primary"
+               ng-click="login.login()">Login</md-button>
+
+    <md-button class="md-raised md-primary"
+               ng-click="login.logout()"
+               ng-show="login.isAuthed()">Logout</md-button>
+
+    <p id="welcome-message">
+        {{login.message}}
+    </p>
+
+</div>

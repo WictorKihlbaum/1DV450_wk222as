@@ -8,21 +8,24 @@ angular
         const self = this;
 
         function handleRequest(res) {
-            const token = res.data ? res.data.jwt : null;
-            if (token) console.log('JWT:', token);
-            self.message = res.data.message;
+            const token = res.data.jwt ? res.data.jwt : null;
+            if (token) {
+                console.log('JWT:', token);
+                self.message = 'Welcome!';
+            }
+            //self.message = res.data.message;
         }
 
         self.login = () => {
             user.login(self.email, self.password)
                 .then(handleRequest, handleRequest)
-        }
+        };
 
         self.logout = () => {
             auth.logout && auth.logout()
-        }
+        };
 
         self.isAuthed = () => {
             return auth.isAuthed ? auth.isAuthed() : false
-        }
+        };
     }

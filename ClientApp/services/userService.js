@@ -19,6 +19,6 @@ angular
             return $http.post(`${API.baseURL}/knock/auth_token`, {
                 auth: auth,
                 headers: headers
-            })
+            });
         };
     }

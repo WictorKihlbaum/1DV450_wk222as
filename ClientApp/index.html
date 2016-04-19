@@ -6,7 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Client Event Application</title>
         <!-- Angular Material style sheet -->
-        <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
+        <link rel="stylesheet"
+              href="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
+        <link rel="stylesheet" href="assets/css/main-style.css">
         <!-- Angular Material requires Angular.js Libraries -->
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
@@ -23,33 +25,53 @@
         <script src="controllers/LoginCtrl.js"></script>
 
     </head>
-    <body ng-app="app" ng-controller="Login as login">
+    <body ng-app="app">
 
         <div ng-include src="'partials/shared/menu.html'"></div>
 
-        <!--<div ng-view></div>-->
+        <div ng-view></div>
 
 
-        <h1>Login</h1>
+        <!--<div id="login-div"
+             ng-controller="Login as login"
+             layout-align="center">
 
-        <p>
-            email: wictor@gmail.com<br />
-            password: password
-        </p>
+            <h1>Login</h1>
 
-        <p>
-            <input type="email" ng-model="login.email" value="wictor@gmail.com"><br>
-            <input type="password" ng-model="login.password" value="password"><br>
-        </p>
+            <p>
+                email: wictor@gmail.com<br />
+                password: password
+            </p>
 
-        <p>
-            <button ng-click="login.login()">Login</button>
-            <button ng-click="login.logout()" ng-show="login.isAuthed()">Logout</button>
-        </p>
+            <md-input-container>
+                <input type="email" required
+                       name="email"
+                       id="email-field"
+                       ng-model="login.email"
+                       placeholder="Type in your email" />
+            </md-input-container><br />
 
-        <p>
-            {{main.message}}
-        </p>
+            <md-input-container>
+                <input type="password" required
+                       name="password"
+                       id="password-field"
+                       ng-model="login.password"
+                       placeholder="Type in your password" />
+            </md-input-container><br />
+
+
+            <md-button class="md-raised md-primary"
+                       ng-click="login.login()">Login</md-button>
+
+            <md-button class="md-raised md-primary"
+                       ng-click="login.logout()"
+                       ng-show="login.isAuthed()">Logout</md-button>
+
+            <p id="welcome-message">
+                {{login.message}}
+            </p>
+
+        </div>-->
 
     </body>
 </html>
