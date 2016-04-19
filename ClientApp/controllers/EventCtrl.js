@@ -2,7 +2,22 @@ angular
     .module('app')
     .controller('Event', EventCtrl);
 
-    function EventCtrl() {
+    EventCtrl.$inject = ['EventService', '$scope'];
+
+    function EventCtrl(eventService, $scope) {
         const self = this;
-        console.log('EventCtrl Test!');
+
+        /*eventService.query().$promise.then(result => {
+            console.log(result);
+        });*/
+
+        self.getAllEvents = () => {
+            eventService.getAllEvents()
+                .then(result => {
+                    $scope.events = result.data.events;
+                    console.log($scope.events);
+                });
+        };
+
+        self.getAllEvents();
     }

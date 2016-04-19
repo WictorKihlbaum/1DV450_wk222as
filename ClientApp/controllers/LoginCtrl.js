@@ -2,7 +2,7 @@ angular
     .module('app')
     .controller('Login', LoginCtrl);
 
-    LoginCtrl.$inject = ['user', 'auth', '$location', 'authInterceptor'];
+    LoginCtrl.$inject = ['user', 'auth', '$location'];
 
     function LoginCtrl(user, auth, $location) {
         const self = this;

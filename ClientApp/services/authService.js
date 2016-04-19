@@ -42,7 +42,6 @@ angular
                 const token = auth.getToken();
                 if (config.url.includes(API.baseURL) && token) {
                     config.headers.Authorization = `Bearer ${token}`;
-                    console.log(config.headers.Authorization);
                 }
                 return config;
             },
