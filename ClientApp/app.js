@@ -31,4 +31,10 @@ angular
     .config(['$resourceProvider', $resourceProvider => {
         // Don't strip trailing slashes from calculated URLs
         $resourceProvider.defaults.stripTrailingSlashes = false;
-    }]);
+    }])
+    .config($mdIconProvider => {
+        $mdIconProvider
+            .icon('edit', 'assets/img/edit.svg')
+            .icon('delete', 'assets/img/delete.svg')
+            .icon('create', 'assets/img/create.svg')
+    });
