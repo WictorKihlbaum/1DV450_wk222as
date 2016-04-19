@@ -2,16 +2,17 @@ angular
     .module('app')
     .controller('Login', LoginCtrl);
 
-    LoginCtrl.$inject = ['user', 'auth', 'authInterceptor'];
+    LoginCtrl.$inject = ['user', 'auth', '$location', 'authInterceptor'];
 
-    function LoginCtrl(user, auth) {
+    function LoginCtrl(user, auth, $location) {
         const self = this;
 
         function handleRequest(res) {
             const token = res.data.jwt ? res.data.jwt : null;
             if (token) {
                 console.log('JWT:', token);
-                self.message = 'Welcome!';
+                self.message = 'Welcome!'; // TODO: Create partial view for user messages.
+                $location.path('/events');
             }
             //self.message = res.data.message;
         }

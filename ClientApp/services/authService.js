@@ -1,10 +1,7 @@
 angular
     .module('app')
     .service('auth', authService)
-    .factory('authInterceptor', authInterceptor)
-    .config($httpProvider => {
-        $httpProvider.interceptors.push('authInterceptor');
-    });
+    .factory('authInterceptor', authInterceptor);
 
     function authService($window) {
         const self = this;
@@ -45,6 +42,7 @@ angular
                 const token = auth.getToken();
                 if (config.url.includes(API.baseURL) && token) {
                     config.headers.Authorization = `Bearer ${token}`;
+                    console.log(config.headers.Authorization);
                 }
                 return config;
             },

@@ -13,9 +13,17 @@ angular
                 controller: 'Login',
                 controllerAs: 'login'
             }).
+            when('/events', {
+                templateUrl: 'partials/events.html',
+                controller: 'Event',
+                controllerAs: 'event'
+            }).
             otherwise({
                 redirectTo: '/'
             });
 
             $locationProvider.html5Mode(true);
-        }]);
+        }])
+    .config($httpProvider => {
+        $httpProvider.interceptors.push('authInterceptor');
+    });
