@@ -7,16 +7,16 @@ angular
     function EventCtrl(eventService, $scope, $mdDialog) {
         const self = this;
 
-        /*eventService.query().$promise.then(result => {
-            console.log(result);
-        });*/
-
         self.getAllEvents = () => {
             eventService.getAllEvents()
                 .then(result => {
                     $scope.events = result.data.events;
                     console.log($scope.events);
                 });
+
+            /*eventService.getAllEvents().$q.then(result => {
+                console.log(result);
+            });*/
         };
 
         self.getAllEvents();
@@ -41,7 +41,7 @@ angular
                 .cancel('Cancel');
 
             $mdDialog.show(confirm).then(() => {
-                console.log(event);
+                eventService.deleteEvent(event);
             });
         };
 
@@ -52,7 +52,6 @@ angular
                     .textContent('Edit one or more details about this event')
                     .ariaLabel('Edit event')
                     .ok('Close')
-                    .targetEvent(event)
             );
         };
 
