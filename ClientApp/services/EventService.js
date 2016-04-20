@@ -16,7 +16,6 @@ angular
                     'X-APIKey': API.apiKey
                 }
             };
-
             return $http(req);
         };
 

@@ -22,15 +22,27 @@ angular
         self.getAllEvents();
 
 
-        $scope.showEvent = (eventObj, eventScope) => {
+        $scope.showEvent = event => {
             $mdDialog.show(
                 $mdDialog.alert()
-                    .title(eventObj.category)
-                    .textContent(eventObj.description)
+                    .title(event.category)
+                    .textContent(event.description)
                     .ariaLabel('Event inspect')
                     .ok('Close')
-                    .targetEvent(eventScope)
             );
+        };
+
+        $scope.deleteEvent = event => {
+            const confirm = $mdDialog.confirm()
+                .title(`Delete ${event.category}?`)
+                .textContent('This event will forever be deleted.')
+                .ariaLabel('Delete')
+                .ok('Delete!')
+                .cancel('Cancel');
+
+            $mdDialog.show(confirm).then(() => {
+                console.log(event);
+            });
         };
 
         $scope.editEvent = event => {
@@ -44,14 +56,4 @@ angular
             );
         };
 
-        $scope.deleteEvent = event => {
-            $mdDialog.show(
-                $mdDialog.alert()
-                    .title('Delete')
-                    .textContent('Delete this event?')
-                    .ariaLabel('Delete event')
-                    .ok('Close')
-                    .targetEvent(event)
-            );
-        };
     }

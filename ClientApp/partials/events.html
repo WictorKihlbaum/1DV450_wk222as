@@ -1,25 +1,24 @@
 <div id="events-container">
-    <h1>Events list</h1>
 
     <md-list ng-cloak>
-        <md-subheader class="md-no-sticky">Events</md-subheader>
+        <md-subheader class="md-no-sticky">Events list</md-subheader>
 
         <md-list-item ng-repeat="event in events"
-                      ng-click="showEvent(event, $event)"
+                      ng-click="showEvent(event)"
                       class="noright">
 
             <md-icon class="md-secondary"
-                     ng-click="editEvent($event)"
+                     ng-click="editEvent(event)"
                      aria-label="Edit event"
                      md-svg-icon="edit"></md-icon>
 
             <md-icon class="md-secondary"
-                     ng-click="deleteEvent($event)"
+                     ng-click="deleteEvent(event)"
                      aria-label="Delete event"
                      md-svg-icon="delete"></md-icon>
 
             <div>
-                {{ event.category }}
+                {{ event.id }} | {{ event.category }}
             </div>
 
         </md-list-item>
