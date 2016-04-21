@@ -18,15 +18,18 @@ angular
         self.getAllEvents();
 
         $scope.showEditView = event => {
-            $scope.hej = event;
-            self.hejsan = event;
-            $location.path('/edit', false);
+            eventService.hej = event;
+            $location.path('/edit');
         };
 
         self.editEvent = () => {
-            console.log($scope.hej);
-            console.log(self.hejsan);
-            //eventService.editEvent(event);
+            eventService.editEvent(self.category, self.description)
+                .then(res => {
+                    if (res.status == 200) {
+                        $location.path('/events');
+                        // TODO: Show user success message
+                    }
+                });
         };
 
         $scope.showEvent = event => {

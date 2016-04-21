@@ -18,14 +18,12 @@ angular
             return $http(req);
         };
 
-        self.editEvent = event => {
-            console.log(event);
-
-            /*const url = API.baseURL + API.eventsPath + '/' + event.id;
+        self.editEvent = (category, description) => {
+            const url = API.baseURL + API.eventsPath + '/' + self.hej.id;
 
             const data = {
                 event: {
-                    'id': event.id,
+                    'id': self.hej.id,
                     'category': category,
                     'description': description,
                     'creator_id': 1,
@@ -42,8 +40,7 @@ angular
                 }
             };
 
-            return $http.put(url, data, config);*/
-
+            return $http.put(url, data, config);
         };
 
         self.createEvent = (category, description) => {
