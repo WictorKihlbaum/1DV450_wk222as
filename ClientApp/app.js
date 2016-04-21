@@ -24,6 +24,11 @@ angular
                 controller: 'Event',
                 controllerAs: 'event'
             }).
+            when('/edit', {
+                templateUrl: 'partials/edit.html',
+                controller: 'Event',
+                controllerAs: 'event'
+            }).
             otherwise({
                 redirectTo: '/'
             });

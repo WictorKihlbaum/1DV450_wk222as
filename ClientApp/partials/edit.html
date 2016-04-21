@@ -1,22 +1,22 @@
-<div id="create-div">
+<div id="edit-div">
 
-    <h1>Create new event</h1>
+    <h1>Edit event</h1>
 
     <md-input-container>
         <input type="text" required
                name="category"
                ng-model="event.category"
-               placeholder="Category" />
+               aria-label="Edit event" />
     </md-input-container><br />
 
     <md-input-container>
         <input type="text" required
                name="description"
                ng-model="event.description"
-               placeholder="Description" />
+               aria-label="Edit event" />
     </md-input-container><br />
 
     <md-button class="md-raised md-primary"
-               ng-click="event.createEvent()">Create</md-button>
+               ng-click="event.editEvent()">Save</md-button>
 
 </div>

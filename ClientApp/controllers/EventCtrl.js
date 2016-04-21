@@ -17,13 +17,16 @@ angular
 
         self.getAllEvents();
 
-        self.createEvent = () => {
-            eventService.createEvent(self.category, self.description)
-                .then(res => {
-                    if (res.status == 201) {
-                        // TODO: Show user success message
-                    }
-                });
+        $scope.showEditView = event => {
+            $scope.hej = event;
+            self.hejsan = event;
+            $location.path('/edit', false);
+        };
+
+        self.editEvent = () => {
+            console.log($scope.hej);
+            console.log(self.hejsan);
+            //eventService.editEvent(event);
         };
 
         $scope.showEvent = event => {
@@ -34,6 +37,16 @@ angular
                 .ok('Close');
 
             $mdDialog.show(eventInfo);
+        };
+
+        self.createEvent = () => {
+            eventService.createEvent(self.category, self.description)
+                .then(res => {
+                    if (res.status == 201) {
+                        $location.path('/events');
+                        // TODO: Show user success message
+                    }
+                });
         };
 
         $scope.deleteEvent = event => {
@@ -51,18 +64,6 @@ angular
                 .then(() => {
                     $route.reload();
                 });
-        };
-
-        $scope.editEvent = event => {
-            //$location.path('/update');
-
-            /*$mdDialog.show(
-                $mdDialog.alert()
-                    .title('Edit')
-                    .textContent('Edit one or more details about this event')
-                    .ariaLabel('Edit event')
-                    .ok('Close')
-            );*/
         };
 
     }

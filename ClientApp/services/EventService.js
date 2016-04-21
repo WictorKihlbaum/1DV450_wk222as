@@ -18,6 +18,34 @@ angular
             return $http(req);
         };
 
+        self.editEvent = event => {
+            console.log(event);
+
+            /*const url = API.baseURL + API.eventsPath + '/' + event.id;
+
+            const data = {
+                event: {
+                    'id': event.id,
+                    'category': category,
+                    'description': description,
+                    'creator_id': 1,
+                    'position_id': 1
+                }
+            };
+
+            const config = {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': API.format,
+                    'X-APIKey': API.apiKey,
+                    'Authorization': auth.getToken()
+                }
+            };
+
+            return $http.put(url, data, config);*/
+
+        };
+
         self.createEvent = (category, description) => {
             const url = API.baseURL + API.eventsPath;
 
