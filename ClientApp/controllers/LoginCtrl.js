@@ -9,12 +9,7 @@ angular
 
         function handleRequest(res) {
             const token = res.data.jwt ? res.data.jwt : null;
-            if (token) {
-                console.log('JWT:', token);
-                self.message = 'Welcome!'; // TODO: Create partial view for user messages.
-                $location.path('/events');
-            }
-            //self.message = res.data.message;
+            if (token) $location.path('/events');
         }
 
         self.login = () => {

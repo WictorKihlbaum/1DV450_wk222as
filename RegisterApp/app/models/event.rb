@@ -3,12 +3,13 @@ class Event < ActiveRecord::Base
   include Filterable
 
   belongs_to :creator
-  belongs_to :position
-  #has_one :position
-  has_many :tags
+  has_one :position
+  #has_many :tags
 
   validates :category, presence: true
   validates :description, presence: true
+  validates :creator_id, presence: true
+  validates :position_id, presence: true
 
   default_scope -> { order(created_at: :desc) }
   scope :category, -> (category) { where category: category }

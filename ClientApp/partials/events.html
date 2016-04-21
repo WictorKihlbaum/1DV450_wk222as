@@ -1,6 +1,9 @@
 <div id="events-container">
 
-    <md-list ng-cloak>
+    <md-list>
+
+        <a ng-href="/{{'ClientApp/create'}}">Create new event!</a>
+
         <md-subheader class="md-no-sticky">Events list</md-subheader>
 
         <md-list-item ng-repeat="event in events"
@@ -22,6 +25,7 @@
             </div>
 
         </md-list-item>
+
     </md-list>
 
 </div>

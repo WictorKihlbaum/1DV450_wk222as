@@ -112,7 +112,7 @@ class API::V1::EventsController < API::APIController
     end
 
     def event_params
-      params.require(:event).permit(:category, :description)
+      params.require(:event).permit(:category, :description, :creator_id, :position_id)
     end
 
 end

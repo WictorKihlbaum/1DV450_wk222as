@@ -76,6 +76,15 @@ Creator.create!(
     password: 'password'
 )
 
+10.times do |n|
+  Event.create!(
+      category: "Paintball#{n+1}",
+      description: 'Test your skills against your friends in Kalmar paintball-arena!',
+      creator_id: 1,
+      position_id: 1
+  )
+end
+
 Event.create!(
     category: "Paintball",
     description: 'Test your skills against your friends in Kalmar paintball-arena!',

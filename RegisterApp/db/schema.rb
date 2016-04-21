@@ -35,13 +35,15 @@ ActiveRecord::Schema.define(version: 20160321194631) do
   create_table "events", force: :cascade do |t|
     t.string   "category"
     t.string   "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
     t.integer  "creator_id"
     t.integer  "position_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
+  add_index "events", ["creator_id", "created_at"], name: "index_events_on_creator_id_and_created_at"
   add_index "events", ["creator_id"], name: "index_events_on_creator_id"
+  add_index "events", ["position_id", "created_at"], name: "index_events_on_position_id_and_created_at"
   add_index "events", ["position_id"], name: "index_events_on_position_id"
 
   create_table "positions", force: :cascade do |t|

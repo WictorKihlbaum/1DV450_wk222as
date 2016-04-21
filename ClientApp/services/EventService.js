@@ -2,22 +2,12 @@ angular
     .module('app')
     .service('EventService', EventService);
 
-    EventService.$inject = ['API', '$resource', '$http', '$log', '$q', '$timeout', 'auth'];
+    EventService.$inject = ['API', '$resource', '$http', '$log', '$q', '$timeout', 'auth', '$route'];
 
-    function EventService(API, $resource, $http, $log, $q, $timeout, auth) {
+    function EventService(API, $resource, $http, $log, $q, $timeout, auth, $route) {
         const self = this;
 
         self.getAllEvents = () => {
-            /*return $resource('http://localhost:3000/api/v1/events', {}, {
-                get: {
-                    method: 'GET',
-                    headers: {
-                        'Accept': API.format,
-                        'X-APIKey': API.apiKey
-                    }
-                }
-            });*/
-
             const req = {
                 method: 'GET',
                 url: 'http://localhost:3000/api/v1/events',
@@ -28,34 +18,41 @@ angular
             return $http(req);
         };
 
-        self.deleteEvent = (event) => {
-            console.log(event);
+        self.createEvent = (category, description) => {
+            const url = API.baseURL + API.eventsPath;
+
+            const data = {
+                event: {
+                    'category': category,
+                    'description': description,
+                    'creator_id': 1,
+                    'position_id': 1
+                }
+            };
 
             const config = {
-                method: 'DELETE',
+                method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': API.format,
                     'X-APIKey': API.apiKey,
                     'Authorization': auth.getToken()
                 }
             };
 
-            $http.delete(API.baseURL + `/api/v1/events/${event.id}`, config);
+            return $http.post(url, data, config);
+        };
 
-            /*$resource(API.baseURL + '/api/v1/events/:id', {}, {
-                delete: { method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-APIKey': API.apiKey,
-                        'Authorization': auth.getToken()
-                    },
-                    params: {id: event.id} }
-            });*/
-
-            /*$resource(API.baseURL + '/api/v1/events/:id').delete({id: event.id}, function(res) {
-                console.log(res);
-            });*/
-
+        self.deleteEvent = (event) => {
+            const url = API.baseURL + API.eventsPath + '/' + event.id;
+            const config = {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': API.format,
+                    'X-APIKey': API.apiKey,
+                    'Authorization': auth.getToken()
+                }
+            };
+            return $http.delete(url, config);
         };
 
     }

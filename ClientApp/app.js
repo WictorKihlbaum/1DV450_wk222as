@@ -1,9 +1,9 @@
 angular
-    .module('app', ['ngMaterial', 'ngRoute', 'ngResource'])
+    .module('app', ['ngMaterial', 'ngRoute', 'ngResource', 'ngMessages'])
     .constant('API', {
         'baseURL': 'http://localhost:3000',
         'eventsPath': '/api/v1/events',
-        'apiKey': '181d7e9aa1afc17a8eb69a0542c67c4d',
+        'apiKey': '6b979caf55b39320428ae62602495079',
         'format': 'application/json'
     })
     .config(['$routeProvider', '$locationProvider',
@@ -16,6 +16,11 @@ angular
             }).
             when('/events', {
                 templateUrl: 'partials/events.html',
+                controller: 'Event',
+                controllerAs: 'event'
+            }).
+            when('/create', {
+                templateUrl: 'partials/create.html',
                 controller: 'Event',
                 controllerAs: 'event'
             }).
