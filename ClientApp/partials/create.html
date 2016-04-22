@@ -2,21 +2,34 @@
 
     <h1>Create new event</h1>
 
-    <md-input-container>
-        <input type="text" required
-               name="category"
-               ng-model="event.category"
-               placeholder="Category" />
-    </md-input-container><br />
+    <form name="createForm">
 
-    <md-input-container>
-        <input type="text" required
-               name="description"
-               ng-model="event.description"
-               placeholder="Description" />
-    </md-input-container><br />
+        <md-input-container>
+            <input type="text" required
+                   name="categoryField"
+                   ng-model="event.category"
+                   placeholder="Category" />
+        </md-input-container><br />
 
-    <md-button class="md-raised md-primary"
-               ng-click="event.createEvent()">Create</md-button>
+        <md-input-container>
+            <input type="text" required
+                   name="descriptionField"
+                   ng-model="event.description"
+                   placeholder="Description" />
+        </md-input-container><br />
+
+        <md-button class="md-raised md-primary"
+                   ng-click="event.createEvent()">Create</md-button>
+
+    </form>
+
+    <!-- Error messages -->
+    <div ng-messages="createForm.categoryField.$error" role="alert">
+        <div ng-message="required">You did not enter a category for the event.</div>
+    </div>
+
+    <div ng-messages="createForm.descriptionField.$error" role="alert">
+        <div ng-message="required">You did not enter a description for the event.</div>
+    </div>
 
 </div>

@@ -1,26 +1,41 @@
-<div id="events-container">
+<div id="events-container" layout="row">
 
-    <md-list>
+    <md-list id="events-list" layout-align="center start">
 
         <a ng-href="/{{'ClientApp/create'}}">Create new event!</a>
 
         <md-subheader class="md-no-sticky">Events list</md-subheader>
 
         <md-list-item ng-repeat="event in events"
-                      ng-click="showEvent(event)"
-                      class="noright">
+                      ng-click="showEvent(event)">
 
             <md-icon class="md-secondary"
                      ng-click="showEditView(event)"
                      aria-label="Edit event"
-                     md-svg-icon="edit"></md-icon>
+                     md-svg-icon="edit">
+
+                <md-tooltip md-direction="top">
+                    Edit event
+                </md-tooltip>
+
+            </md-icon>
 
             <md-icon class="md-secondary"
                      ng-click="deleteEvent(event)"
                      aria-label="Delete event"
-                     md-svg-icon="delete"></md-icon>
+                     md-svg-icon="delete">
 
-            <div>
+                <md-tooltip md-direction="top">
+                    Delete event
+                </md-tooltip>
+
+            </md-icon>
+
+            <md-tooltip md-direction="left">
+                Refresh
+            </md-tooltip>
+
+            <div class="event-child">
                 {{ event.id }} | {{ event.category }}
             </div>
 
@@ -28,4 +43,11 @@
 
     </md-list>
 
+    <div layout="column">
+        <div flex>First item in column</div>
+        <div flex>Second item in column</div>
+    </div>
+
 </div>
+
+

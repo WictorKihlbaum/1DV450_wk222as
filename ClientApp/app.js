@@ -47,4 +47,9 @@ angular
             .icon('edit', 'assets/img/edit.svg')
             .icon('delete', 'assets/img/delete.svg')
             .icon('create', 'assets/img/create.svg')
+    })
+    .config($mdThemingProvider => {
+        $mdThemingProvider.theme('default')
+            .primaryPalette('blue')
+            .accentPalette('orange');
     });

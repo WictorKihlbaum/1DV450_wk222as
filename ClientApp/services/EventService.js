@@ -19,11 +19,11 @@ angular
         };
 
         self.editEvent = (category, description) => {
-            const url = API.baseURL + API.eventsPath + '/' + self.hej.id;
+            const url = API.baseURL + API.eventsPath + '/' + self.event.id;
 
             const data = {
                 event: {
-                    'id': self.hej.id,
+                    'id': self.event.id,
                     'category': category,
                     'description': description,
                     'creator_id': 1,

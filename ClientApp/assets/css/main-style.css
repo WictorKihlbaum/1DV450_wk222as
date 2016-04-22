@@ -1,11 +1,40 @@
-#welcome-message {
-    color: green;
-}
-
-#login-div {
-    /*width: 500px;*/
+body {
+    background-color: #CCC;
 }
 
 #events-container {
-    /*background-color: green;*/
+    background-color: #EEE;
+}
+
+#events-list {
+    background-color: antiquewhite;
+    /*min-width: 275px;
+    max-width: 960px;*/
+    /*width: 100%;*/
+}
+
+#map {
+    background-color: burlywood;
+}
+
+#search-field {
+    background-color: aqua;
+}
+
+md-toast {
+    left: calc(50vw - 150px);
+}
+
+md-toast.md-success-toast-theme .md-toast-content {
+    background-color: #C8F7C5;
+    color: #26A65B;
+}
+
+#login-div {
+    background-color: burlywood;
+}
+
+#login-form {
+    background-color: white;
+    text-align: center;
 }

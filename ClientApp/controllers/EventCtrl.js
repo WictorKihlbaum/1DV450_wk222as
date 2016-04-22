@@ -2,10 +2,15 @@ angular
     .module('app')
     .controller('Event', EventCtrl);
 
-    EventCtrl.$inject = ['EventService', '$scope', '$mdDialog', '$route', '$location'];
+    EventCtrl.$inject = ['EventService', '$scope', '$mdDialog', '$route', '$location', '$mdToast'];
 
-    function EventCtrl(eventService, $scope, $mdDialog, $route, $location) {
+    function EventCtrl(eventService, $scope, $mdDialog, $route, $location, $mdToast) {
         const self = this;
+
+        if (eventService.event) {
+            $scope.category = eventService.event.category;
+            $scope.description = eventService.event.description;
+        }
 
         self.getAllEvents = () => {
             eventService.getAllEvents()
@@ -18,16 +23,27 @@ angular
         self.getAllEvents();
 
         $scope.showEditView = event => {
-            eventService.hej = event;
+            eventService.event = event;
             $location.path('/edit');
+        };
+
+        self.showSuccessMessage = message => {
+            $mdToast.show(
+                $mdToast.simple()
+                    .textContent(message)
+                    .position('top')
+                    .theme('success-toast')
+                    .hideDelay(5000)
+            );
         };
 
         self.editEvent = () => {
             eventService.editEvent(self.category, self.description)
                 .then(res => {
                     if (res.status == 200) {
+                        const message = 'Event has been successfully updated!';
+                        self.showSuccessMessage(message);
                         $location.path('/events');
-                        // TODO: Show user success message
                     }
                 });
         };
@@ -46,8 +62,9 @@ angular
             eventService.createEvent(self.category, self.description)
                 .then(res => {
                     if (res.status == 201) {
+                        const message = 'Event has been successfully created!';
+                        self.showSuccessMessage(message);
                         $location.path('/events');
-                        // TODO: Show user success message
                     }
                 });
         };
@@ -62,10 +79,14 @@ angular
 
             $mdDialog.show(confirmDelete)
                 .then(() => {
-                    eventService.deleteEvent(event);
+                    return eventService.deleteEvent(event);
                 })
-                .then(() => {
-                    $route.reload();
+                .then(res => {
+                    if (res.status == 204) {
+                        const message = 'Event has been successfully deleted!';
+                        self.showSuccessMessage(message);
+                        $route.reload();
+                    }
                 });
         };
 

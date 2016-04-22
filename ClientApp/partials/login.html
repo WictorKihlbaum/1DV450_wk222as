@@ -1,37 +1,52 @@
-<div id="login-div">
+<div id="login-div" layout="column" layout-align="center center">
 
     <h1>Login</h1>
+
+    <form name="loginForm" id="login-form" layout-align="center">
+
+        <md-input-container>
+            <input type="email" required
+                   name="emailField"
+                   ng-model="login.email"
+                   placeholder="Type in your email" />
+        </md-input-container>
+
+        <br />
+
+        <md-input-container>
+            <input type="password" required
+                   name="passwordField"
+                   ng-model="login.password"
+                   placeholder="Type in your password" />
+        </md-input-container>
+
+        <br />
+
+        <md-button class="md-raised md-primary"
+                   ng-click="login.login()"
+                   type="submit">Login</md-button>
+
+        <md-button class="md-raised md-primary"
+                   ng-click="login.logout()"
+                   type="submit"
+                   ng-show="login.isAuthed()">Logout</md-button>
+
+    </form>
 
     <p>
         email: wictor@gmail.com<br />
         password: password
     </p>
 
-    <md-input-container>
-        <input type="email" required
-               name="email"
-               id="email-field"
-               ng-model="login.email"
-               placeholder="Type in your email" />
-    </md-input-container><br />
 
-    <md-input-container>
-        <input type="password" required
-               name="password"
-               id="password-field"
-               ng-model="login.password"
-               placeholder="Type in your password" />
-    </md-input-container><br />
+    <!-- Error messages -->
+    <div ng-messages="loginForm.emailField.$error" role="alert">
+        <div ng-message="required">You did not enter your email address.</div>
+        <div ng-message="email">You have to enter a valid email address.</div>
+    </div>
 
-    <md-button class="md-raised md-primary"
-               ng-click="login.login()">Login</md-button>
-
-    <md-button class="md-raised md-primary"
-               ng-click="login.logout()"
-               ng-show="login.isAuthed()">Logout</md-button>
-
-    <p id="welcome-message">
-        {{login.message}}
-    </p>
+    <div ng-messages="loginForm.passwordField.$error" role="alert">
+        <div ng-message="required">You did not enter your password.</div>
+    </div>
 
 </div>

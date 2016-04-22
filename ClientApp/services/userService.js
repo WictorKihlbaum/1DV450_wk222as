@@ -8,6 +8,7 @@ angular
         const self = this;
 
         self.login = (email, password) => {
+            const url = `${API.baseURL}/knock/auth_token`;
             const auth = {
                 email: email,
                 password: password
@@ -16,9 +17,6 @@ angular
                 'Content-Type': API.format,
                 'X-APIKey': API.apiKey
             };
-            return $http.post(`${API.baseURL}/knock/auth_token`, {
-                auth: auth,
-                headers: headers
-            });
+            return $http.post(url, { auth: auth, headers: headers });
         };
     }
