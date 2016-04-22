@@ -1,5 +1,5 @@
 angular
-    .module('app', ['ngMaterial', 'ngRoute', 'ngResource', 'ngMessages'])
+    .module('app', ['ngMaterial', 'ngRoute', 'ngResource', 'ngMessages', 'uiGmapgoogle-maps'])
     .constant('API', {
         'baseURL': 'http://localhost:3000',
         'eventsPath': '/api/v1/events',

@@ -37,6 +37,7 @@ angular
         };
 
         if (self.isAuthed()) {
-            //$location.path('/events');
+            $location.path('/events');
         }
+
     }

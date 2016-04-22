@@ -44,7 +44,14 @@
     </md-list>
 
     <div layout="column">
-        <div flex>First item in column</div>
+        <div id="map-container" flex>
+            <ui-gmap-google-map
+                    center='map.center'
+                    zoom='map.zoom'>
+            </ui-gmap-google-map>
+        </div>
+
+
         <div flex>Second item in column</div>
     </div>
 

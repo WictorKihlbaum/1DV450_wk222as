@@ -7,6 +7,8 @@ angular
     function EventCtrl(eventService, $scope, $mdDialog, $route, $location, $mdToast) {
         const self = this;
 
+        $scope.map = { center: { latitude: 62, longitude: 15 }, zoom: 5 };
+
         if (eventService.event) {
             $scope.category = eventService.event.category;
             $scope.description = eventService.event.description;

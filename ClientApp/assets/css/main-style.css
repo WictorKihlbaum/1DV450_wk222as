@@ -2,6 +2,10 @@ body {
     background-color: #CCC;
 }
 
+.topic {
+    color: aqua;
+}
+
 #events-container {
     background-color: #EEE;
 }
@@ -30,11 +34,25 @@ md-toast.md-success-toast-theme .md-toast-content {
     color: #26A65B;
 }
 
-#login-div {
-    background-color: burlywood;
+input[type="email"],
+input[type="password"] {
+    height: 55px;
+    border-radius: 10px;
+    padding: 0 15px;
 }
 
 #login-form {
     background-color: white;
     text-align: center;
+    border-radius: 15px;
+    padding: 10px;
+}
+
+/*#map-container {
+    width: 100%;
+}*/
+
+.angular-google-map-container {
+    height: 400px;
+    width: 500px;
 }
