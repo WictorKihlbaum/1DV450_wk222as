@@ -2,9 +2,9 @@ angular
     .module('app')
     .service('user', userService);
 
-    userService.$inject = ['$http', 'API', 'auth'];
+    userService.$inject = ['$http', 'API'];
 
-    function userService($http, API, auth) {
+    function userService($http, API) {
         const self = this;
 
         self.login = (email, password) => {

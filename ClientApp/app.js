@@ -1,9 +1,9 @@
 angular
-    .module('app', ['ngMaterial', 'ngRoute', 'ngResource', 'ngMessages', 'uiGmapgoogle-maps'])
+    .module('app', ['ngMaterial', 'ngMessages', 'ngRoute', 'ngResource'])
     .constant('API', {
         'baseURL': 'http://localhost:3000',
         'eventsPath': '/api/v1/events',
-        'apiKey': '6b979caf55b39320428ae62602495079',
+        'apiKey': '8af2723b44468d7bd35bd1e7e80be087',
         'format': 'application/json'
     })
     .config(['$routeProvider', '$locationProvider',
@@ -38,18 +38,8 @@ angular
     .config($httpProvider => {
         $httpProvider.interceptors.push('authInterceptor');
     })
-    .config(['$resourceProvider', $resourceProvider => {
-        // Don't strip trailing slashes from calculated URLs
-        $resourceProvider.defaults.stripTrailingSlashes = false;
-    }])
-    .config($mdIconProvider => {
+    .config(($mdIconProvider) => {
         $mdIconProvider
-            .icon('edit', 'assets/img/edit.svg')
-            .icon('delete', 'assets/img/delete.svg')
-            .icon('create', 'assets/img/create.svg')
-    })
-    .config($mdThemingProvider => {
-        $mdThemingProvider.theme('default')
-            .primaryPalette('blue')
-            .accentPalette('orange');
+            .icon('editIcon', 'assets/img/edit.svg')
+            .icon('deleteIcon', 'assets/img/delete.svg')
     });

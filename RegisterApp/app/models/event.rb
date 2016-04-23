@@ -3,8 +3,8 @@ class Event < ActiveRecord::Base
   include Filterable
 
   belongs_to :creator
-  has_one :position
-  #has_many :tags
+  belongs_to :position
+  has_and_belongs_to_many :tags
 
   validates :category, presence: true
   validates :description, presence: true

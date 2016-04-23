@@ -8,6 +8,7 @@ class Position < ActiveRecord::Base
   reverse_geocoded_by :latitude, :longitude
   after_validation :geocode, :reverse_geocode
 
+  #validates :address, presence: true
   validates :latitude, presence: true
   validates :longitude, presence: true
 

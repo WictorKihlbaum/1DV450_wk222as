@@ -2,12 +2,23 @@ angular
     .module('app')
     .controller('Event', EventCtrl);
 
-    EventCtrl.$inject = ['EventService', '$scope', '$mdDialog', '$route', '$location', '$mdToast'];
+    EventCtrl.$inject = [
+        'EventService',
+        '$scope',
+        '$mdDialog',
+        '$route',
+        '$location',
+        '$mdToast'
+    ];
 
     function EventCtrl(eventService, $scope, $mdDialog, $route, $location, $mdToast) {
         const self = this;
 
-        $scope.map = { center: { latitude: 62, longitude: 15 }, zoom: 5 };
+        /*NgMap.getMap().then(function(map) {
+            console.log(map.getCenter());
+            console.log('markers', map.markers);
+            console.log('shapes', map.shapes);
+        });*/
 
         if (eventService.event) {
             $scope.category = eventService.event.category;

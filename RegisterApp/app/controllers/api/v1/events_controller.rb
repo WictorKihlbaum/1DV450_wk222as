@@ -69,7 +69,7 @@ class API::V1::EventsController < API::APIController
     if event.save
       render_response(event, :created)
     else
-      error = { message: RESOURCE_NOT_CREATED, reasons: event.errors }
+      error = { message: RESOURCE_NOT_CREATED, errors: event.errors }
       render_response(error, :unprocessable_entity)
     end
   end

@@ -16,10 +16,21 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
 
-      resources :events
-      resources :creators
-      resources :positions
-      resources :tags
+      resources :events do
+        resources :tags
+      end
+
+      resources :creators do
+        resources :events
+      end
+
+      resources :positions do
+        resources :events
+      end
+
+      resources :tags do
+        resources :events
+      end
 
     end
   end

@@ -4,8 +4,8 @@ class PositionSerializer < ActiveModel::Serializer
 
   def links
     {
-        self: api_v1_position_path(object.id)#,
-        #events: api_position_events_path(object.id)
+        self: api_v1_position_path(object.id),
+        events: api_v1_position_events_path(object.id)
     }
   end
 

@@ -21,7 +21,6 @@ ActiveRecord::Schema.define(version: 20160321194631) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "appregistrations", ["user_id", "created_at"], name: "index_appregistrations_on_user_id_and_created_at"
   add_index "appregistrations", ["user_id"], name: "index_appregistrations_on_user_id"
 
   create_table "creators", force: :cascade do |t|
@@ -41,9 +40,7 @@ ActiveRecord::Schema.define(version: 20160321194631) do
     t.datetime "updated_at",  null: false
   end
 
-  add_index "events", ["creator_id", "created_at"], name: "index_events_on_creator_id_and_created_at"
   add_index "events", ["creator_id"], name: "index_events_on_creator_id"
-  add_index "events", ["position_id", "created_at"], name: "index_events_on_position_id_and_created_at"
   add_index "events", ["position_id"], name: "index_events_on_position_id"
 
   create_table "positions", force: :cascade do |t|

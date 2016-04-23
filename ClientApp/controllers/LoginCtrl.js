@@ -13,7 +13,7 @@ angular
                 $location.path('/events');
                 $mdToast.show(
                     $mdToast.simple()
-                        .textContent('Welcome Wictor!')
+                        .textContent('Welcome!')
                         .position('top')
                         .theme('success-toast')
                         .hideDelay(5000)
@@ -36,8 +36,8 @@ angular
             return auth.isAuthed ? auth.isAuthed() : false
         };
 
-        if (self.isAuthed()) {
+        /*if (self.isAuthed()) {
             $location.path('/events');
-        }
+        }*/
 
     }

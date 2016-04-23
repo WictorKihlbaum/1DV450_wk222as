@@ -12,7 +12,7 @@ class CreateEvents < ActiveRecord::Migration
       #add_reference :events, :creator, index: true, foreign_key: true
       #add_reference :events, :position, index: true, foreign_key: true
 
-      add_index :events, [:creator_id, :created_at]
-      add_index :events, [:position_id, :created_at]
+      #add_index :events, [:creator_id, :created_at]
+      #add_index :events, [:position_id, :created_at]
   end
 end

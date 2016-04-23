@@ -2,9 +2,9 @@ angular
     .module('app')
     .service('EventService', EventService);
 
-    EventService.$inject = ['API', '$resource', '$http', '$log', '$q', '$timeout', 'auth', '$route'];
+    EventService.$inject = ['API', '$http', 'auth'];
 
-    function EventService(API, $resource, $http, $log, $q, $timeout, auth, $route) {
+    function EventService(API, $http, auth) {
         const self = this;
 
         self.getAllEvents = () => {
