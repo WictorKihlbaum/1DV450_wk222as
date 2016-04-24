@@ -1,0 +1,35 @@
+<md-dialog aria-label="Event info"  ng-cloak>
+
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Event info</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="event.closeEventDialog()">
+                <md-icon md-svg-src="assets/img/close.svg" aria-label="Close event dialog"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+        <div class="md-dialog-content">
+            <h2>{{event.event.category}}</h2>
+
+            <section>
+                <h4>Description</h4>
+                {{event.event.description}}
+            </section>
+
+            <section>
+                <h4>Location</h4>
+                {{event.event.position.address}}
+            </section>
+
+            <section>
+                <h4>Event creator</h4>
+                {{event.event.creator.name}}
+            </section>
+
+        </div>
+    </md-dialog-content>
+
+</md-dialog>

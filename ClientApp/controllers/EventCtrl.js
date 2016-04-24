@@ -7,97 +7,87 @@ angular
         '$scope',
         '$mdDialog',
         '$route',
-        '$location',
         '$mdToast',
         'NgMap',
         'auth'
     ];
 
-    function EventCtrl(eventService, $scope, $mdDialog, $route, $location, $mdToast, NgMap, auth) {
+    function EventCtrl(eventService, $scope, $mdDialog, $route, $mdToast, NgMap, auth) {
         const self = this;
 
         if (eventService.event) {
-            $scope.category = eventService.event.category;
-            $scope.description = eventService.event.description;
+            self.event = eventService.event;
+            self.category = eventService.event.category;
+            self.description = eventService.event.description;
         }
 
         self.getAllEvents = () => {
             eventService.getAllEvents()
                 .then(result => {
                     $scope.events = result.data.events;
-                    self.markAllEventsOnMap();
                 });
         };
         self.getAllEvents();
 
-        // TODO: Change function name.
-        self.markAllEventsOnMap = () => {
-            console.log($scope.events);
+        $scope.showEvent = event => {
+            eventService.event = event;
 
-            NgMap.getMap().then(map => {
-                self.map = map;
-                //console.log(map.getCenter());
-                //console.log('markers', map.markers);
-                //console.log('shapes', map.shapes);
+            $mdDialog.show({
+                controller: 'Event',
+                controllerAs: 'event',
+                templateUrl: 'partials/event-info.tmpl.html',
+                parent: angular.element(document.body),
+                clickOutsideToClose:true
             });
         };
 
-        self.showMapEventInfo = (e, event) => {
-            console.log('Hejsan');
-
-            console.log(e);
-            console.log(event);
-            self.map.showInfoWindow('eventwindow', this);
+        $scope.showCreateDialog = () => {
+            $mdDialog.show({
+                controller: 'Event',
+                controllerAs: 'event',
+                templateUrl: 'partials/create.tmpl.html',
+                parent: angular.element(document.body),
+                clickOutsideToClose:true
+            });
         };
 
-        $scope.showEditView = event => {
+        self.createEvent = () => {
+            eventService.createEvent(self.categoryCreate, self.descriptionCreate)
+                .then(res => {
+                    if (res.status == 201) {
+                        const message = 'Event has been successfully created!';
+                        self.showSuccessMessage(message);
+                        self.closeEventDialog();
+                        $route.reload();
+                    }
+                });
+        };
+
+        $scope.showEditDialog = event => {
             eventService.event = event;
-            $location.path('/edit');
-        };
 
-        self.showSuccessMessage = message => {
-            $mdToast.show(
-                $mdToast.simple()
-                    .textContent(message)
-                    .position('top')
-                    .theme('success-toast')
-                    .hideDelay(5000)
-            );
+            $mdDialog.show({
+                controller: 'Event',
+                controllerAs: 'event',
+                templateUrl: 'partials/edit.tmpl.html',
+                parent: angular.element(document.body),
+                clickOutsideToClose:true
+            });
         };
 
         self.editEvent = () => {
             eventService.editEvent(self.category, self.description)
                 .then(res => {
                     if (res.status == 200) {
+                        self.closeEventDialog();
                         const message = 'Event has been successfully updated!';
                         self.showSuccessMessage(message);
-                        $location.path('/events');
+                        $route.reload();
                     }
                 });
         };
 
-        $scope.showEvent = event => {
-            const eventInfo = $mdDialog.alert()
-                .title(event.category)
-                .textContent(event.description)
-                .ariaLabel('Event info')
-                .ok('Close');
-
-            $mdDialog.show(eventInfo);
-        };
-
-        self.createEvent = () => {
-            eventService.createEvent(self.category, self.description)
-                .then(res => {
-                    if (res.status == 201) {
-                        const message = 'Event has been successfully created!';
-                        self.showSuccessMessage(message);
-                        $location.path('/events');
-                    }
-                });
-        };
-
-        $scope.deleteEvent = event => {
+        $scope.showDeleteDialog = event => {
             const confirmDelete = $mdDialog.confirm()
                 .title(`Delete ${event.category}?`)
                 .textContent('This event will forever be deleted.')
@@ -116,6 +106,20 @@ angular
                         $route.reload();
                     }
                 });
+        };
+
+        self.closeEventDialog = () => {
+            $mdDialog.hide();
+        };
+
+        self.showSuccessMessage = message => {
+            $mdToast.show(
+                $mdToast.simple()
+                    .textContent(message)
+                    .position('top')
+                    .theme('success-toast')
+                    .hideDelay(5000)
+            );
         };
 
         $scope.isAuthed = () => {

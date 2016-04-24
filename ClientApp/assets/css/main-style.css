@@ -14,6 +14,14 @@ body {
     color: aqua;
 }
 
+h4 {
+    margin: 5px 0;
+}
+
+section {
+    margin-top: 15px;
+}
+
 #main-container {
     background-color: aquamarine;
     height: 100%;
@@ -37,8 +45,22 @@ md-toast.md-success-toast-theme .md-toast-content {
     color: #26A65B;
 }
 
+md-list {
+    width: 300px;
+}
+
 md-list-item {
-    padding: 0 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+md-list-item:nth-child(odd) {
+    background-color: #E4F1FE;
+}
+
+md-list-item:nth-child(even) {
+    background-color: white;
 }
 
 input[type="email"],
@@ -61,12 +83,13 @@ input[type="password"] {
     padding: 10px;
 }
 
-#map-field {
-    background-color: burlywood;
+#main-map {
+    height: 500px;
 }
 
-ng-map {
-    height: 500px;
+#sub-map {
+    height: 200px;
+    background-color: #C8F7C5;
 }
 
 #search-field {

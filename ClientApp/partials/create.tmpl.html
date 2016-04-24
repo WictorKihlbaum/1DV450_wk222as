@@ -1,0 +1,51 @@
+<md-dialog aria-label="Edit event"  ng-cloak>
+
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Create event</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="event.closeEventDialog()">
+                <md-icon md-svg-src="assets/img/close.svg" aria-label="Close event dialog"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <md-dialog-content layout="column" layout-align="center center">
+
+        <form name="createForm">
+
+            <md-input-container>
+                <input type="text" required
+                       name="categoryField"
+                       ng-model="event.categoryCreate"
+                       placeholder="Category"
+                       md-maxlength="15" />
+            </md-input-container><br />
+
+            <md-input-container>
+                <input type="text" required
+                       name="descriptionField"
+                       ng-model="event.descriptionCreate"
+                       placeholder="Description"
+                       md-maxlength="100" />
+            </md-input-container><br />
+
+            <md-button class="md-raised md-primary"
+                       ng-click="event.createEvent()">Create</md-button>
+
+        </form>
+
+        <!-- Error messages -->
+        <div ng-messages="createForm.categoryField.$error" role="alert">
+            <div ng-message="required">You did not enter a category for the event.</div>
+            <div ng-message="md-maxlength">Category is to long. Maximum length is 15 characters.</div>
+        </div>
+
+        <div ng-messages="createForm.descriptionField.$error" role="alert">
+            <div ng-message="required">You did not enter a description for the event.</div>
+            <div ng-message="md-maxlength">Description is to long. Maximum length is 100 characters.</div>
+        </div>
+
+    </md-dialog-content>
+
+</md-dialog>

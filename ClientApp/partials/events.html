@@ -2,7 +2,11 @@
 
     <md-list id="events-list" layout-align="center start">
 
-        <a ng-href="/{{'ClientApp/create'}}">Create new event!</a>
+        <md-button class="md-raised md-accent"
+                   ng-click="showCreateDialog()"
+                   ng-if="isAuthed()">
+            Create new event!
+        </md-button>
 
         <md-subheader class="md-no-sticky">Events list</md-subheader>
 
@@ -11,7 +15,7 @@
 
             <md-icon class="md-secondary"
                      ng-if="isAuthed()"
-                     ng-click="showEditView(event)"
+                     ng-click="showEditDialog(event)"
                      aria-label="Edit event"
                      md-svg-icon="editIcon">
 
@@ -23,7 +27,7 @@
 
             <md-icon class="md-secondary"
                      ng-if="isAuthed()"
-                     ng-click="deleteEvent(event)"
+                     ng-click="showDeleteDialog(event)"
                      aria-label="Delete event"
                      md-svg-icon="deleteIcon">
 
@@ -45,32 +49,14 @@
 
 <div layout="column">
 
-    <div map-lazy-load="//maps.google.com/maps/api/js" id="map-field" flex>
-        <ng-map center="sweden" zoom="6">
 
-            <marker ng-repeat="ev in events"
-                    id="{{ev.id}}"
-                    position="{{ev.position.address}}"
-                    on-click="event.showMapEventInfo(ev)">
-            </marker>
-
-            <info-window id="eventwindow">
-                <div ng-non-bindable="">
-                    hejsan
-                </div>
-            </info-window>
-
-        </ng-map>
-    </div>
+    <ng-map center="sweden" zoom="6" id="main-map">
+        <marker ng-repeat="ev in events"
+                position="{{ev.position.address}}"></marker>
+    </ng-map>
 
     <div flex id="search-field">
         Search field
     </div>
 
 </div>
-
-
-
-
-
-

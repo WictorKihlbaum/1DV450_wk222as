@@ -3,7 +3,7 @@ angular
     .constant('API', {
         'baseURL': 'http://localhost:3000',
         'eventsPath': '/api/v1/events',
-        'apiKey': 'f5ac815c75409c362574f0ab2549e234',
+        'apiKey': '4089210b1b572b3b688bdf8abeb19516',
         'format': 'application/json'
     })
     .config(['$routeProvider', '$locationProvider',
@@ -16,11 +16,6 @@ angular
             }).
             when('/create', {
                 templateUrl: 'partials/create.html',
-                controller: 'Event',
-                controllerAs: 'event'
-            }).
-            when('/edit', {
-                templateUrl: 'partials/edit.html',
                 controller: 'Event',
                 controllerAs: 'event'
             }).
