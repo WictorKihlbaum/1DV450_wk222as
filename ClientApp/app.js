@@ -1,19 +1,14 @@
 angular
-    .module('app', ['ngMaterial', 'ngMessages', 'ngRoute', 'ngResource'])
+    .module('app', ['ngMaterial', 'ngMessages', 'ngRoute', 'ngResource', 'ngMap'])
     .constant('API', {
         'baseURL': 'http://localhost:3000',
         'eventsPath': '/api/v1/events',
-        'apiKey': '8af2723b44468d7bd35bd1e7e80be087',
+        'apiKey': 'f5ac815c75409c362574f0ab2549e234',
         'format': 'application/json'
     })
     .config(['$routeProvider', '$locationProvider',
         ($routeProvider, $locationProvider) => {
             $routeProvider.
-            when('/', {
-                templateUrl: 'partials/login.html',
-                controller: 'Login',
-                controllerAs: 'login'
-            }).
             when('/events', {
                 templateUrl: 'partials/events.html',
                 controller: 'Event',
@@ -30,7 +25,7 @@ angular
                 controllerAs: 'event'
             }).
             otherwise({
-                redirectTo: '/'
+                redirectTo: '/events'
             });
 
             $locationProvider.html5Mode(true);
@@ -38,8 +33,9 @@ angular
     .config($httpProvider => {
         $httpProvider.interceptors.push('authInterceptor');
     })
-    .config(($mdIconProvider) => {
+    .config(function($mdIconProvider) {
         $mdIconProvider
             .icon('editIcon', 'assets/img/edit.svg')
             .icon('deleteIcon', 'assets/img/delete.svg')
+            .icon('markerIcon', 'assets/img/marker.svg')
     });

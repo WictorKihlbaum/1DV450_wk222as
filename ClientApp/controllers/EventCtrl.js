@@ -8,17 +8,13 @@ angular
         '$mdDialog',
         '$route',
         '$location',
-        '$mdToast'
+        '$mdToast',
+        'NgMap',
+        'auth'
     ];
 
-    function EventCtrl(eventService, $scope, $mdDialog, $route, $location, $mdToast) {
+    function EventCtrl(eventService, $scope, $mdDialog, $route, $location, $mdToast, NgMap, auth) {
         const self = this;
-
-        /*NgMap.getMap().then(function(map) {
-            console.log(map.getCenter());
-            console.log('markers', map.markers);
-            console.log('shapes', map.shapes);
-        });*/
 
         if (eventService.event) {
             $scope.category = eventService.event.category;
@@ -29,11 +25,30 @@ angular
             eventService.getAllEvents()
                 .then(result => {
                     $scope.events = result.data.events;
-                    console.log($scope.events);
+                    self.markAllEventsOnMap();
                 });
         };
-
         self.getAllEvents();
+
+        // TODO: Change function name.
+        self.markAllEventsOnMap = () => {
+            console.log($scope.events);
+
+            NgMap.getMap().then(map => {
+                self.map = map;
+                //console.log(map.getCenter());
+                //console.log('markers', map.markers);
+                //console.log('shapes', map.shapes);
+            });
+        };
+
+        self.showMapEventInfo = (e, event) => {
+            console.log('Hejsan');
+
+            console.log(e);
+            console.log(event);
+            self.map.showInfoWindow('eventwindow', this);
+        };
 
         $scope.showEditView = event => {
             eventService.event = event;
@@ -101,6 +116,10 @@ angular
                         $route.reload();
                     }
                 });
+        };
+
+        $scope.isAuthed = () => {
+            return auth.isAuthed ? auth.isAuthed() : false
         };
 
     }

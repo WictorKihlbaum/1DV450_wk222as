@@ -2,42 +2,57 @@ angular
     .module('app')
     .controller('Login', LoginCtrl);
 
-    LoginCtrl.$inject = ['user', 'auth', '$location', '$mdToast'];
+    LoginCtrl.$inject = ['user', 'auth', '$mdToast', '$mdDialog'];
 
-    function LoginCtrl(user, auth, $location, $mdToast) {
+    function LoginCtrl(user, auth, $mdToast, $mdDialog) {
         const self = this;
 
-        function redirectToEvents(res) {
+        function showWelcomeMessage(res) {
             const token = res.data.jwt ? res.data.jwt : null;
-            if (token) {
-                $location.path('/events');
-                $mdToast.show(
-                    $mdToast.simple()
-                        .textContent('Welcome!')
-                        .position('top')
-                        .theme('success-toast')
-                        .hideDelay(5000)
-                );
-            }
+            if (token) self.showUserMessage('Welcome!');
         }
 
         self.login = () => {
             if (self.email && self.password) {
                 user.login(self.email, self.password)
-                    .then(redirectToEvents)
+                    .then(res => {
+                        $mdDialog.hide();
+                        showWelcomeMessage(res);
+                    });
             }
         };
 
         self.logout = () => {
-            auth.logout && auth.logout()
+            auth.logout && auth.logout();
+            self.showUserMessage('Goodbye!');
+        };
+
+        self.showUserMessage = message => {
+            $mdToast.show(
+                $mdToast.simple()
+                    .textContent(message)
+                    .position('top')
+                    .theme('success-toast')
+                    .hideDelay(5000)
+            );
         };
 
         self.isAuthed = () => {
             return auth.isAuthed ? auth.isAuthed() : false
         };
 
-        /*if (self.isAuthed()) {
-            $location.path('/events');
-        }*/
+        self.openLoginDialog = () => {
+            $mdDialog.show({
+                controller: 'Login',
+                controllerAs: 'login',
+                templateUrl: 'partials/login.tmpl.html',
+                parent: angular.element(document.body),
+                clickOutsideToClose: true
+            })
+        };
+
+        self.closeLoginDialog = () => {
+            $mdDialog.hide();
+        };
 
     }

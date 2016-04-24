@@ -2,27 +2,30 @@ body {
     background-color: #CCC;
 }
 
+#toolbar-menu {
+    padding: 20px;
+}
+
+#toolbar-header {
+    margin: 0;
+}
+
 .topic {
     color: aqua;
 }
 
+#main-container {
+    background-color: aquamarine;
+    height: 100%;
+}
+
 #events-container {
     background-color: #EEE;
+    float: left;
 }
 
 #events-list {
     background-color: antiquewhite;
-    /*min-width: 275px;
-    max-width: 960px;*/
-    /*width: 100%;*/
-}
-
-#map {
-    background-color: burlywood;
-}
-
-#search-field {
-    background-color: aqua;
 }
 
 md-toast {
@@ -34,11 +37,21 @@ md-toast.md-success-toast-theme .md-toast-content {
     color: #26A65B;
 }
 
+md-list-item {
+    padding: 0 10px;
+}
+
 input[type="email"],
 input[type="password"] {
     height: 55px;
     border-radius: 10px;
     padding: 0 15px;
+}
+
+#login-button,
+#logout-button {
+    margin: 0;
+    padding: 3px 15px;
 }
 
 #login-form {
@@ -48,11 +61,14 @@ input[type="password"] {
     padding: 10px;
 }
 
-/*#map-container {
-    width: 100%;
-}*/
+#map-field {
+    background-color: burlywood;
+}
 
-.angular-google-map-container {
-    height: 400px;
-    width: 500px;
+ng-map {
+    height: 500px;
+}
+
+#search-field {
+    background-color: aqua;
 }

@@ -1,0 +1,61 @@
+<md-dialog>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Login user</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="login.closeLoginDialog()">
+                <md-icon md-svg-src="assets/img/close.svg" aria-label="Close dialog"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <div layout="column" layout-align="center center">
+
+        <form name="loginForm"
+              id="login-form"
+              layout-align="center"
+              class="md-raised">
+
+            <md-input-container>
+                <input type="email" required
+                       name="emailField"
+                       ng-model="login.email"
+                       placeholder="Type in your email" />
+            </md-input-container>
+
+            <br />
+
+            <md-input-container>
+                <input type="password" required
+                       name="passwordField"
+                       ng-model="login.password"
+                       placeholder="Type in your password" />
+            </md-input-container>
+
+            <br />
+
+            <md-button class="md-raised md-primary"
+                       ng-click="login.login()"
+                       type="submit">Login</md-button>
+
+        </form>
+
+        <p>
+            email: wictor@gmail.com<br />
+            password: password
+        </p>
+
+
+        <!-- Error messages -->
+        <div ng-messages="loginForm.emailField.$error" role="alert">
+            <div ng-message="required">You did not enter your email address.</div>
+            <div ng-message="email">You have to enter a valid email address.</div>
+        </div>
+
+        <div ng-messages="loginForm.passwordField.$error" role="alert">
+            <div ng-message="required">You did not enter your password.</div>
+        </div>
+
+    </div>
+
+</md-dialog>
