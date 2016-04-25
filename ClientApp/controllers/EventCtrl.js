@@ -219,7 +219,9 @@ angular
         };
 
         self.getEventsByParams = () => {
-            eventService.getEventsByParams(self.creatorParam, self.locationParam, self.categoryParam)
+            const params = self.assembleParams();
+
+            eventService.getEventsByParams(params)
                 .then(res => {
                     let events = [];
                     for (let event of res.data.events) {
@@ -227,6 +229,14 @@ angular
                     }
                     $scope.events = events;
                 });
+        };
+
+        self.assembleParams = () => {
+            return {
+                creator: self.creatorParam,
+                position: self.locationParam,
+                category: self.categoryParam
+            };
         };
 
     }

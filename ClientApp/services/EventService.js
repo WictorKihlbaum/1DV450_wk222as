@@ -95,14 +95,14 @@ angular
             return $http.delete(url, config);
         };
 
-        self.getEventsByParams = (creatorID, locationID, categoryName) => {
+        self.getEventsByParams = params => {
             const req = {
                 method: 'GET',
-                url: 'http://localhost:3000/api/v1/events',
+                url: API.baseURL + API.eventsPath,
                 params: {
-                    creator_id: creatorID,
-                    position_id: locationID,
-                    category: categoryName
+                    creator_id: params.creator,
+                    position_id: params.position,
+                    category: params.category
                 },
                 headers: {
                     'X-APIKey': API.apiKey
