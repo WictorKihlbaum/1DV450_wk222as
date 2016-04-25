@@ -1,7 +1,9 @@
 <div id="events-container" layout="row">
 
+    <!-- Event list -->
     <md-list id="events-list" layout-align="center start">
 
+        <!-- Create button for new Event -->
         <md-button class="md-raised md-accent"
                    ng-click="showCreateDialog()"
                    ng-if="isAuthed()">
@@ -10,27 +12,32 @@
 
         <md-subheader class="md-no-sticky">Events list</md-subheader>
 
+        <!-- List ALL Events -->
         <md-list-item ng-repeat="event in events"
                       ng-click="showEvent(event)">
 
+            <!-- Edit button/icon for Event -->
             <md-icon class="md-secondary"
                      ng-if="isAuthed()"
                      ng-click="showEditDialog(event)"
                      aria-label="Edit event"
                      md-svg-icon="editIcon">
 
+                <!-- Shown when hover over icon -->
                 <md-tooltip md-direction="top">
                     Edit event
                 </md-tooltip>
 
             </md-icon>
 
+            <!-- Delete button/icon for Event -->
             <md-icon class="md-secondary"
                      ng-if="isAuthed()"
                      ng-click="showDeleteDialog(event)"
                      aria-label="Delete event"
                      md-svg-icon="deleteIcon">
 
+                <!-- Shown when hover over icon -->
                 <md-tooltip md-direction="top">
                     Delete event
                 </md-tooltip>
@@ -50,11 +57,13 @@
 <div layout="column">
 
 
+    <!-- Google Map -->
     <ng-map center="sweden" zoom="6" id="main-map">
         <marker ng-repeat="ev in events"
                 position="{{ev.position.address}}"></marker>
     </ng-map>
 
+    <!-- Search Methods Field -->
     <div flex id="choose-search-method" class="search-methods">
         <h1 class="md-headline" id="search-methods-topic">Search events by a specific method</h1>
         <md-input-container>
@@ -66,6 +75,7 @@
             </md-select>
         </md-input-container>
     </div>
+
 
     <!-- Search by Filters -->
 
@@ -101,6 +111,7 @@
 
         <!-- TODO: Add address search field. Turn off other fields if so. -->
 
+        <!-- Latitude input -->
         <md-input-container>
             <label>Latitude</label>
             <input type="text"
@@ -109,6 +120,7 @@
                    ng-model="event.latitude" />
         </md-input-container>
 
+        <!-- Longitude input -->
         <md-input-container>
             <label>Longitude</label>
             <input type="text"
@@ -117,9 +129,11 @@
                    ng-model="event.longitude" />
         </md-input-container>
 
+        <!-- Search button -->
         <md-button class="md-raised md-primary"
                    ng-click="event.getNearbyEvents()">Search</md-button>
 
+        <!-- Remove later -->
         <p>
             56.6666667<br />
             16.3666667
@@ -146,6 +160,8 @@
             Choose the parameter(s) you want to include in your search
         </h4>
 
+        <!-- Checkboxes for Params -->
+        
         <md-checkbox ng-model="creatorCB" aria-label="Creator checkbox">
             Creator
         </md-checkbox>
@@ -158,18 +174,17 @@
             Location
         </md-checkbox>
 
-        <!-- Creator Param -->
+        <!-- Creator Param Dropdownlist -->
         <md-input-container ng-if="creatorCB" class="md-block" flex-gt-sm>
             <label>Creator</label>
             <md-select ng-model="event.creatorParam">
-                <!-- TODO: Testa en ng-if -->
                 <md-option ng-repeat="creator in creators" value="{{creator.id}}">
                     {{creator.name}}
                 </md-option>
             </md-select>
         </md-input-container>
 
-        <!-- Category Param -->
+        <!-- Category Param Dropdownlist -->
         <md-input-container ng-if="categoryCB" class="md-block" flex-gt-sm>
             <label>Category</label>
             <md-select ng-model="event.categoryParam">
@@ -179,7 +194,7 @@
             </md-select>
         </md-input-container>
 
-        <!-- Position Param -->
+        <!-- Position Param Dropdownlist-->
         <md-input-container ng-if="locationCB" class="md-block" flex-gt-sm>
             <label>Location</label>
             <md-select ng-model="event.locationParam">
@@ -189,6 +204,7 @@
             </md-select>
         </md-input-container>
 
+        <!-- Search button -->
         <md-button class="md-raised md-primary" ng-click="event.getEventsByParams()">
             Search
         </md-button>
