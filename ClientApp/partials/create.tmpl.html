@@ -1,9 +1,12 @@
+<!-- HTML-Template for Create Event -->
+
 <md-dialog aria-label="Edit event"  ng-cloak>
 
     <md-toolbar>
         <div class="md-toolbar-tools">
             <h2>Create event</h2>
             <span flex></span>
+            <!-- Close button for dialog -->
             <md-button class="md-icon-button" ng-click="event.closeEventDialog()">
                 <md-icon md-svg-src="assets/img/close.svg" aria-label="Close event dialog"></md-icon>
             </md-button>
@@ -12,8 +15,10 @@
 
     <md-dialog-content layout="column" layout-align="center center">
 
+        <!-- Create form for new Event -->
         <form name="eventForm">
 
+            <!-- Category input field -->
             <md-input-container>
                 <label>Category</label>
                 <input type="text" required
@@ -22,13 +27,14 @@
                        ng-model="event.categoryCreate"
                        md-maxlength="15" />
 
-                <!-- Error messages -->
+                <!-- Category error messages -->
                 <div ng-messages="eventForm.categoryField.$error">
                     <div ng-message="required">* Category is required.</div>
                     <div ng-message="md-maxlength">* Category is to long. Max length is 15 chars.</div>
                 </div>
             </md-input-container><br />
 
+            <!-- Description input field -->
             <md-input-container>
                 <label>Description</label>
                 <input type="text" required
@@ -37,13 +43,14 @@
                        ng-model="event.descriptionCreate"
                        md-maxlength="100" />
 
-                <!-- Error messages -->
+                <!-- Description error messages -->
                 <div ng-messages="eventForm.descriptionField.$error">
                     <div ng-message="required">* Description is required.</div>
                     <div ng-message="md-maxlength">* Description is to long. Max length is 100 chars.</div>
                 </div>
             </md-input-container><br />
 
+            <!-- Create button -->
             <md-button class="md-raised md-primary"
                        ng-click="event.createEvent()">Create</md-button>
 

@@ -1,15 +1,19 @@
-<md-dialog aria-label="Event info"  ng-cloak>
+<!-- HTML-Template for Event info -->
+
+<md-dialog aria-label="Event info" ng-cloak>
 
     <md-toolbar>
         <div class="md-toolbar-tools">
             <h2>Event info</h2>
             <span flex></span>
+            <!-- Close button for dialog -->
             <md-button class="md-icon-button" ng-click="event.closeEventDialog()">
                 <md-icon md-svg-src="assets/img/close.svg" aria-label="Close event dialog"></md-icon>
             </md-button>
         </div>
     </md-toolbar>
 
+    <!-- Event info details -->
     <md-dialog-content>
         <div class="md-dialog-content">
             <h2>{{event.event.category}}</h2>

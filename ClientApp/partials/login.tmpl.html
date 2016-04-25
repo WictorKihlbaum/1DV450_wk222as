@@ -1,8 +1,11 @@
+<!-- HTML-Template for Login -->
+
 <md-dialog>
     <md-toolbar>
         <div class="md-toolbar-tools">
             <h2>Login user</h2>
             <span flex></span>
+            <!-- Close button for dialog -->
             <md-button class="md-icon-button" ng-click="login.closeLoginDialog()">
                 <md-icon md-svg-src="assets/img/close.svg" aria-label="Close dialog"></md-icon>
             </md-button>
@@ -11,18 +14,20 @@
 
     <md-dialog-content layout="column" layout-align="center center">
 
+        <!-- Login form -->
         <form name="loginForm"
               id="login-form"
               layout-align="center"
               class="md-raised">
 
+            <!-- Email input field -->
             <md-input-container>
                 <label>Email</label>
                 <input type="email" required
                        name="emailField"
                        ng-model="login.email" />
 
-                <!-- Error messages -->
+                <!-- Email error messages -->
                 <div ng-messages="loginForm.emailField.$error">
                     <div ng-message="required">* Email address is required.</div>
                     <div ng-message="email">* Email address is invalid.</div>
@@ -31,13 +36,14 @@
 
             <br />
 
+            <!-- Password input field -->
             <md-input-container>
                 <label>Password</label>
                 <input type="password" required
                        name="passwordField"
                        ng-model="login.password" />
 
-                <!-- Error messages -->
+                <!-- Password error messages -->
                 <div ng-messages="loginForm.passwordField.$error">
                     <div ng-message="required">* Password is required.</div>
                 </div>
@@ -45,12 +51,14 @@
 
             <br />
 
+            <!-- Login button -->
             <md-button class="md-raised md-primary"
                        ng-click="login.login()"
                        type="submit">Login</md-button>
 
         </form>
 
+        <!-- Remove later -->
         <p>
             email: wictor@gmail.com<br />
             password: password
