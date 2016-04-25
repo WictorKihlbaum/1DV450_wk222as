@@ -17,19 +17,19 @@
               class="md-raised">
 
             <md-input-container>
+                <label>Email</label>
                 <input type="email" required
                        name="emailField"
-                       ng-model="login.email"
-                       placeholder="Type in your email" />
+                       ng-model="login.email" />
             </md-input-container>
 
             <br />
 
             <md-input-container>
+                <label>Password</label>
                 <input type="password" required
                        name="passwordField"
-                       ng-model="login.password"
-                       placeholder="Type in your password" />
+                       ng-model="login.password" />
             </md-input-container>
 
             <br />
@@ -47,13 +47,13 @@
 
 
         <!-- Error messages -->
-        <div ng-messages="loginForm.emailField.$error" role="alert">
-            <div ng-message="required">You did not enter your email address.</div>
-            <div ng-message="email">You have to enter a valid email address.</div>
+        <div ng-messages="loginForm.emailField.$error" class="error-messages">
+            <div ng-message="required">* Email address is required.</div>
+            <div ng-message="email">* Email address is invalid.</div>
         </div>
 
-        <div ng-messages="loginForm.passwordField.$error" role="alert">
-            <div ng-message="required">You did not enter your password.</div>
+        <div ng-messages="loginForm.passwordField.$error" class="error-messages">
+            <div ng-message="required">* Password is required.</div>
         </div>
 
     </md-dialog-content>

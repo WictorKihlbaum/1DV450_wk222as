@@ -1,0 +1,12 @@
+<!-- Error messages -->
+<div ng-messages="eventForm.categoryField.$error"
+     ng-if="eventForm.categoryField.$touched" class="error-messages">
+    <div ng-message="required">* Category is required.</div>
+    <div ng-message="md-maxlength">* Category is to long. Max length is 15 chars.</div>
+</div>
+
+<div ng-messages="eventForm.descriptionField.$error"
+     ng-if="eventForm.descriptionField.$touched" class="error-messages">
+    <div ng-message="required">* Description is required.</div>
+    <div ng-message="md-maxlength">* Description is to long. Max length is 100 chars.</div>
+</div>

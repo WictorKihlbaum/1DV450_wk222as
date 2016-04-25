@@ -12,9 +12,10 @@
 
     <md-dialog-content layout="column" layout-align="center center">
 
-        <form name="editForm">
+        <form name="eventForm">
 
             <md-input-container>
+                <label>Category</label>
                 <input type="text" required
                        name="categoryField"
                        aria-label="Edit event category"
@@ -23,10 +24,11 @@
             </md-input-container><br />
 
             <md-input-container>
+                <label>Description</label>
                 <input type="text" required
                        name="descriptionField"
-                       ng-model="event.description"
                        aria-label="Edit event description"
+                       ng-model="event.description"
                        md-maxlength="100" />
             </md-input-container><br />
 
@@ -36,15 +38,7 @@
         </form>
 
         <!-- Error messages -->
-        <div ng-messages="editForm.categoryField.$error" role="alert">
-            <div ng-message="required">You did not enter a category for the event.</div>
-            <div ng-message="md-maxlength">Category is to long. Maximum length is 15 characters.</div>
-        </div>
-
-        <div ng-messages="editForm.descriptionField.$error" role="alert">
-            <div ng-message="required">You did not enter a description for the event.</div>
-            <div ng-message="md-maxlength">Description is to long. Maximum length is 100 characters.</div>
-        </div>
+        <div ng-include src="'partials/shared/error-messages.html'"></div>
 
     </md-dialog-content>
 

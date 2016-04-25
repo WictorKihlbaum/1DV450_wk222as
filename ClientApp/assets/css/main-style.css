@@ -95,3 +95,12 @@ input[type="password"] {
 #search-field {
     background-color: aqua;
 }
+
+.error-messages {
+    color: red;
+}
+
+/*
+md-dialog {
+    width: 25%;
+}*/
