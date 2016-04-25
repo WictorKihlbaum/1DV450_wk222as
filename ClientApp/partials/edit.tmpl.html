@@ -21,6 +21,12 @@
                        aria-label="Edit event category"
                        ng-model="event.category"
                        md-maxlength="15" />
+
+                <!-- Error messages -->
+                <div ng-messages="eventForm.categoryField.$error">
+                    <div ng-message="required">* Category is required.</div>
+                    <div ng-message="md-maxlength">* Category is to long. Max length is 15 chars.</div>
+                </div>
             </md-input-container><br />
 
             <md-input-container>
@@ -30,15 +36,18 @@
                        aria-label="Edit event description"
                        ng-model="event.description"
                        md-maxlength="100" />
+
+                <!-- Error messages -->
+                <div ng-messages="eventForm.descriptionField.$error">
+                    <div ng-message="required">* Description is required.</div>
+                    <div ng-message="md-maxlength">* Description is to long. Max length is 100 chars.</div>
+                </div>
             </md-input-container><br />
 
             <md-button class="md-raised md-primary"
                        ng-click="event.editEvent()">Save</md-button>
 
         </form>
-
-        <!-- Error messages -->
-        <div ng-include src="'partials/shared/error-messages.html'"></div>
 
     </md-dialog-content>
 

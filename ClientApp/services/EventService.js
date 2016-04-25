@@ -18,6 +18,21 @@ angular
             return $http(req);
         };
 
+        self.getNearbyEvents = (latitude, longitude) => {
+            const req = {
+                method: 'GET',
+                url: 'http://localhost:3000/api/v1/events',
+                params: {
+                    lat: latitude,
+                    long: longitude
+                },
+                headers: {
+                    'X-APIKey': API.apiKey
+                }
+            };
+            return $http(req);
+        };
+
         self.editEvent = (category, description) => {
             const url = API.baseURL + API.eventsPath + '/' + self.event.id;
 

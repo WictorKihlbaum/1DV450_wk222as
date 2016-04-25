@@ -96,11 +96,16 @@ input[type="password"] {
     background-color: aqua;
 }
 
-.error-messages {
-    color: red;
+.error-container {
+    padding: 15px 0;
 }
 
-/*
-md-dialog {
-    width: 25%;
-}*/
+md-dialog-content {
+    padding: 15px 35px;
+}
+
+.search-methods {
+    border: 1px solid black;
+    margin: 5px;
+    padding: 25px !important;
+}

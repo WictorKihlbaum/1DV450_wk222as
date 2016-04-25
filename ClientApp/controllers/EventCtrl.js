@@ -13,8 +13,16 @@ angular
     ];
 
     function EventCtrl(eventService, $scope, $mdDialog, $route, $mdToast, NgMap, auth) {
-        const self = this;
 
+        const self = this;
+        //self.eventCategories = [];
+
+        $scope.searchMethods = ['Filter', 'Nearby', 'Tags'];
+        self.selectedMethod;
+
+
+        /* Fills its purpose when editing events.
+           This enables the edit-fields to be filled in with the old values. */
         if (eventService.event) {
             self.event = eventService.event;
             self.category = eventService.event.category;
@@ -25,9 +33,46 @@ angular
             eventService.getAllEvents()
                 .then(result => {
                     $scope.events = result.data.events;
+                    //self.eventCategories = self.saveEventCategories(result.data.events);
                 });
         };
         self.getAllEvents();
+
+        self.getNearbyEvents = () => {
+            eventService.getNearbyEvents(self.latitude, self.longitude)
+                .then(res => {
+                    let events = [];
+                    for (let eventArray of res.data.events) {
+                        for (let event of eventArray) {
+                            events.push(event);
+                        }
+                    }
+                    $scope.events = events;
+                });
+        };
+
+        //self.querySearch = querySearch;
+
+        /*self.saveEventCategories = (events) => {
+            for (let event of events) {
+                if (self.eventCategories.indexOf(event.category) == -1) {
+                    self.eventCategories.push(event.category);
+                }
+            }
+            console.log(self.eventCategories);
+        };*/
+
+        /*function querySearch (query) {
+            var results = query ? self.eventCategories.filter( createFilterFor(query) ) : self.eventCategories;
+            return results;
+        }
+
+        function createFilterFor(query) {
+            var lowercaseQuery = angular.lowercase(query);
+            return function filterFn(state) {
+                return (state.value.indexOf(lowercaseQuery) === 0);
+            };
+        }*/
 
         $scope.showEvent = event => {
             eventService.event = event;
@@ -80,11 +125,11 @@ angular
                 .then(res => {
                     if (res.status == 200) {
                         self.closeEventDialog();
+                        $route.reload();
                         const message = 'Event has been successfully updated!';
                         self.showSuccessMessage(message);
-                        $route.reload();
                     }
-                });
+                })
         };
 
         $scope.showDeleteDialog = event => {
@@ -103,7 +148,7 @@ angular
                     if (res.status == 204) {
                         const message = 'Event has been successfully deleted!';
                         self.showSuccessMessage(message);
-                        $route.reload();
+                        self.getAllEvents();
                     }
                 });
         };
@@ -124,6 +169,14 @@ angular
 
         $scope.isAuthed = () => {
             return auth.isAuthed ? auth.isAuthed() : false
+        };
+
+        $scope.getSelectedMethod = () => {
+            if ($scope.selectedMethod !== undefined) {
+                return "You have selected: " + $scope.selectedMethod;
+            } else {
+                return "Please select a method";
+            }
         };
 
     }

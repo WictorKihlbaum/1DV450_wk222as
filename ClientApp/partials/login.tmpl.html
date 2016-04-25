@@ -21,6 +21,12 @@
                 <input type="email" required
                        name="emailField"
                        ng-model="login.email" />
+
+                <!-- Error messages -->
+                <div ng-messages="loginForm.emailField.$error">
+                    <div ng-message="required">* Email address is required.</div>
+                    <div ng-message="email">* Email address is invalid.</div>
+                </div>
             </md-input-container>
 
             <br />
@@ -30,6 +36,11 @@
                 <input type="password" required
                        name="passwordField"
                        ng-model="login.password" />
+
+                <!-- Error messages -->
+                <div ng-messages="loginForm.passwordField.$error">
+                    <div ng-message="required">* Password is required.</div>
+                </div>
             </md-input-container>
 
             <br />
@@ -44,17 +55,6 @@
             email: wictor@gmail.com<br />
             password: password
         </p>
-
-
-        <!-- Error messages -->
-        <div ng-messages="loginForm.emailField.$error" class="error-messages">
-            <div ng-message="required">* Email address is required.</div>
-            <div ng-message="email">* Email address is invalid.</div>
-        </div>
-
-        <div ng-messages="loginForm.passwordField.$error" class="error-messages">
-            <div ng-message="required">* Password is required.</div>
-        </div>
 
     </md-dialog-content>
 
