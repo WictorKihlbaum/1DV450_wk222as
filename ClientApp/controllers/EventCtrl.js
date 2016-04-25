@@ -17,8 +17,13 @@ angular
         const self = this;
         //self.eventCategories = [];
 
-        $scope.searchMethods = ['Filter', 'Nearby', 'Tags'];
+        $scope.searchMethods = ['Filter', 'Nearby', 'Tags', 'Params'];
         self.selectedMethod;
+
+        // Checkboxes for Param-searches.
+        //$scope.creatorCB = false;
+        //$scope.categoryCB = false;
+        //$scope.locationCB = false;
 
 
         /* Fills its purpose when editing events.
@@ -32,11 +37,54 @@ angular
         self.getAllEvents = () => {
             eventService.getAllEvents()
                 .then(result => {
-                    $scope.events = result.data.events;
-                    //self.eventCategories = self.saveEventCategories(result.data.events);
+                    const events = result.data.events;
+
+                    $scope.events = events;
+                    // TODO: Maybe move to service instead.
+                    self.saveAllCreators(events);
+                    self.saveAllCategories(events);
+                    self.saveAllLocations(events);
                 });
         };
         self.getAllEvents();
+
+        self.saveAllCreators = events => {
+            let creators = [];
+
+            for (let event of events) {
+                if (!creators.find(element => element.id == event.creator.id)) {
+                    creators.push({id: event.creator.id, name: event.creator.name});
+                }
+            }
+            $scope.creators = creators;
+        };
+
+        self.saveAllCategories = events => {
+            let categories = [];
+
+            for (let event of events) {
+                if (!categories.find(element => element == event.category)) {
+                    categories.push(event.category);
+                }
+            }
+            $scope.categories = categories;
+        };
+
+        self.saveAllLocations = events => {
+            let locations = [];
+
+            for (let event of events) {
+                if (!locations.find(element => element.id == event.position.id)) {
+                    locations.push({
+                        id: event.position.id,
+                        address: event.position.address,
+                        latitude: event.position.latitude,
+                        longitude: event.position.longitude
+                    });
+                }
+            }
+            $scope.locations = locations;
+        };
 
         self.getNearbyEvents = () => {
             eventService.getNearbyEvents(self.latitude, self.longitude)
@@ -52,15 +100,6 @@ angular
         };
 
         //self.querySearch = querySearch;
-
-        /*self.saveEventCategories = (events) => {
-            for (let event of events) {
-                if (self.eventCategories.indexOf(event.category) == -1) {
-                    self.eventCategories.push(event.category);
-                }
-            }
-            console.log(self.eventCategories);
-        };*/
 
         /*function querySearch (query) {
             var results = query ? self.eventCategories.filter( createFilterFor(query) ) : self.eventCategories;
@@ -177,6 +216,17 @@ angular
             } else {
                 return "Please select a method";
             }
+        };
+
+        self.getEventsByParams = () => {
+            eventService.getEventsByParams(self.creatorParam, self.locationParam, self.categoryParam)
+                .then(res => {
+                    let events = [];
+                    for (let event of res.data.events) {
+                        events.push(event);
+                    }
+                    $scope.events = events;
+                });
         };
 
     }

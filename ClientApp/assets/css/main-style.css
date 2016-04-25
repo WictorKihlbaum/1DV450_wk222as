@@ -14,6 +14,14 @@ body {
     color: aqua;
 }
 
+#search-methods-topic {
+    margin: 0;
+}
+
+#param-search-topic {
+    margin-bottom: 20px;
+}
+
 h4 {
     margin: 5px 0;
 }
@@ -24,7 +32,6 @@ section {
 
 #main-container {
     background-color: aquamarine;
-    height: 100%;
 }
 
 #events-container {
@@ -107,5 +114,5 @@ md-dialog-content {
 .search-methods {
     border: 1px solid black;
     margin: 5px;
-    padding: 25px !important;
+    padding: 20px !important;
 }

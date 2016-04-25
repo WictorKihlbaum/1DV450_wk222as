@@ -82,7 +82,7 @@ angular
             return $http.post(url, data, config);
         };
 
-        self.deleteEvent = (event) => {
+        self.deleteEvent = event => {
             const url = API.baseURL + API.eventsPath + '/' + event.id;
             const config = {
                 method: 'DELETE',
@@ -93,6 +93,22 @@ angular
                 }
             };
             return $http.delete(url, config);
+        };
+
+        self.getEventsByParams = (creatorID, locationID, categoryName) => {
+            const req = {
+                method: 'GET',
+                url: 'http://localhost:3000/api/v1/events',
+                params: {
+                    creator_id: creatorID,
+                    position_id: locationID,
+                    category: categoryName
+                },
+                headers: {
+                    'X-APIKey': API.apiKey
+                }
+            };
+            return $http(req);
         };
 
     }
