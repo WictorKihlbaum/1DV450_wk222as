@@ -50,6 +50,24 @@
                 </div>
             </md-input-container><br />
 
+            <!-- Latitude input -->
+            <md-input-container>
+                <label>Latitude</label>
+                <input type="text"
+                       name="latitudeField"
+                       aria-label="Fill in latitude"
+                       ng-model="event.latitudeCreate" />
+            </md-input-container><br />
+
+            <!-- Longitude input -->
+            <md-input-container>
+                <label>Longitude</label>
+                <input type="text"
+                       name="longitudeField"
+                       aria-label="Fill in longitude"
+                       ng-model="event.longitudeCreate" />
+            </md-input-container><br />
+
             <!-- Create button -->
             <md-button class="md-raised md-primary"
                        ng-click="event.createEvent()">Create</md-button>

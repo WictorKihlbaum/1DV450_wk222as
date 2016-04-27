@@ -136,15 +136,33 @@ angular
         };
 
         self.createEvent = () => {
-            eventService.createEvent(self.categoryCreate, self.descriptionCreate)
+            const params = self.assembleCreateParams();
+
+            eventService.createPosition(params)
                 .then(res => {
                     if (res.status == 201) {
-                        const message = 'Event has been successfully created!';
-                        self.showSuccessMessage(message);
-                        self.closeEventDialog();
-                        $route.reload();
+                        console.log(res);
+                        eventService.createEvent(params, res.data.position.id)
+                            .then(res => {
+                                if (res.status == 201) {
+                                    const message = 'Event has been successfully created!';
+                                    self.showSuccessMessage(message);
+                                    self.closeEventDialog();
+                                    $route.reload();
+                                }
+                            });
                     }
                 });
+        };
+
+        self.assembleCreateParams = () => {
+            const params = {
+                category: self.categoryCreate,
+                description: self.descriptionCreate,
+                latitude: self.latitudeCreate,
+                longitude: self.longitudeCreate
+            };
+            return params;
         };
 
         $scope.showEditDialog = event => {

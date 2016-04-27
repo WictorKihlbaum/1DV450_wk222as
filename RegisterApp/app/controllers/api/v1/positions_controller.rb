@@ -12,8 +12,23 @@ class API::V1::PositionsController < API::APIController
     render_response(@position, :ok)
   end
 
+  def create
+    position = Position.new(position_params)
+
+    if position.save
+      render_response(position, :created)
+    else
+      error = { message: 'Position was not created.', errors: position.errors }
+      render_response(error, :unprocessable_entity)
+    end
+  end
+
   def set_position
     @position = Position.find(params[:id])
+  end
+
+  def position_params
+    params.require(:position).permit(:address, :latitude, :longitude)
   end
 
 end

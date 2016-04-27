@@ -6,8 +6,8 @@ class API::APIController < ActionController::Base
 
   protect_from_forgery with: :null_session
   before_filter :default_format_json
-  before_action :restrict_access_by_apikey
-  before_action :authenticate, except: [:index, :show]
+  #before_action :restrict_access_by_apikey
+  #before_action :authenticate, except: [:index, :show]
   before_action :offset_params, only: [:index]
 
   # Error messages

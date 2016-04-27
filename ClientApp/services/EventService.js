@@ -58,18 +58,17 @@ angular
             return $http.put(url, data, config);
         };
 
-        self.createEvent = (category, description) => {
+        self.createEvent = (params, positionID) => {
             const url = API.baseURL + API.eventsPath;
 
             const data = {
                 event: {
-                    'category': category,
-                    'description': description,
+                    'category': params.category,
+                    'description': params.description,
                     'creator_id': 1,
-                    'position_id': 1
+                    'position_id': positionID
                 }
             };
-
             const config = {
                 method: 'POST',
                 headers: {
@@ -78,7 +77,25 @@ angular
                     'Authorization': auth.getToken()
                 }
             };
+            return $http.post(url, data, config);
+        };
 
+        self.createPosition = params => {
+            const url = API.baseURL + '/api/v1/positions';
+            const data = {
+                position: {
+                    'latitude': params.latitude,
+                    'longitude': params.longitude
+                }
+            };
+            const config = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': API.format,
+                    'X-APIKey': API.apiKey,
+                    'Authorization': auth.getToken()
+                }
+            };
             return $http.post(url, data, config);
         };
 
