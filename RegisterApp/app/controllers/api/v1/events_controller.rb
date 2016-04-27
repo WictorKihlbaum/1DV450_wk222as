@@ -6,6 +6,8 @@ class API::V1::EventsController < API::APIController
   RESOURCE_NOT_FOUND = 'Could not find the requested resource, please be sure to use a valid ID.'
   RESOURCE_NOT_CREATED = 'Resource could not be created.'
 
+  DEFAULT_DISTANCE = 5
+
   # Error handling.
   rescue_from ActionController::UnknownFormat, with: :unsupported_format
   rescue_from ActiveRecord::RecordNotFound, with: :resource_not_found
@@ -44,9 +46,9 @@ class API::V1::EventsController < API::APIController
     positions = []
 
     if coordinates_is_present
-      positions = Position.near([params[:lat], params[:long]], 1)
+      positions = Position.near([params[:lat], params[:long]], get_default_distance, :units => :km)
     else
-      positions = Position.near(params[:address], 1)
+      positions = Position.near(params[:address], get_default_distance, :units => :km)
     end
 
     positions.each do |position|
@@ -64,6 +66,14 @@ class API::V1::EventsController < API::APIController
 
   def address_is_present
     return true if params[:address].present?
+  end
+
+  def get_default_distance
+    if params[:dist].present?
+      return params[:dist]
+    else
+      return DEFAULT_DISTANCE
+    end
   end
 
   # GET api/v1/events/id
