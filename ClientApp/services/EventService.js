@@ -58,7 +58,7 @@ angular
             return $http.put(url, data, config);
         };
 
-        self.createEvent = (params, positionID) => {
+        self.createEvent = params => {
             const url = API.baseURL + API.eventsPath;
 
             const data = {
@@ -66,7 +66,7 @@ angular
                     'category': params.category,
                     'description': params.description,
                     'creator_id': 1,
-                    'position_id': positionID
+                    'position_id': params.position_id
                 }
             };
             const config = {
@@ -84,6 +84,7 @@ angular
             const url = API.baseURL + '/api/v1/positions';
             const data = {
                 position: {
+                    'address': params.address,
                     'latitude': params.latitude,
                     'longitude': params.longitude
                 }

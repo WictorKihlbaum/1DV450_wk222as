@@ -20,6 +20,8 @@ angular
         $scope.searchMethods = ['Filter', 'Nearby', 'Tags', 'Params'];
         self.selectedMethod;
 
+        $scope.positionOption = 'Address';
+
         // Checkboxes for Param-searches.
         //$scope.creatorCB = false;
         //$scope.categoryCB = false;
@@ -137,12 +139,13 @@ angular
 
         self.createEvent = () => {
             const params = self.assembleCreateParams();
-
+            // First create the new position.
             eventService.createPosition(params)
                 .then(res => {
+                    // Then create the new event when the position ID has been returned.
                     if (res.status == 201) {
-                        console.log(res);
-                        eventService.createEvent(params, res.data.position.id)
+                        params['position_id'] = res.data.position.id;
+                        eventService.createEvent(params)
                             .then(res => {
                                 if (res.status == 201) {
                                     const message = 'Event has been successfully created!';
@@ -160,7 +163,8 @@ angular
                 category: self.categoryCreate,
                 description: self.descriptionCreate,
                 latitude: self.latitudeCreate,
-                longitude: self.longitudeCreate
+                longitude: self.longitudeCreate,
+                address: self.addressCreate
             };
             return params;
         };

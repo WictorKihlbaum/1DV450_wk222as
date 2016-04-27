@@ -50,23 +50,40 @@
                 </div>
             </md-input-container><br />
 
-            <!-- Latitude input -->
-            <md-input-container>
-                <label>Latitude</label>
+            <!-- Choose position input method -->
+            <md-radio-group ng-model="positionOption">
+                <md-radio-button value="Address">Address</md-radio-button>
+                <md-radio-button value="Coordinates">Latitude & Longitude</md-radio-button>
+            </md-radio-group>
+
+            <!-- Address input field -->
+            <md-input-container ng-if="positionOption =='Address'">
+                <label>Address</label>
                 <input type="text"
-                       name="latitudeField"
-                       aria-label="Fill in latitude"
-                       ng-model="event.latitudeCreate" />
+                       name="addressField"
+                       aria-label="Fill in address"
+                       ng-model="event.addressCreate" />
             </md-input-container><br />
 
-            <!-- Longitude input -->
-            <md-input-container>
-                <label>Longitude</label>
-                <input type="text"
-                       name="longitudeField"
-                       aria-label="Fill in longitude"
-                       ng-model="event.longitudeCreate" />
-            </md-input-container><br />
+            <div id="coordinates" ng-if="positionOption == 'Coordinates'">
+                <!-- Latitude input -->
+                <md-input-container>
+                    <label>Latitude</label>
+                    <input type="text"
+                           name="latitudeField"
+                           aria-label="Fill in latitude"
+                           ng-model="event.latitudeCreate" />
+                </md-input-container><br />
+
+                <!-- Longitude input -->
+                <md-input-container>
+                    <label>Longitude</label>
+                    <input type="text"
+                           name="longitudeField"
+                           aria-label="Fill in longitude"
+                           ng-model="event.longitudeCreate" />
+                </md-input-container><br />
+            </div>
 
             <!-- Create button -->
             <md-button class="md-raised md-primary"
