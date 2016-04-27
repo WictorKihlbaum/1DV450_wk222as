@@ -18,13 +18,14 @@ angular
             return $http(req);
         };
 
-        self.getNearbyEvents = (latitude, longitude) => {
+        self.getNearbyEvents = params => {
             const req = {
                 method: 'GET',
                 url: 'http://localhost:3000/api/v1/events',
                 params: {
-                    lat: latitude,
-                    long: longitude
+                    address: params.address,
+                    lat: params.latitude,
+                    long: params.longitude
                 },
                 headers: {
                     'X-APIKey': API.apiKey

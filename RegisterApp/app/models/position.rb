@@ -10,7 +10,7 @@ class Position < ActiveRecord::Base
 
   # Presence doesn't need to be present.
   # User may choose by which method he/she wants to save an event.
-  
+
   #validates :address, presence: true
   #validates :latitude, presence: true
   #validates :longitude, presence: true

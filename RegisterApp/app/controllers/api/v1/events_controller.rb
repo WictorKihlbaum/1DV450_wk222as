@@ -17,7 +17,7 @@ class API::V1::EventsController < API::APIController
   # GET api/v1/events
   def index
 
-    if coordinates_is_present
+    if coordinates_is_present || address_is_present
       render_response(@nearby_events, :ok)
     else
       events = Event.filter(
@@ -41,20 +41,29 @@ class API::V1::EventsController < API::APIController
 
   def get_nearby_events
     @nearby_events = []
+    positions = []
 
     if coordinates_is_present
       positions = Position.near([params[:lat], params[:long]], 1)
-
-      positions.each do |position|
-        @nearby_events.push(position.events)
-      end
     else
+      positions = Position.near(params[:address], 1)
+    end
+
+    positions.each do |position|
+      @nearby_events.push(position.events)
+    end
+
+    if @nearby_events.empty?
       @nearby_events = Event.all
     end
   end
 
   def coordinates_is_present
     return true if params[:lat].present? && params[:long].present?
+  end
+
+  def address_is_present
+    return true if params[:address].present?
   end
 
   # GET api/v1/events/id

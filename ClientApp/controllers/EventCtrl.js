@@ -89,7 +89,8 @@ angular
         };
 
         self.getNearbyEvents = () => {
-            eventService.getNearbyEvents(self.latitude, self.longitude)
+            let params = self.assemblePositionParams();
+            eventService.getNearbyEvents(params)
                 .then(res => {
                     let events = [];
                     for (let eventArray of res.data.events) {
@@ -99,6 +100,15 @@ angular
                     }
                     $scope.events = events;
                 });
+        };
+
+        self.assemblePositionParams = () => {
+            let params = {
+                address: self.address,
+                latitude: self.latitude,
+                longitude: self.longitude
+            };
+            return params;
         };
 
         //self.querySearch = querySearch;
@@ -138,7 +148,7 @@ angular
         };
 
         self.createEvent = () => {
-            const params = self.assembleCreateParams();
+            let params = self.assembleCreateParams();
             // First create the new position.
             eventService.createPosition(params)
                 .then(res => {
@@ -159,7 +169,7 @@ angular
         };
 
         self.assembleCreateParams = () => {
-            const params = {
+            let params = {
                 category: self.categoryCreate,
                 description: self.descriptionCreate,
                 latitude: self.latitudeCreate,

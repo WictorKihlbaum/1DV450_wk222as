@@ -111,33 +111,44 @@
 
         <!-- TODO: Add address search field. Turn off other fields if so. -->
 
-        <!-- Latitude input -->
-        <md-input-container>
-            <label>Latitude</label>
+        <!-- Choose position input method -->
+        <md-radio-group ng-model="positionOption">
+            <md-radio-button value="Address">Address</md-radio-button>
+            <md-radio-button value="Coordinates">Latitude & Longitude</md-radio-button>
+        </md-radio-group>
+
+        <!-- Address input field -->
+        <md-input-container ng-if="positionOption =='Address'">
+            <label>Address</label>
             <input type="text"
-                   name="latitudeField"
-                   aria-label="Fill in latitude"
-                   ng-model="event.latitude" />
+                   name="addressField"
+                   aria-label="Fill in address"
+                   ng-model="event.address" />
         </md-input-container>
 
-        <!-- Longitude input -->
-        <md-input-container>
-            <label>Longitude</label>
-            <input type="text"
-                   name="longitudeField"
-                   aria-label="Fill in longitude"
-                   ng-model="event.longitude" />
-        </md-input-container>
+        <div id="coordinates" ng-if="positionOption == 'Coordinates'">
+            <!-- Latitude input -->
+            <md-input-container>
+                <label>Latitude</label>
+                <input type="text"
+                       name="latitudeField"
+                       aria-label="Fill in latitude"
+                       ng-model="event.latitude" />
+            </md-input-container>
+
+            <!-- Longitude input -->
+            <md-input-container>
+                <label>Longitude</label>
+                <input type="text"
+                       name="longitudeField"
+                       aria-label="Fill in longitude"
+                       ng-model="event.longitude" />
+            </md-input-container>
+        </div>
 
         <!-- Search button -->
         <md-button class="md-raised md-primary"
                    ng-click="event.getNearbyEvents()">Search</md-button>
-
-        <!-- Remove later -->
-        <p>
-            56.6666667<br />
-            16.3666667
-        </p>
 
     </div>
 
