@@ -25,7 +25,8 @@ angular
                 params: {
                     address: params.address,
                     lat: params.latitude,
-                    long: params.longitude
+                    long: params.longitude,
+                    dist: params.distance
                 },
                 headers: {
                     'X-APIKey': API.apiKey

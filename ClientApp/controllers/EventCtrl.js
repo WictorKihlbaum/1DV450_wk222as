@@ -106,7 +106,8 @@ angular
             let params = {
                 address: self.address,
                 latitude: self.latitude,
-                longitude: self.longitude
+                longitude: self.longitude,
+                distance: self.distance
             };
             return params;
         };

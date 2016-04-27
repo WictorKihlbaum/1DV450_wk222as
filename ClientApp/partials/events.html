@@ -146,6 +146,14 @@
             </md-input-container>
         </div>
 
+        <md-input-container>
+            <label>Search distance (Km)</label>
+            <input type="text"
+                   name="distanceField"
+                   aria-label="Fill in distance"
+                   ng-model="event.distance" />
+        </md-input-container>
+
         <!-- Search button -->
         <md-button class="md-raised md-primary"
                    ng-click="event.getNearbyEvents()">Search</md-button>
