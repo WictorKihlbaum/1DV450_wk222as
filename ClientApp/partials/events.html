@@ -63,6 +63,9 @@
                 position="{{ev.position.address}}"></marker>
     </ng-map>
 
+
+    <!-- TODO: Implement error handling for all search methods. -->
+
     <!-- Search Methods Field -->
     <div flex id="choose-search-method" class="search-methods">
         <h1 class="md-headline" id="search-methods-topic">Search events by a specific method</h1>
@@ -76,43 +79,14 @@
         </md-input-container>
     </div>
 
-
-    <!-- Search by Filters -->
-
-    <div flex id="search-by-filter"
-         class="search-methods"
-         ng-if="selectedMethod == 'Filter'">
-
-        <!--<md-autocomplete
-                md-selected-item="event.selectedItem"
-                md-search-text="event.searchText"
-                md-items="item in event.querySearch(event.searchText)"
-                md-item-text="item.display"
-                md-min-length="0"
-                placeholder="Filter events by category search">
-            <md-item-template>
-                <span md-highlight-text="event.searchText" md-highlight-flags="^i">{{item.display}}</span>
-            </md-item-template>
-            <md-not-found>
-                No categories matching "{{event.searchText}}" were found.
-            </md-not-found>
-        </md-autocomplete>-->
-
-        Filter
-
-    </div>
-
-
     <!-- Search Nearby places -->
 
     <div flex id="search-nearby-places"
          class="search-methods"
-         ng-if="selectedMethod == 'Nearby'">
-
-        <!-- TODO: Add address search field. Turn off other fields if so. -->
+         ng-if="selectedMethod.includes('nearby')">
 
         <!-- Choose position input method -->
-        <md-radio-group ng-model="positionOption">
+        <md-radio-group ng-model="positionOption" layout="row">
             <md-radio-button value="Address">Address</md-radio-button>
             <md-radio-button value="Coordinates">Latitude & Longitude</md-radio-button>
         </md-radio-group>
@@ -146,6 +120,7 @@
             </md-input-container>
         </div>
 
+        <!-- Search distance -->
         <md-input-container>
             <label>Search distance (Km)</label>
             <input type="text"
@@ -165,7 +140,8 @@
 
     <div flex id="search-by-tags"
          class="search-methods"
-         ng-if="selectedMethod == 'Tags'">
+         ng-if="selectedMethod.includes('tags')">
+        Search by tags :D
     </div>
 
 
@@ -173,25 +149,26 @@
 
     <div flex id="search-by-params"
          class="search-methods"
-         ng-if="selectedMethod == 'Params'">
+         ng-if="selectedMethod.includes('parameters')">
 
         <h4 id="param-search-topic">
             Choose the parameter(s) you want to include in your search
         </h4>
 
         <!-- Checkboxes for Params -->
+        <div>
+            <md-checkbox ng-model="creatorCB" aria-label="Creator checkbox">
+                Creator
+            </md-checkbox>
 
-        <md-checkbox ng-model="creatorCB" aria-label="Creator checkbox">
-            Creator
-        </md-checkbox>
+            <md-checkbox ng-model="categoryCB" aria-label="Category checkbox">
+                Category
+            </md-checkbox>
 
-        <md-checkbox ng-model="categoryCB" aria-label="Category checkbox">
-            Category
-        </md-checkbox>
-
-        <md-checkbox ng-model="locationCB" aria-label="Location checkbox">
-            Location
-        </md-checkbox>
+            <md-checkbox ng-model="locationCB" aria-label="Location checkbox">
+                Location
+            </md-checkbox>
+        </div>
 
         <!-- Creator Param Dropdownlist -->
         <md-input-container ng-if="creatorCB" class="md-block" flex-gt-sm>

@@ -8,16 +8,20 @@ angular
         '$mdDialog',
         '$route',
         '$mdToast',
-        'NgMap',
         'auth'
     ];
 
-    function EventCtrl(eventService, $scope, $mdDialog, $route, $mdToast, NgMap, auth) {
+    function EventCtrl(eventService, $scope, $mdDialog, $route, $mdToast, auth) {
 
         const self = this;
         //self.eventCategories = [];
 
-        $scope.searchMethods = ['Filter', 'Nearby', 'Tags', 'Params'];
+        $scope.searchMethods = [
+            'Search nearby events',
+            'Search events by tags',
+            'Search events by filtering parameters'
+        ];
+
         self.selectedMethod;
 
         $scope.positionOption = 'Address';
@@ -29,7 +33,7 @@ angular
 
 
         /* Fills its purpose when editing events.
-           This enables the edit-fields to be filled in with the old values. */
+           This enables the edit-fields to be filled with the old values. */
         if (eventService.event) {
             self.event = eventService.event;
             self.category = eventService.event.category;
@@ -93,6 +97,7 @@ angular
             eventService.getNearbyEvents(params)
                 .then(res => {
                     let events = [];
+                    // Sometimes more than one array is returned with events.
                     for (let eventArray of res.data.events) {
                         for (let event of eventArray) {
                             events.push(event);
@@ -103,28 +108,13 @@ angular
         };
 
         self.assemblePositionParams = () => {
-            let params = {
+            return {
                 address: self.address,
                 latitude: self.latitude,
                 longitude: self.longitude,
                 distance: self.distance
             };
-            return params;
         };
-
-        //self.querySearch = querySearch;
-
-        /*function querySearch (query) {
-            var results = query ? self.eventCategories.filter( createFilterFor(query) ) : self.eventCategories;
-            return results;
-        }
-
-        function createFilterFor(query) {
-            var lowercaseQuery = angular.lowercase(query);
-            return function filterFn(state) {
-                return (state.value.indexOf(lowercaseQuery) === 0);
-            };
-        }*/
 
         $scope.showEvent = event => {
             eventService.event = event;
@@ -170,14 +160,13 @@ angular
         };
 
         self.assembleCreateParams = () => {
-            let params = {
+            return {
                 category: self.categoryCreate,
                 description: self.descriptionCreate,
                 latitude: self.latitudeCreate,
                 longitude: self.longitudeCreate,
                 address: self.addressCreate
             };
-            return params;
         };
 
         $scope.showEditDialog = event => {
@@ -245,14 +234,14 @@ angular
 
         $scope.getSelectedMethod = () => {
             if ($scope.selectedMethod !== undefined) {
-                return "You have selected: " + $scope.selectedMethod;
+                return $scope.selectedMethod;
             } else {
-                return "Please select a method";
+                return 'Select a method';
             }
         };
 
         self.getEventsByParams = () => {
-            const params = self.assembleParams();
+            const params = self.assembleSearchParams();
 
             eventService.getEventsByParams(params)
                 .then(res => {
@@ -264,7 +253,7 @@ angular
                 });
         };
 
-        self.assembleParams = () => {
+        self.assembleSearchParams = () => {
             return {
                 creator: self.creatorParam,
                 position: self.locationParam,

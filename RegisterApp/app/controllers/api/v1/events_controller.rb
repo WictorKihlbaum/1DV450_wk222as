@@ -46,9 +46,9 @@ class API::V1::EventsController < API::APIController
     positions = []
 
     if coordinates_is_present
-      positions = Position.near([params[:lat], params[:long]], get_default_distance, :units => :km)
+      positions = Position.near([params[:lat], params[:long]], get_distance, :units => :km)
     else
-      positions = Position.near(params[:address], get_default_distance, :units => :km)
+      positions = Position.near(params[:address], get_distance, :units => :km)
     end
 
     positions.each do |position|
@@ -68,7 +68,7 @@ class API::V1::EventsController < API::APIController
     return true if params[:address].present?
   end
 
-  def get_default_distance
+  def get_distance
     if params[:dist].present?
       return params[:dist]
     else
