@@ -9,13 +9,17 @@ angular
         '$route',
         '$mdToast',
         'auth',
-        'user'
+        'user',
+        '$window'
     ];
 
-    function EventCtrl(eventService, $scope, $mdDialog, $route, $mdToast, auth, user) {
+    function EventCtrl(eventService, $scope, $mdDialog, $route, $mdToast, auth, user, $window) {
 
         const self = this;
-        //self.eventCategories = [];
+        self.selectedMethod;
+        self.readonly = false;
+        self.tags = [];
+        $scope.tagOption = 'NotAllTags';
 
         $scope.searchMethods = [
             'Search nearby events',
@@ -23,14 +27,7 @@ angular
             'Search events by filtering parameters'
         ];
 
-        self.selectedMethod;
-
         $scope.positionOption = 'Address';
-
-        // Checkboxes for Param-searches.
-        //$scope.creatorCB = false;
-        //$scope.categoryCB = false;
-        //$scope.locationCB = false;
 
 
         /* Fills its purpose when editing events.
@@ -45,7 +42,6 @@ angular
             eventService.getAllEvents()
                 .then(result => {
                     const events = result.data.events;
-
                     $scope.events = events;
                     // TODO: Maybe move to service instead.
                     self.saveAllCreators(events);
@@ -235,7 +231,7 @@ angular
 
         $scope.belongsToCurrentUser = event => {
             const email = event.creator.email;
-            if (user.currentUserEmail == email) {
+            if ($window.localStorage['currentUserEmail'] == email) {
                 return true;
             }
         };
@@ -267,6 +263,10 @@ angular
                 position: self.locationParam,
                 category: self.categoryParam
             };
+        };
+
+        self.getEventsByTags = () => {
+            console.log(self.tags);
         };
 
     }

@@ -12,6 +12,16 @@
 
         <md-subheader class="md-no-sticky">Events list</md-subheader>
 
+
+        <!-- TODO: Fix the rest. -->
+        Sort events by:<br />
+
+        <!-- Sort events by newest/oldest first -->
+        <md-radio-group ng-model="eventTimeOption" layout="row">
+            <md-radio-button value="Newest">Newest first</md-radio-button>
+            <md-radio-button value="Oldest">Oldest first</md-radio-button>
+        </md-radio-group>
+
         <!-- List ALL Events -->
         <md-list-item ng-repeat="event in events"
                       ng-click="showEvent(event)">
@@ -143,7 +153,28 @@
     <div flex id="search-by-tags"
          class="search-methods"
          ng-if="selectedMethod.includes('tags')">
-        Search by tags :D
+
+        <h4>Please type in the tags you want to search for.</h4>
+        <md-chips
+                ng-model="event.tags"
+                readonly="event.readonly"
+                placeholder="Enter a tag"
+                delete-button-label="Remove Tag"
+                delete-hint="Press delete to remove tag"
+                secondary-placeholder="+Tag"></md-chips>
+
+        <!-- Sort events by newest/oldest first -->
+        <md-radio-group ng-model="tagOption" layout="column">
+            <md-radio-button value="AllTags">All tags have to be present.</md-radio-button>
+            <md-radio-button value="NotAllTags">At least one tag has to be present.</md-radio-button>
+        </md-radio-group>
+
+        <div>
+            <!-- Search button -->
+            <md-button class="md-raised md-primary" ng-click="event.getEventsByTags()">
+                Search
+            </md-button>
+        </div>
     </div>
 
 

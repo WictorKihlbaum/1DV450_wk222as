@@ -2,9 +2,9 @@ angular
     .module('app')
     .controller('Login', LoginCtrl);
 
-    LoginCtrl.$inject = ['user', 'auth', '$mdToast', '$mdDialog'];
+    LoginCtrl.$inject = ['user', 'auth', '$mdToast', '$mdDialog', '$window'];
 
-    function LoginCtrl(user, auth, $mdToast, $mdDialog) {
+    function LoginCtrl(user, auth, $mdToast, $mdDialog, $window) {
         const self = this;
 
         function isJWTokenRetrieved(res) {
@@ -20,7 +20,7 @@ angular
 
         self.login = () => {
             if (self.email && self.password) {
-                user.currentUserEmail = self.email;
+                $window.localStorage['currentUserEmail'] = self.email;
                 user.login(self.email, self.password)
                     .then(res => {
                         $mdDialog.hide();
