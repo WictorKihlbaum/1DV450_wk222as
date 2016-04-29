@@ -71,6 +71,12 @@ end
     password: 'password'
 )
 
+@creator2 = Creator.create!(
+    name: 'Calle',
+    email: 'calle@gmail.com',
+    password: 'password'
+)
+
 # Events
 @event1 = Event.create!(
     category: 'Paintball',
@@ -93,6 +99,13 @@ end
     position: @position3
 )
 
+@event4 = Event.create!(
+    category: 'Surfing',
+    description: 'Surf desc',
+    creator: @creator2,
+    position: @position1
+)
+
 # Add tags to the events.
 
 # Event #1
@@ -103,12 +116,14 @@ end
 # Event #2
 @event2.tags.push(@tag1)
 
-#Event #3
+# Event #3
 @event3.tags.push(@tag2)
+
+# Event #4
+@event4.tags.push(@tag1)
 
 # Save all events
 @event1.save
 @event2.save
 @event3.save
-
-
+@event4.save

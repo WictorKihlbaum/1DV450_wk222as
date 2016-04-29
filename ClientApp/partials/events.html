@@ -18,7 +18,7 @@
 
             <!-- Edit button/icon for Event -->
             <md-icon class="md-secondary"
-                     ng-if="isAuthed()"
+                     ng-if="isAuthed() && belongsToCurrentUser(event)"
                      ng-click="showEditDialog(event)"
                      aria-label="Edit event"
                      md-svg-icon="editIcon">
@@ -32,7 +32,7 @@
 
             <!-- Delete button/icon for Event -->
             <md-icon class="md-secondary"
-                     ng-if="isAuthed()"
+                     ng-if="isAuthed() && belongsToCurrentUser(event)"
                      ng-click="showDeleteDialog(event)"
                      aria-label="Delete event"
                      md-svg-icon="deleteIcon">

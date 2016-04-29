@@ -8,10 +8,11 @@ angular
         '$mdDialog',
         '$route',
         '$mdToast',
-        'auth'
+        'auth',
+        'user'
     ];
 
-    function EventCtrl(eventService, $scope, $mdDialog, $route, $mdToast, auth) {
+    function EventCtrl(eventService, $scope, $mdDialog, $route, $mdToast, auth, user) {
 
         const self = this;
         //self.eventCategories = [];
@@ -230,6 +231,13 @@ angular
 
         $scope.isAuthed = () => {
             return auth.isAuthed ? auth.isAuthed() : false
+        };
+
+        $scope.belongsToCurrentUser = event => {
+            const email = event.creator.email;
+            if (user.currentUserEmail == email) {
+                return true;
+            }
         };
 
         $scope.getSelectedMethod = () => {

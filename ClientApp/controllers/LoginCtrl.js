@@ -10,10 +10,9 @@ angular
         function isJWTokenRetrieved(res) {
             const token = res.data.jwt ? res.data.jwt : null;
             if (token) {
-                const email = res.config.data.auth.email;
+                self.userEmail = res.config.data.auth.email;
                 user.getAllCreators().then(res2 => {
-                    const creator = res2.data.creators.find(element => element.email == email);
-                    self.username = creator.name;
+                    const creator = res2.data.creators.find(element => element.email == self.userEmail);
                     self.showUserMessage(`Welcome ${creator.name}!`);
                 });
             }
@@ -21,6 +20,7 @@ angular
 
         self.login = () => {
             if (self.email && self.password) {
+                user.currentUserEmail = self.email;
                 user.login(self.email, self.password)
                     .then(res => {
                         $mdDialog.hide();
