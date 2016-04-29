@@ -24,15 +24,21 @@
             </section>
 
             <section>
-                <h4>Tags</h4>
-                <span ng-repeat="tag in event.event.tags">
+                <h4>Tags ({{event.event.tags.length}})</h4>
+                <span ng-repeat="tag in event.event.tags"
+                      ng-if="event.event.tags.length > 0">
                     #{{tag.name}}
+                </span>
+                <span ng-if="event.event.tags.length == 0">
+                    This event has no tags.
                 </span>
             </section>
 
             <section>
                 <h4>Location</h4>
-                {{event.event.position.address}}
+                <strong>Address</strong>: {{event.event.position.address}}<br />
+                <strong>Latitude</strong>: {{event.event.position.latitude}}<br />
+                <strong>Longitude</strong>: {{event.event.position.longitude}}
             </section>
 
             <section>

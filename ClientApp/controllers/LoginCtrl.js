@@ -7,9 +7,16 @@ angular
     function LoginCtrl(user, auth, $mdToast, $mdDialog) {
         const self = this;
 
-        function showWelcomeMessage(res) {
+        function isJWTokenRetrieved(res) {
             const token = res.data.jwt ? res.data.jwt : null;
-            if (token) self.showUserMessage('Welcome!');
+            if (token) {
+                const email = res.config.data.auth.email;
+                user.getAllCreators().then(res2 => {
+                    const creator = res2.data.creators.find(element => element.email == email);
+                    self.username = creator.name;
+                    self.showUserMessage(`Welcome ${creator.name}!`);
+                });
+            }
         }
 
         self.login = () => {
@@ -17,7 +24,7 @@ angular
                 user.login(self.email, self.password)
                     .then(res => {
                         $mdDialog.hide();
-                        showWelcomeMessage(res);
+                        isJWTokenRetrieved(res);
                     });
             }
         };
