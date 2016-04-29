@@ -4,7 +4,7 @@ class Event < ActiveRecord::Base
 
   belongs_to :creator
   belongs_to :position
-  #has_and_belongs_to_many :tags
+  has_and_belongs_to_many :tags
 
   validates :category, presence: true, length: { maximum: 15 }
   validates :description, presence: true, length: { maximum: 100 }

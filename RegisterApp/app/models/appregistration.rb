@@ -4,6 +4,7 @@ class Appregistration < ActiveRecord::Base
   before_create { self.apikey = self.generate_apikey }
   validates :user_id, presence: true
   validates :content, presence: true, length: { maximum: 50 }
+  #validates :apikey, presence: true, uniqueness: true
 
   def generate_apikey
     #begin

@@ -24,6 +24,13 @@
             </section>
 
             <section>
+                <h4>Tags</h4>
+                <span ng-repeat="tag in event.event.tags">
+                    #{{tag.name}}
+                </span>
+            </section>
+
+            <section>
                 <h4>Location</h4>
                 {{event.event.position.address}}
             </section>

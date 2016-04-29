@@ -50,65 +50,65 @@ end
   end
 end
 
+#-----------------------
+# Backend API Seeds
+#-----------------------
 
-Position.create!(
-    latitude: 56.6666667,
-    longitude: 16.3666667
-)
+# Positions
+@position1 = Position.create!(latitude: 56.6666667, longitude: 16.3666667)
+@position2 = Position.create!(latitude: 56.668213, longitude: 16.356047)
+@position3 = Position.create!(latitude: 56.665100, longitude: 16.319741)
 
-Position.create!(
-    latitude: 56.668213,
-    longitude: 16.356047
-)
+# Tags
+@tag1 = Tag.create!(name: 'Fun')
+@tag2 = Tag.create!(name: 'Great')
+@tag3 = Tag.create!(name: 'Meh')
 
-Position.create!(
-    latitude: 56.665100,
-    longitude: 16.319741
-)
-
-Tag.create!(
-    name: 'Paintball',
-)
-
-Creator.create!(
+# Creators
+@creator1 = Creator.create!(
     name: 'Wicce',
     email: 'wictor@gmail.com',
     password: 'password'
 )
 
-10.times do |n|
-  Event.create!(
-      category: "Paintball#{n+1}",
-      description: 'Test your skills against your friends in Kalmar paintball-arena!',
-      creator_id: 1,
-      position_id: 1
-  )
-end
-
-Event.create!(
-    category: "Paintball",
-    description: 'Test your skills against your friends in Kalmar paintball-arena!',
-    creator_id: 1,
-    position_id: 1
+# Events
+@event1 = Event.create!(
+    category: 'Paintball',
+    description: 'Paintball desc',
+    creator: @creator1,
+    position: @position1
 )
 
-Event.create!(
-    category: "Test Event 2",
-    description: 'Event event 2',
-    creator_id: 1,
-    position_id: 1
+@event2 = Event.create!(
+    category: 'Treasure hunt',
+    description: 'Treasure desc',
+    creator: @creator1,
+    position: @position2
 )
 
-Event.create!(
-    category: "Winetasting",
-    description: 'Taste all our wines for a cheap price!',
-    creator_id: 1,
-    position_id: 2
+@event3 = Event.create!(
+    category: 'Horse riding',
+    description: 'Horse desc',
+    creator: @creator1,
+    position: @position3
 )
 
-Event.create!(
-    category: "Test Event",
-    description: 'Taste all our wines for a cheap price!',
-    creator_id: 1,
-    position_id: 3
-)
+# Add tags to the events.
+
+# Event #1
+@event1.tags.push(@tag1)
+@event1.tags.push(@tag2)
+@event1.tags.push(@tag3)
+
+# Event #2
+@event2.tags.push(@tag1)
+
+#Event #3
+@event3.tags.push(@tag2)
+
+# Save all events
+@event1.save
+@event2.save
+@event3.save
+
+
