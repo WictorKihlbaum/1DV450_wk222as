@@ -19,7 +19,7 @@ angular
         self.selectedMethod;
         self.readonly = false;
         self.tags = [];
-        $scope.tagOption = 'NotAllTags';
+        self.tagOption = 'NotAllTags';
 
         $scope.searchMethods = [
             'Search nearby events',
@@ -43,6 +43,7 @@ angular
                 .then(result => {
                     const events = result.data.events;
                     $scope.events = events;
+                    self.eventsSaved = events;
                     // TODO: Maybe move to service instead.
                     self.saveAllCreators(events);
                     self.saveAllCategories(events);
@@ -266,7 +267,43 @@ angular
         };
 
         self.getEventsByTags = () => {
-            console.log(self.tags);
+            $scope.events = self.eventsSaved;
+            let allTagsPresent = [];
+            let notAllTagsPresent = [];
+
+            for (let event of $scope.events) {
+                let tagsFound = 0;
+
+                for (let tag of self.tags) {
+                    if (event.tags.find(element => element.name == tag)) {
+                        tagsFound += 1;
+                    }
+                }
+
+                if (tagsFound > 0) {
+                    const amountOfTags = self.tags.length;
+
+                    if (self.tagOption == 'AllTags') {
+                        if (amountOfTags == tagsFound) {
+                            allTagsPresent.push(event);
+                        }
+                    } else if (self.tagOption == 'NotAllTags') {
+                        notAllTagsPresent.push(event);
+                    }
+                }
+            }
+
+            if (self.tagOption == 'AllTags') {
+                $scope.events = allTagsPresent;
+            } else if (self.tagOption == 'NotAllTags') {
+                $scope.events = notAllTagsPresent;
+            }
+
+            console.log('-------All tags-------');
+            console.log(allTagsPresent);
+            console.log('-------Not All tags-------');
+            console.log(notAllTagsPresent);
+
         };
 
     }
