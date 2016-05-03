@@ -20,7 +20,12 @@ class API::V1::EventsController < API::APIController
   def index
 
     if coordinates_is_present || address_is_present
-      render_response(@nearby_events, :ok)
+      if @nearby_events.empty?
+        error = ErrorMessage.new(RESOURCES_NOT_FOUND)
+        render_response(error, :not_found)
+      else
+        render_response(@nearby_events, :ok)
+      end
     else
       events = Event.filter(
           params.slice(
@@ -43,20 +48,15 @@ class API::V1::EventsController < API::APIController
 
   def get_nearby_events
     @nearby_events = []
-    positions = []
 
     if coordinates_is_present
-      positions = Position.near([params[:lat], params[:long]], get_distance, :units => :km)
+      @positions = Position.near([params[:lat], params[:long]], get_distance, :units => :km)
     else
-      positions = Position.near(params[:address], get_distance, :units => :km)
+      @positions = Position.near(params[:address], get_distance, :units => :km)
     end
 
-    positions.each do |position|
+    @positions.each do |position|
       @nearby_events.push(position.events)
-    end
-
-    if @nearby_events.empty?
-      @nearby_events = Event.all
     end
   end
 

@@ -92,17 +92,20 @@ angular
 
         self.getNearbyEvents = () => {
             let params = self.assemblePositionParams();
-            eventService.getNearbyEvents(params)
-                .then(res => {
-                    let events = [];
-                    // Sometimes more than one array is returned with events.
-                    for (let eventArray of res.data.events) {
-                        for (let event of eventArray) {
-                            events.push(event);
+
+            if (params.address || params.latitude && params.longitude) {
+                eventService.getNearbyEvents(params)
+                    .then(res => {
+                        let events = [];
+
+                        for (let eventsArray of res.data.events) {
+                            for (let event of eventsArray) {
+                                events.push(event);
+                            }
                         }
-                    }
-                    $scope.events = events;
-                });
+                        $scope.events = events;
+                    });
+            }
         };
 
         self.assemblePositionParams = () => {

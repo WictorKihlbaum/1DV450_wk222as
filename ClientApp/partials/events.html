@@ -1,7 +1,41 @@
-<div id="events-container" layout="row">
+<!-- TODO: Update event editing -->
+<!-- TODO: BackendAPI check if position exist -->
 
-    <!-- Event list -->
-    <md-list id="events-list" layout-align="center start">
+<!-- Google Map -->
+<ng-map center="sweden"
+        zoom="6"
+        id="main-map">
+
+    <marker ng-repeat="ev in events"
+            position="{{ev.position.address}}">
+    </marker>
+</ng-map>
+
+
+<div id="events-container">
+
+    <div layout="row"
+         layout-align="space-between center"
+         class="padding-class"
+         id="events-list-panel">
+
+        <!-- Sort events by newest/oldest first -->
+        <md-radio-group ng-model="event.eventSortOption"
+                        ng-change="event.eventSortChange()"
+                        layout="row"
+                        id="sort-events-radiogroup">
+
+            <span id="sort-span">Sort events by:</span>
+
+            <md-radio-button value="Newest">
+                Newest first
+            </md-radio-button>
+
+            <md-radio-button value="Oldest">
+                Oldest first
+            </md-radio-button>
+
+        </md-radio-group>
 
         <!-- Create button for new Event -->
         <md-button class="md-raised md-accent"
@@ -9,18 +43,14 @@
                    ng-if="isAuthed()">
             Create new event!
         </md-button>
+    </div>
 
-        <md-subheader class="md-no-sticky">Events list</md-subheader>
+    <!-- Events list -->
+    <md-list id="events-list" layout-align="center start">
 
-        <!-- Sort events by newest/oldest first -->
-        Sort events by:<br />
-        <md-radio-group ng-model="event.eventSortOption"
-                        ng-change="event.eventSortChange()"
-                        layout="row">
-
-            <md-radio-button value="Newest">Newest first</md-radio-button>
-            <md-radio-button value="Oldest">Oldest first</md-radio-button>
-        </md-radio-group>
+        <md-subheader class="md-no-sticky">
+            Events list
+        </md-subheader>
 
         <!-- List ALL Events -->
         <md-list-item ng-repeat="event in events"
@@ -62,23 +92,13 @@
     </md-list>
 </div>
 
-<div layout="column">
-
-    <!-- Google Map -->
-    <ng-map center="sweden"
-            zoom="6"
-            id="main-map">
-
-        <marker ng-repeat="ev in events"
-                position="{{ev.position.address}}">
-        </marker>
-    </ng-map>
-
+<div>
     <!-- Search Methods Field -->
     <div id="choose-search-method"
          class="search-methods" flex>
 
-        <h1 class="md-headline" id="search-methods-topic">
+        <h1 class="md-title"
+            id="search-methods-topic">
             Search events by a specific method
         </h1>
 
@@ -110,7 +130,7 @@
     <div ng-include src="'partials/search-methods/tags.html'"
          ng-if="selectedMethod.includes('tags')"></div>
 
-    <!-- Search Events by Params -->
+    <!-- Search Events by Parameters -->
     <div ng-include src="'partials/search-methods/params.html'"
          ng-if="selectedMethod.includes('parameters')"></div>
 

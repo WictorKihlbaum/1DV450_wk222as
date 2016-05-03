@@ -32,5 +32,4 @@ angular
         $mdIconProvider
             .icon('editIcon', 'assets/img/edit.svg')
             .icon('deleteIcon', 'assets/img/delete.svg')
-            .icon('markerIcon', 'assets/img/marker.svg')
     });

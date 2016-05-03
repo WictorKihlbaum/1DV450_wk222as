@@ -1,5 +1,9 @@
+html {
+    background-color: #89C4F4;
+}
+
 body {
-    background-color: #CCC;
+    background-color: #89C4F4;
 }
 
 #toolbar-menu {
@@ -23,7 +27,7 @@ body {
 }
 
 h4 {
-    margin: 5px 0;
+    margin: 15px 0;
 }
 
 section {
@@ -31,16 +35,13 @@ section {
 }
 
 #main-container {
-    background-color: aquamarine;
+    margin: 0 auto;
+    max-width: 960px;
 }
 
 #events-container {
-    background-color: #EEE;
-    float: left;
-}
-
-#events-list {
-    background-color: antiquewhite;
+    /*background-color: #EEE;*/
+    /*float: left;*/
 }
 
 md-toast {
@@ -55,16 +56,6 @@ md-toast.md-success-toast-theme .md-toast-content {
 md-toast.md-notify-toast-theme .md-toast-content {
     background-color: #E4F1FE;
     color: #4183D7;
-}
-
-md-list {
-    width: 300px;
-}
-
-md-list-item {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
 }
 
 md-list-item:nth-child(odd) {
@@ -96,12 +87,7 @@ input[type="password"] {
 }
 
 #main-map {
-    height: 500px;
-}
-
-#sub-map {
     height: 200px;
-    background-color: #C8F7C5;
 }
 
 #search-field {
@@ -118,6 +104,20 @@ md-dialog-content {
 
 .search-methods {
     border: 1px solid black;
-    margin: 5px;
     padding: 20px !important;
+    margin-bottom: 15px;
+}
+
+#sort-events-radiogroup {
+    margin-right: 10px;
+}
+
+#sort-span {
+    margin-right: 5px;
+}
+
+#events-list-panel {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid black;
 }
