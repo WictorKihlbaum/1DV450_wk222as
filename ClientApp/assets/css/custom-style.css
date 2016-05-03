@@ -87,7 +87,8 @@ input[type="password"] {
 }
 
 #main-map {
-    height: 200px;
+    margin-top: 10px;
+    max-height: 450px;
 }
 
 #search-field {
@@ -103,7 +104,7 @@ md-dialog-content {
 }
 
 .search-methods {
-    border: 1px solid black;
+    background-color: white;
     padding: 20px !important;
     margin-bottom: 15px;
 }
@@ -112,12 +113,35 @@ md-dialog-content {
     margin-right: 10px;
 }
 
+#tags-radiogroup {
+    margin-top: 15px;
+}
+
 #sort-span {
     margin-right: 5px;
 }
 
 #events-list-panel {
+    background-color: white;
     margin-top: 10px;
     padding: 10px;
-    border: 1px solid black;
+}
+
+.map-custom-marker {
+    width: 25px;
+}
+
+.map-custom-marker:hover {
+    cursor: pointer;
+}
+
+#hejsan {
+    position: absolute;
+    padding: 10px;
+    border-radius: 12px;
+    font-size: 10px;
+    width: 100px;
+    height: 100px;
+    z-index: 100;
+    background-color: white;
 }

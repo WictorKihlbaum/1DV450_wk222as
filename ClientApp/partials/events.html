@@ -3,12 +3,18 @@
 
 <!-- Google Map -->
 <ng-map center="sweden"
-        zoom="6"
+        zoom="5"
         id="main-map">
 
-    <marker ng-repeat="ev in events"
-            position="{{ev.position.address}}">
-    </marker>
+    <custom-marker ng-repeat="ev in events"
+                   on-click="showEventFromMap(ev)"
+                   position="{{ev.position.address}}">
+
+        <img src="assets/img/map-marker.png"
+             class="map-custom-marker"
+             title="{{ev.category}} (Click to open info)" />
+    </custom-marker>
+
 </ng-map>
 
 

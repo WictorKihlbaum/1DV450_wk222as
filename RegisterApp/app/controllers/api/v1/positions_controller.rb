@@ -18,9 +18,23 @@ class API::V1::PositionsController < API::APIController
     if position.save
       render_response(position, :created)
     else
-      error = { message: 'Position was not created.', errors: position.errors }
-      render_response(error, :unprocessable_entity)
+      oldPosition = Position.find_by_address(position.address)
+
+      if oldPosition
+        message = {
+            message: 'Position already exist in database.',
+            position: oldPosition
+        }
+        render_response(message, :ok)
+      else
+        error = {
+            message: 'Position was not created.',
+            errors: position.errors
+        }
+        render_response(error, :unprocessable_entity)
+      end
     end
+
   end
 
   def set_position

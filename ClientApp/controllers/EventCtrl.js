@@ -10,10 +10,11 @@ angular
         '$mdToast',
         'auth',
         'user',
-        '$window'
+        '$window',
+        'NgMap'
     ];
 
-    function EventCtrl(eventService, $scope, $mdDialog, $route, $mdToast, auth, user, $window) {
+    function EventCtrl(eventService, $scope, $mdDialog, $route, $mdToast, auth, user, $window, NgMap) {
 
         const self = this;
         self.selectedMethod;
@@ -29,6 +30,11 @@ angular
             'Search events by filtering parameters'
         ];
 
+
+        /*NgMap.getMap().then(function(map) {
+            self.map = map;
+            console.log(map);
+        });*/
 
         /* Fills its purpose when editing events.
            This enables the edit-fields to be filled with the old values. */
@@ -129,6 +135,27 @@ angular
             });
         };
 
+        $scope.showEventFromMap = (mouseEvent, event) => {
+
+            /*let div = document.createElement('div');
+            div.id = 'hejsan';
+            div.style.position = "absolute";
+            div.style.left = mouseEvent.screenX - 50 + 'px';
+            div.style.top = mouseEvent.clientY - 100 + 'px';
+
+            let span = document.createElement('span');
+            span.textContent = 'Category: ' + event.category + 'Creator: ' + event.creator.name;
+            div.appendChild(span);
+
+            document.getElementsByTagName('body')[0].appendChild(div);*/
+
+            $scope.showEvent(event);
+        };
+
+        /*$scope.hideEventFromMap = () => {
+            document.getElementById('hejsan').remove();
+        };*/
+
         $scope.showCreateDialog = () => {
             $mdDialog.show({
                 controller: 'Event',
@@ -144,8 +171,9 @@ angular
             // First create the new position.
             eventService.createPosition(params)
                 .then(res => {
+                    console.log(res);
                     // Then create the new event when the position ID has been returned.
-                    if (res.status == 201) {
+                    if (res.status == 200 || res.status == 201) {
                         params['position_id'] = res.data.position.id;
                         eventService.createEvent(params)
                             .then(res => {
