@@ -1,7 +1,7 @@
-<!-- Search nearby events -->
+<!-- SEARCH NEARBY EVENTS -->
 
-<div flex id="search-nearby-places"
-     class="search-methods">
+<div id="search-nearby-places"
+     class="search-methods" flex>
 
     <!-- Choose position input method -->
     <md-radio-group ng-model="positionOption" layout="row">
@@ -18,7 +18,9 @@
                ng-model="event.address" />
     </md-input-container>
 
-    <div id="coordinates" ng-if="positionOption == 'Coordinates'">
+    <div id="coordinates"
+         ng-if="positionOption == 'Coordinates'">
+
         <!-- Latitude input -->
         <md-input-container>
             <label>Latitude</label>
@@ -50,7 +52,9 @@
     <div>
         <!-- Search button -->
         <md-button class="md-raised md-primary"
-                   ng-click="event.getNearbyEvents()">Search</md-button>
+                   ng-click="event.getNearbyEvents()">
+            Search
+        </md-button>
     </div>
 
 </div>

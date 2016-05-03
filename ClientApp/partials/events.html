@@ -12,11 +12,12 @@
 
         <md-subheader class="md-no-sticky">Events list</md-subheader>
 
-
-        Sort events by:<br />
-
         <!-- Sort events by newest/oldest first -->
-        <md-radio-group ng-model="event.eventSortOption" ng-change="event.eventSortChange()" layout="row">
+        Sort events by:<br />
+        <md-radio-group ng-model="event.eventSortOption"
+                        ng-change="event.eventSortChange()"
+                        layout="row">
+
             <md-radio-button value="Newest">Newest first</md-radio-button>
             <md-radio-button value="Oldest">Oldest first</md-radio-button>
         </md-radio-group>
@@ -52,30 +53,47 @@
             </md-icon>
 
             <div class="event-child">
-                {{ event.id }} | {{ event.category }}
+                {{ event.id }} |
+                {{ event.category }} |
+                {{event.creator.name}}'s
             </div>
 
         </md-list-item>
-
     </md-list>
-
 </div>
 
 <div layout="column">
 
     <!-- Google Map -->
-    <ng-map center="sweden" zoom="6" id="main-map">
-        <marker ng-repeat="ev in events" position="{{ev.position.address}}"></marker>
+    <ng-map center="sweden"
+            zoom="6"
+            id="main-map">
+
+        <marker ng-repeat="ev in events"
+                position="{{ev.position.address}}">
+        </marker>
     </ng-map>
 
     <!-- Search Methods Field -->
-    <div flex id="choose-search-method" class="search-methods">
-        <h1 class="md-headline" id="search-methods-topic">Search events by a specific method</h1>
+    <div id="choose-search-method"
+         class="search-methods" flex>
+
+        <h1 class="md-headline" id="search-methods-topic">
+            Search events by a specific method
+        </h1>
+
         <md-input-container>
             <label>Search methods</label>
-            <md-select ng-model="selectedMethod" md-selected-text="getSelectedMethod()">
+
+            <md-select ng-model="selectedMethod"
+                       md-selected-text="getSelectedMethod()">
+
                 <md-optgroup label="methods">
-                    <md-option ng-value="method" ng-repeat="method in searchMethods">{{method}}</md-option>
+
+                    <md-option ng-value="method"
+                               ng-repeat="method in searchMethods">
+                        {{method}}
+                    </md-option>
                 </md-optgroup>
             </md-select>
         </md-input-container>

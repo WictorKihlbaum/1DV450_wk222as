@@ -1,6 +1,7 @@
-<!-- Search events by Tags -->
+<!-- SEARCH EVENTS BY TAGS -->
 
-<div flex id="search-by-tags" class="search-methods">
+<div id="search-by-tags"
+     class="search-methods" flex>
 
     <h4>Please type in the tags you want to search events by.</h4>
 
@@ -13,14 +14,23 @@
             secondary-placeholder="+Tag"></md-chips>
 
     <!-- How to filter by Tags -->
-    <md-radio-group ng-model="event.tagOption" layout="column">
-        <md-radio-button value="AllTags">All tags have to be present in event.</md-radio-button>
-        <md-radio-button value="NotAllTags">At least one tag has to be present in event.</md-radio-button>
+    <md-radio-group ng-model="event.tagOption"
+                    layout="column">
+
+        <md-radio-button value="AllTags">
+            All tags have to be present in event.
+        </md-radio-button>
+
+        <md-radio-button value="NotAllTags">
+            At least one tag has to be present in event.
+        </md-radio-button>
+
     </md-radio-group>
 
     <div>
         <!-- Search button -->
-        <md-button class="md-raised md-primary" ng-click="event.getEventsByTags()">
+        <md-button class="md-raised md-primary"
+                   ng-click="event.getEventsByTags()">
             Search
         </md-button>
     </div>
