@@ -2,6 +2,10 @@ class API::V1::PositionsController < API::APIController
 
   before_action :set_position, only: [:show]
 
+  # Messages
+  ALREADY_EXIST = 'Position already exist in database.'
+  NOT_CREATED = 'Position was not created.'
+
 
   def index
     positions = Position.limit(@limit).offset(@offset)
@@ -21,19 +25,16 @@ class API::V1::PositionsController < API::APIController
       oldPosition = Position.find_by_address(position.address)
 
       if oldPosition
-        message = {
-            message: 'Position already exist in database.',
-            position: oldPosition
-        }
+        message = { message: ALREADY_EXIST, position: oldPosition }
         render_response(message, :ok)
       else
-        error = {
-            message: 'Position was not created.',
-            errors: position.errors
-        }
+        error = { message: NOT_CREATED, errors: position.errors }
         render_response(error, :unprocessable_entity)
       end
     end
+  end
+
+  def update
 
   end
 

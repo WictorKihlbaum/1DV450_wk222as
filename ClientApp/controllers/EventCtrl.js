@@ -42,6 +42,9 @@ angular
             self.event = eventService.event;
             self.category = eventService.event.category;
             self.description = eventService.event.description;
+            self.address = eventService.event.position.address;
+            self.latitude = eventService.event.position.latitude;
+            self.longitude = eventService.event.position.longitude;
         }
 
         self.getAllEvents = () => {
@@ -136,25 +139,8 @@ angular
         };
 
         $scope.showEventFromMap = (mouseEvent, event) => {
-
-            /*let div = document.createElement('div');
-            div.id = 'hejsan';
-            div.style.position = "absolute";
-            div.style.left = mouseEvent.screenX - 50 + 'px';
-            div.style.top = mouseEvent.clientY - 100 + 'px';
-
-            let span = document.createElement('span');
-            span.textContent = 'Category: ' + event.category + 'Creator: ' + event.creator.name;
-            div.appendChild(span);
-
-            document.getElementsByTagName('body')[0].appendChild(div);*/
-
             $scope.showEvent(event);
         };
-
-        /*$scope.hideEventFromMap = () => {
-            document.getElementById('hejsan').remove();
-        };*/
 
         $scope.showCreateDialog = () => {
             $mdDialog.show({
@@ -171,7 +157,6 @@ angular
             // First create the new position.
             eventService.createPosition(params)
                 .then(res => {
-                    console.log(res);
                     // Then create the new event when the position ID has been returned.
                     if (res.status == 200 || res.status == 201) {
                         params['position_id'] = res.data.position.id;
@@ -211,15 +196,34 @@ angular
         };
 
         self.editEvent = () => {
-            eventService.editEvent(self.category, self.description)
+            let params = self.assembleEditParams();
+
+            eventService.createPosition(params)
                 .then(res => {
-                    if (res.status == 200) {
-                        self.closeEventDialog();
-                        $route.reload();
-                        const message = 'Event has been successfully updated!';
-                        self.showSuccessMessage(message);
+                    if (res.status == 200 || res.status == 201) {
+                        params['position_id'] = res.data.position.id;
+
+                        eventService.editEvent(params)
+                            .then(res => {
+                                if (res.status == 200) {
+                                    self.closeEventDialog();
+                                    $route.reload();
+                                    const message = 'Event has been successfully updated!';
+                                    self.showSuccessMessage(message);
+                                }
+                            });
                     }
-                })
+                });
+        };
+
+        self.assembleEditParams = () => {
+            return {
+                category: self.category,
+                description: self.description,
+                address: self.address,
+                latitude: self.latitude,
+                longitude: self.longitude
+            }
         };
 
         $scope.showDeleteDialog = event => {

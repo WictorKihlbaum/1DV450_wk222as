@@ -35,16 +35,16 @@ angular
             return $http(req);
         };
 
-        self.editEvent = (category, description) => {
+        self.editEvent = params => {
             const url = API.baseURL + API.eventsPath + '/' + self.event.id;
 
             const data = {
                 event: {
                     'id': self.event.id,
-                    'category': category,
-                    'description': description,
-                    'creator_id': 1,
-                    'position_id': 1
+                    'category': params.category,
+                    'description': params.description,
+                    'creator_id': 1, //TODO: Fix ID from current user.
+                    'position_id': params.position_id
                 }
             };
 
@@ -128,7 +128,6 @@ angular
                     'X-APIKey': API.apiKey
                 }
             };
-            console.log($http(req));
             return $http(req);
         };
 
