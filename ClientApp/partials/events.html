@@ -13,11 +13,10 @@
         <md-subheader class="md-no-sticky">Events list</md-subheader>
 
 
-        <!-- TODO: Fix the rest. -->
         Sort events by:<br />
 
         <!-- Sort events by newest/oldest first -->
-        <md-radio-group ng-model="eventTimeOption" layout="row">
+        <md-radio-group ng-model="event.eventSortOption" ng-change="event.eventSortChange()" layout="row">
             <md-radio-button value="Newest">Newest first</md-radio-button>
             <md-radio-button value="Oldest">Oldest first</md-radio-button>
         </md-radio-group>
@@ -37,7 +36,6 @@
                 <md-tooltip md-direction="top">
                     Edit event
                 </md-tooltip>
-
             </md-icon>
 
             <!-- Delete button/icon for Event -->
@@ -51,7 +49,6 @@
                 <md-tooltip md-direction="top">
                     Delete event
                 </md-tooltip>
-
             </md-icon>
 
             <div class="event-child">
@@ -66,15 +63,10 @@
 
 <div layout="column">
 
-
     <!-- Google Map -->
     <ng-map center="sweden" zoom="6" id="main-map">
-        <marker ng-repeat="ev in events"
-                position="{{ev.position.address}}"></marker>
+        <marker ng-repeat="ev in events" position="{{ev.position.address}}"></marker>
     </ng-map>
-
-
-    <!-- TODO: Implement error handling for all search methods. -->
 
     <!-- Search Methods Field -->
     <div flex id="choose-search-method" class="search-methods">
@@ -89,155 +81,19 @@
         </md-input-container>
     </div>
 
-    <!-- Search Nearby places -->
+    <!-- TODO: Implement error handling for all search methods. -->
+    <!-- SEARCH METHODS PARTIALS -->
 
-    <div flex id="search-nearby-places"
-         class="search-methods"
-         ng-if="selectedMethod.includes('nearby')">
+    <!-- Search Nearby Events -->
+    <div ng-include src="'partials/search-methods/nearby.html'"
+         ng-if="selectedMethod.includes('nearby')"></div>
 
-        <!-- Choose position input method -->
-        <md-radio-group ng-model="positionOption" layout="row">
-            <md-radio-button value="Address">Address</md-radio-button>
-            <md-radio-button value="Coordinates">Latitude & Longitude</md-radio-button>
-        </md-radio-group>
+    <!-- Search Events by Tags -->
+    <div ng-include src="'partials/search-methods/tags.html'"
+         ng-if="selectedMethod.includes('tags')"></div>
 
-        <!-- Address input field -->
-        <md-input-container ng-if="positionOption =='Address'">
-            <label>Address</label>
-            <input type="text"
-                   name="addressField"
-                   aria-label="Fill in address"
-                   ng-model="event.address" />
-        </md-input-container>
-
-        <div id="coordinates" ng-if="positionOption == 'Coordinates'">
-            <!-- Latitude input -->
-            <md-input-container>
-                <label>Latitude</label>
-                <input type="text"
-                       name="latitudeField"
-                       aria-label="Fill in latitude"
-                       ng-model="event.latitude" />
-            </md-input-container>
-
-            <!-- Longitude input -->
-            <md-input-container>
-                <label>Longitude</label>
-                <input type="text"
-                       name="longitudeField"
-                       aria-label="Fill in longitude"
-                       ng-model="event.longitude" />
-            </md-input-container>
-        </div>
-
-        <!-- Search distance -->
-        <md-input-container>
-            <label>Search distance (Km)</label>
-            <input type="text"
-                   name="distanceField"
-                   aria-label="Fill in distance"
-                   ng-model="event.distance" />
-        </md-input-container>
-
-        <div>
-            <!-- Search button -->
-            <md-button class="md-raised md-primary"
-                       ng-click="event.getNearbyEvents()">Search</md-button>
-        </div>
-
-    </div>
-
-
-    <!-- Search by Tags -->
-
-    <div flex id="search-by-tags"
-         class="search-methods"
-         ng-if="selectedMethod.includes('tags')">
-
-        <h4>Please type in the tags you want to search events by.</h4>
-        <md-chips
-                ng-model="event.tags"
-                readonly="event.readonly"
-                placeholder="Enter a tag"
-                delete-button-label="Remove Tag"
-                delete-hint="Press delete to remove tag"
-                secondary-placeholder="+Tag"></md-chips>
-
-        <!-- How to filter by Tags -->
-        <md-radio-group ng-model="event.tagOption" layout="column">
-            <md-radio-button value="AllTags">All tags have to be present in event.</md-radio-button>
-            <md-radio-button value="NotAllTags">At least one tag has to be present in event.</md-radio-button>
-        </md-radio-group>
-
-        <div>
-            <!-- Search button -->
-            <md-button class="md-raised md-primary" ng-click="event.getEventsByTags()">
-                Search
-            </md-button>
-        </div>
-    </div>
-
-
-    <!-- Param search -->
-
-    <div flex id="search-by-params"
-         class="search-methods"
-         ng-if="selectedMethod.includes('parameters')">
-
-        <h4 id="param-search-topic">
-            Choose the parameter(s) you want to include in your search
-        </h4>
-
-        <!-- Checkboxes for Params -->
-        <div>
-            <md-checkbox ng-model="creatorCB" aria-label="Creator checkbox">
-                Creator
-            </md-checkbox>
-
-            <md-checkbox ng-model="categoryCB" aria-label="Category checkbox">
-                Category
-            </md-checkbox>
-
-            <md-checkbox ng-model="locationCB" aria-label="Location checkbox">
-                Location
-            </md-checkbox>
-        </div>
-
-        <!-- Creator Param Dropdownlist -->
-        <md-input-container ng-if="creatorCB" class="md-block" flex-gt-sm>
-            <label>Creator</label>
-            <md-select ng-model="event.creatorParam">
-                <md-option ng-repeat="creator in creators" value="{{creator.id}}">
-                    {{creator.name}}
-                </md-option>
-            </md-select>
-        </md-input-container>
-
-        <!-- Category Param Dropdownlist -->
-        <md-input-container ng-if="categoryCB" class="md-block" flex-gt-sm>
-            <label>Category</label>
-            <md-select ng-model="event.categoryParam">
-                <md-option ng-repeat="category in categories" value="{{category}}">
-                    {{category}}
-                </md-option>
-            </md-select>
-        </md-input-container>
-
-        <!-- Position Param Dropdownlist-->
-        <md-input-container ng-if="locationCB" class="md-block" flex-gt-sm>
-            <label>Location</label>
-            <md-select ng-model="event.locationParam">
-                <md-option ng-repeat="location in locations" value="{{location.id}}">
-                    {{location.address}}
-                </md-option>
-            </md-select>
-        </md-input-container>
-
-        <!-- Search button -->
-        <md-button class="md-raised md-primary" ng-click="event.getEventsByParams()">
-            Search
-        </md-button>
-
-    </div>
+    <!-- Search Events by Params -->
+    <div ng-include src="'partials/search-methods/params.html'"
+         ng-if="selectedMethod.includes('parameters')"></div>
 
 </div>

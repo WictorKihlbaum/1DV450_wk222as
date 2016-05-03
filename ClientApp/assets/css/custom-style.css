@@ -52,6 +52,11 @@ md-toast.md-success-toast-theme .md-toast-content {
     color: #26A65B;
 }
 
+md-toast.md-notify-toast-theme .md-toast-content {
+    background-color: #E4F1FE;
+    color: #4183D7;
+}
+
 md-list {
     width: 300px;
 }

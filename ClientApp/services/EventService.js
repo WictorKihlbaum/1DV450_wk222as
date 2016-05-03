@@ -120,14 +120,15 @@ angular
                 method: 'GET',
                 url: API.baseURL + API.eventsPath,
                 params: {
-                    creator_id: params.creator,
-                    position_id: params.position,
+                    creator: params.creator,
+                    position: params.position,
                     category: params.category
                 },
                 headers: {
                     'X-APIKey': API.apiKey
                 }
             };
+            console.log($http(req));
             return $http(req);
         };
 

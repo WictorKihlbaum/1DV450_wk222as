@@ -20,14 +20,14 @@ angular
         self.readonly = false;
         self.tags = [];
         self.tagOption = 'NotAllTags';
+        self.eventSortOption = 'Newest';
+        $scope.positionOption = 'Address';
 
         $scope.searchMethods = [
             'Search nearby events',
             'Search events by tags',
             'Search events by filtering parameters'
         ];
-
-        $scope.positionOption = 'Address';
 
 
         /* Fills its purpose when editing events.
@@ -47,7 +47,7 @@ angular
                     // TODO: Maybe move to service instead.
                     self.saveAllCreators(events);
                     self.saveAllCategories(events);
-                    self.saveAllLocations(events);
+                    self.saveAllPositions(events);
                 });
         };
         self.getAllEvents();
@@ -74,12 +74,12 @@ angular
             $scope.categories = categories;
         };
 
-        self.saveAllLocations = events => {
-            let locations = [];
+        self.saveAllPositions = events => {
+            let positions = [];
 
             for (let event of events) {
-                if (!locations.find(element => element.id == event.position.id)) {
-                    locations.push({
+                if (!positions.find(element => element.id == event.position.id)) {
+                    positions.push({
                         id: event.position.id,
                         address: event.position.address,
                         latitude: event.position.latitude,
@@ -87,7 +87,7 @@ angular
                     });
                 }
             }
-            $scope.locations = locations;
+            $scope.positions = positions;
         };
 
         self.getNearbyEvents = () => {
@@ -226,6 +226,16 @@ angular
             );
         };
 
+        self.showNotifyMessage = message => {
+            $mdToast.show(
+                $mdToast.simple()
+                    .textContent(message)
+                    .position('top')
+                    .theme('notify-toast')
+                    .hideDelay(5000)
+            );
+        };
+
         $scope.isAuthed = () => {
             return auth.isAuthed ? auth.isAuthed() : false
         };
@@ -250,60 +260,71 @@ angular
 
             eventService.getEventsByParams(params)
                 .then(res => {
-                    let events = [];
-                    for (let event of res.data.events) {
-                        events.push(event);
+                    if (res.status == 200) {
+                        let events = [];
+                        for (let event of res.data.events) {
+                            events.push(event);
+                        }
+                        $scope.events = events;
+                    } else if (res.status == 404) {
+                        const message = 'No events found';
+                        self.showNotifyMessage(message);
                     }
-                    $scope.events = events;
                 });
         };
 
         self.assembleSearchParams = () => {
             return {
                 creator: self.creatorParam,
-                position: self.locationParam,
+                position: self.positionParam,
                 category: self.categoryParam
             };
         };
 
         self.getEventsByTags = () => {
-            $scope.events = self.eventsSaved;
+            const amountOfTags = self.tags.length;
+            let events = self.eventsSaved;
             let allTagsPresent = [];
             let notAllTagsPresent = [];
 
-            for (let event of $scope.events) {
+            for (let event of events) {
                 let tagsFound = 0;
 
                 for (let tag of self.tags) {
-                    if (event.tags.find(element => element.name == tag)) {
+                    if (event.tags.find(x => x.name == tag))
                         tagsFound += 1;
-                    }
                 }
 
                 if (tagsFound > 0) {
-                    const amountOfTags = self.tags.length;
-
-                    if (self.tagOption == 'AllTags') {
-                        if (amountOfTags == tagsFound) {
-                            allTagsPresent.push(event);
-                        }
-                    } else if (self.tagOption == 'NotAllTags') {
+                    if (self.userWantsAllTagsPresent() &&
+                        amountOfTags == tagsFound) {
+                        allTagsPresent.push(event);
+                    } else {
                         notAllTagsPresent.push(event);
                     }
                 }
             }
 
-            if (self.tagOption == 'AllTags') {
-                $scope.events = allTagsPresent;
-            } else if (self.tagOption == 'NotAllTags') {
-                $scope.events = notAllTagsPresent;
+            if (self.userWantsAllTagsPresent()) {
+                events = allTagsPresent;
+            } else {
+                events = notAllTagsPresent;
             }
 
-            console.log('-------All tags-------');
-            console.log(allTagsPresent);
-            console.log('-------Not All tags-------');
-            console.log(notAllTagsPresent);
+            $scope.events = events;
 
+            if (events.length == 0) {
+                const message = 'No events found';
+                self.showNotifyMessage(message);
+            }
         };
+
+        self.eventSortChange = () => {
+            $scope.events.reverse();
+        };
+
+        self.userWantsAllTagsPresent = () => {
+            if (self.tagOption == 'AllTags') return true;
+        }
 
     }
