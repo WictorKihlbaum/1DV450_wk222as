@@ -29,10 +29,14 @@
 
                 <!-- Category error messages -->
                 <div ng-messages="eventForm.categoryField.$error">
-                    <div ng-message="required">* Category is required.</div>
-                    <div ng-message="md-maxlength">* Category is to long. Max length is 15 chars.</div>
+                    <div ng-message="required">
+                        * Category is required.
+                    </div>
+                    <div ng-message="md-maxlength">
+                        * Category is to long. Max length is 15 chars.
+                    </div>
                 </div>
-            </md-input-container><br />
+            </md-input-container>
 
             <!-- Description input field -->
             <md-input-container>
@@ -45,24 +49,40 @@
 
                 <!-- Description error messages -->
                 <div ng-messages="eventForm.descriptionField.$error">
-                    <div ng-message="required">* Description is required.</div>
-                    <div ng-message="md-maxlength">* Description is to long. Max length is 100 chars.</div>
+                    <div ng-message="required">
+                        * Description is required.
+                    </div>
+                    <div ng-message="md-maxlength">
+                        * Description is to long. Max length is 100 chars.
+                    </div>
                 </div>
-            </md-input-container><br />
+            </md-input-container>
 
             <!-- Choose position input method -->
             <md-radio-group ng-model="positionOption">
-                <md-radio-button value="Address">Address</md-radio-button>
-                <md-radio-button value="Coordinates">Latitude & Longitude</md-radio-button>
+                <md-radio-button value="Address">
+                    Address
+                </md-radio-button>
+                <md-radio-button value="Coordinates">
+                    Latitude & Longitude
+                </md-radio-button>
             </md-radio-group>
 
             <!-- Address input field -->
             <md-input-container ng-if="positionOption =='Address'">
                 <label>Address</label>
                 <input type="text"
+                       required
                        name="addressField"
                        aria-label="Fill in address"
                        ng-model="event.addressCreate" />
+
+                <!-- Address error messages -->
+                <div ng-messages="eventForm.addressField.$error">
+                    <div ng-message="required">
+                        * Address is required.
+                    </div>
+                </div>
             </md-input-container>
 
             <div id="coordinates" ng-if="positionOption == 'Coordinates'">
@@ -70,25 +90,42 @@
                 <md-input-container>
                     <label>Latitude</label>
                     <input type="text"
+                           required
                            name="latitudeField"
                            aria-label="Fill in latitude"
                            ng-model="event.latitudeCreate" />
-                </md-input-container><br />
+
+                    <!-- Latitude error messages -->
+                    <div ng-messages="eventForm.latitudeField.$error">
+                        <div ng-message="required">
+                            * Latitude is required.
+                        </div>
+                    </div>
+                </md-input-container>
 
                 <!-- Longitude input -->
                 <md-input-container>
                     <label>Longitude</label>
                     <input type="text"
+                           required
                            name="longitudeField"
                            aria-label="Fill in longitude"
                            ng-model="event.longitudeCreate" />
+
+                    <!-- Longitude error messages -->
+                    <div ng-messages="eventForm.longitudeField.$error">
+                        <div ng-message="required">
+                            * Longitude is required.
+                        </div>
+                    </div>
                 </md-input-container>
             </div>
 
             <div>
                 <!-- Create button -->
                 <md-button class="md-raised md-primary"
-                           ng-click="event.createEvent()">Create</md-button>
+                           ng-click="event.createEvent()"
+                           type="submit">Create</md-button>
             </div>
 
         </form>

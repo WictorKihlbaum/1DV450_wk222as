@@ -121,12 +121,6 @@ md-dialog-content {
     margin-right: 5px;
 }
 
-#events-list-panel {
-    background-color: white;
-    margin-top: 10px;
-    padding: 10px;
-}
-
 .map-custom-marker {
     width: 25px;
 }
@@ -135,21 +129,34 @@ md-dialog-content {
     cursor: pointer;
 }
 
-#hejsan {
-    position: absolute;
-    padding: 10px;
-    border-radius: 12px;
-    font-size: 10px;
-    width: 100px;
-    height: 100px;
-    z-index: 100;
-    background-color: white;
-}
-
 .help-icon {
     cursor: pointer;
 }
 
 .help-info-section {
     max-width: 550px;
+}
+
+#events-time-panel {
+    background-color: white;
+    padding: 10px;
+}
+
+#events-list-panel {
+    background-color: white;
+    /*margin-top: 10px;*/
+    padding: 10px;
+}
+
+#create-event-button {
+    margin: 0;
+}
+
+md-input-container {
+    display: block;
+    width: 100%;
+}
+
+#event-edit-dialog {
+    width: 560px;
 }

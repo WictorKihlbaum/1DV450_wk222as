@@ -44,7 +44,7 @@ angular
                     'category': params.category,
                     'description': params.description,
                     'creator_id': $window.localStorage['currentUserID'],
-                    'position_id': params.position_id
+                    'position_id': params.positionID
                 }
             };
 
@@ -68,7 +68,7 @@ angular
                     'category': params.category,
                     'description': params.description,
                     'creator_id': $window.localStorage['currentUserID'],
-                    'position_id': params.position_id
+                    'position_id': params.positionID
                 }
             };
             const config = {

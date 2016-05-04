@@ -1,5 +1,5 @@
 angular
-    .module('app', ['ngMaterial', 'ngMessages', 'ngRoute', 'ngResource', 'ngMap'])
+    .module('app', ['ngMaterial', 'ngMessages', 'ngRoute', 'ngResource', 'ngMap', 'angularMoment'])
     .constant('API', {
         'baseURL': 'http://localhost:3000',
         'eventsPath': '/api/v1/events',

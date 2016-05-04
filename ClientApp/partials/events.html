@@ -4,16 +4,16 @@
         zoom="5"
         id="main-map">
 
-    <custom-marker ng-repeat="ev in events"
-                   on-click="showEventFromMap(ev)"
-                   position="{{ev.position.address}}">
+    <custom-marker ng-repeat="e in events"
+                   on-click="showEventFromMap(e)"
+                   position="{{e.position.address}}">
 
         <img src="assets/img/map-marker.png"
              class="map-custom-marker" />
 
         <!-- Shown when hover over marker -->
         <md-tooltip md-direction="top">
-            {{ev.category}} (Click to open info)
+            {{e.category}} (Click to open info)
         </md-tooltip>
     </custom-marker>
 
@@ -24,7 +24,20 @@
 
     <div layout="row"
          layout-align="space-between center"
-         class="padding-class"
+         id="events-time-panel">
+        <div>
+            Current time is
+            <span my-current-time="format"></span>
+        </div>
+
+        <div>
+            Last event added
+            <span am-time-ago="latestEventAdded"></span>
+        </div>
+    </div>
+
+    <div layout="row"
+         layout-align="space-between center"
          id="events-list-panel">
 
         <!-- Sort events by newest/oldest first -->
@@ -33,7 +46,7 @@
                         layout="row"
                         id="sort-events-radiogroup">
 
-            <span id="sort-span">Sort events by:</span>
+            <span id="sort-span">Sort events by</span>
 
             <md-radio-button value="Newest">
                 Newest first
@@ -47,6 +60,7 @@
 
         <!-- Create button for new Event -->
         <md-button class="md-raised md-accent"
+                   id="create-event-button"
                    ng-click="showCreateDialog()"
                    ng-if="isAuthed()">
             Create new event!
@@ -58,7 +72,7 @@
 
         <md-subheader class="md-no-sticky">
 
-            <span>Events list |</span>
+            <span>Events list</span>
 
             <!-- Show button/icon for Resource Help info -->
             <md-icon class="md-secondary help-icon"
@@ -71,8 +85,6 @@
                     How do I handle below resources?
                 </md-tooltip>
             </md-icon>
-
-            |
 
             <!-- Show button/icon for getting ALL Events -->
             <md-icon class="md-secondary help-icon"
@@ -89,12 +101,12 @@
         </md-subheader>
 
         <!-- List ALL Events -->
-        <md-list-item ng-repeat="event in events"
-                      ng-click="showEvent(event)">
+        <md-list-item ng-repeat="e in events"
+                      ng-click="showEvent(e)">
 
             <!-- Show button/icon for Event -->
             <md-icon class="md-secondary"
-                     ng-click="showEvent(event)"
+                     ng-click="showEvent(e)"
                      aria-label="Show event"
                      md-svg-icon="infoIcon">
 
@@ -106,8 +118,8 @@
 
             <!-- Edit button/icon for Event -->
             <md-icon class="md-secondary"
-                     ng-if="isAuthed() && belongsToCurrentUser(event)"
-                     ng-click="showEditDialog(event)"
+                     ng-if="isAuthed() && belongsToCurrentUser(e)"
+                     ng-click="showEditDialog(e)"
                      aria-label="Edit event"
                      md-svg-icon="editIcon">
 
@@ -119,8 +131,8 @@
 
             <!-- Delete button/icon for Event -->
             <md-icon class="md-secondary"
-                     ng-if="isAuthed() && belongsToCurrentUser(event)"
-                     ng-click="showDeleteDialog(event)"
+                     ng-if="isAuthed() && belongsToCurrentUser(e)"
+                     ng-click="showDeleteDialog(e)"
                      aria-label="Delete event"
                      md-svg-icon="deleteIcon">
 
@@ -131,9 +143,8 @@
             </md-icon>
 
             <div class="event-child">
-                {{ event.id }} |
-                {{ event.category }} |
-                {{event.creator.name}}'s
+                {{e.creator.name}}'s
+                {{ e.category }}
             </div>
 
         </md-list-item>

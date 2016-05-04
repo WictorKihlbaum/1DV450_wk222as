@@ -9,12 +9,10 @@ angular
         '$route',
         '$mdToast',
         'auth',
-        'user',
-        '$window',
-        'NgMap'
+        '$window'
     ];
 
-    function EventCtrl(eventService, $scope, $mdDialog, $route, $mdToast, auth, user, $window, NgMap) {
+    function EventCtrl(eventService, $scope, $mdDialog, $route, $mdToast, auth, $window) {
 
         const self = this;
         self.selectedMethod;
@@ -23,6 +21,7 @@ angular
         self.tagOption = 'NotAllTags';
         self.eventSortOption = 'Newest';
         $scope.positionOption = 'Address';
+        $scope.format = 'hh:mm:ss a';
 
         $scope.searchMethods = [
             'Search nearby events',
@@ -35,11 +34,11 @@ angular
            This enables the edit-fields to be filled with the old values. */
         if (eventService.event) {
             self.event = eventService.event;
-            self.category = eventService.event.category;
-            self.description = eventService.event.description;
-            self.address = eventService.event.position.address;
-            self.latitude = eventService.event.position.latitude;
-            self.longitude = eventService.event.position.longitude;
+            self.category = self.event.category;
+            self.description = self.event.description;
+            self.address = self.event.position.address;
+            self.latitude = self.event.position.latitude;
+            self.longitude = self.event.position.longitude;
         }
 
         self.getAllEvents = () => {
@@ -48,6 +47,7 @@ angular
                     const events = result.data.events;
                     $scope.events = events;
                     self.eventsSaved = events;
+                    $scope.latestEventAdded = events[0].created_at;
                     // TODO: Maybe move to service instead.
                     self.saveAllCreators(events);
                     self.saveAllCategories(events);
@@ -159,23 +159,26 @@ angular
 
         self.createEvent = () => {
             let params = self.assembleCreateParams();
-            // First create the new position.
-            eventService.createPosition(params)
-                .then(res => {
-                    // Then create the new event when the position ID has been returned.
-                    if (res.status == 200 || res.status == 201) {
-                        params['position_id'] = res.data.position.id;
-                        eventService.createEvent(params)
-                            .then(res => {
-                                if (res.status == 201) {
-                                    const message = 'Event has been successfully created!';
-                                    self.showSuccessMessage(message);
-                                    self.closeEventDialog();
-                                    $route.reload();
-                                }
-                            });
-                    }
-                });
+
+            if (self.necessaryParamsArePresent(params)) {
+                // First create the new position.
+                eventService.createPosition(params)
+                    .then(res => {
+                        // Then create the new event when the position ID has been returned.
+                        if (res.status == 200 || res.status == 201) {
+                            params['positionID'] = res.data.position.id;
+                            eventService.createEvent(params)
+                                .then(res => {
+                                    if (res.status == 201) {
+                                        const message = 'Event has been successfully created!';
+                                        self.showSuccessMessage(message);
+                                        self.closeEventDialog();
+                                        $route.reload();
+                                    }
+                                });
+                        }
+                    });
+            }
         };
 
         self.assembleCreateParams = () => {
@@ -203,22 +206,32 @@ angular
         self.editEvent = () => {
             let params = self.assembleEditParams();
 
-            eventService.createPosition(params)
-                .then(res => {
-                    if (res.status == 200 || res.status == 201) {
-                        params['position_id'] = res.data.position.id;
+            if (self.necessaryParamsArePresent(params)) {
+                eventService.createPosition(params)
+                    .then(res => {
+                        if (res.status == 200 || res.status == 201) {
+                            params['positionID'] = res.data.position.id;
 
-                        eventService.editEvent(params)
-                            .then(res => {
-                                if (res.status == 200) {
-                                    self.closeEventDialog();
-                                    $route.reload();
-                                    const message = 'Event has been successfully updated!';
-                                    self.showSuccessMessage(message);
-                                }
-                            });
-                    }
-                });
+                            eventService.editEvent(params)
+                                .then(res => {
+                                    if (res.status == 200) {
+                                        self.closeEventDialog();
+                                        $route.reload();
+                                        const message = 'Event has been successfully updated!';
+                                        self.showSuccessMessage(message);
+                                    }
+                                });
+                        }
+                    });
+            }
+        };
+
+        self.necessaryParamsArePresent = params => {
+            if (params.category && params.description) {
+                if (params.address || params.latitude && params.longitude) {
+                    return true;
+                }
+            }
         };
 
         self.assembleEditParams = () => {
