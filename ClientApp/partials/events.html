@@ -11,8 +11,12 @@
                    position="{{ev.position.address}}">
 
         <img src="assets/img/map-marker.png"
-             class="map-custom-marker"
-             title="{{ev.category}} (Click to open info)" />
+             class="map-custom-marker" />
+
+        <!-- Shown when hover over marker -->
+        <md-tooltip md-direction="top">
+            {{ev.category}} (Click to open info)
+        </md-tooltip>
     </custom-marker>
 
 </ng-map>
@@ -61,6 +65,18 @@
         <!-- List ALL Events -->
         <md-list-item ng-repeat="event in events"
                       ng-click="showEvent(event)">
+
+            <!-- Show button/icon for Event -->
+            <md-icon class="md-secondary"
+                     ng-click="showEvent(event)"
+                     aria-label="Show event"
+                     md-svg-icon="infoIcon">
+
+                <!-- Shown when hover over icon -->
+                <md-tooltip md-direction="top">
+                    Show event
+                </md-tooltip>
+            </md-icon>
 
             <!-- Edit button/icon for Event -->
             <md-icon class="md-secondary"

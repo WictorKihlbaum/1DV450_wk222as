@@ -2,9 +2,9 @@ angular
     .module('app')
     .service('EventService', EventService);
 
-    EventService.$inject = ['API', '$http', 'auth'];
+    EventService.$inject = ['API', '$http', 'auth', '$window'];
 
-    function EventService(API, $http, auth) {
+    function EventService(API, $http, auth, $window) {
         const self = this;
 
         self.getAllEvents = () => {
@@ -43,7 +43,7 @@ angular
                     'id': self.event.id,
                     'category': params.category,
                     'description': params.description,
-                    'creator_id': 1, //TODO: Fix ID from current user.
+                    'creator_id': $window.localStorage['currentUserID'],
                     'position_id': params.position_id
                 }
             };
@@ -67,7 +67,7 @@ angular
                 event: {
                     'category': params.category,
                     'description': params.description,
-                    'creator_id': 1,
+                    'creator_id': $window.localStorage['currentUserID'],
                     'position_id': params.position_id
                 }
             };

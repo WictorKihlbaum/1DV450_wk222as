@@ -13,6 +13,7 @@ angular
                 self.userEmail = res.config.data.auth.email;
                 user.getAllCreators().then(res2 => {
                     const creator = res2.data.creators.find(element => element.email == self.userEmail);
+                    $window.localStorage['currentUserID'] = creator.id;
                     self.showUserMessage(`Welcome ${creator.name}!`);
                 });
             }

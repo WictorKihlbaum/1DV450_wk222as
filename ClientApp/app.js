@@ -30,6 +30,7 @@ angular
     })
     .config(function($mdIconProvider) {
         $mdIconProvider
+            .icon('infoIcon', 'assets/img/info.svg')
             .icon('editIcon', 'assets/img/edit.svg')
             .icon('deleteIcon', 'assets/img/delete.svg')
     });

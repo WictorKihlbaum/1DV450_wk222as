@@ -34,10 +34,6 @@ class API::V1::PositionsController < API::APIController
     end
   end
 
-  def update
-
-  end
-
   def set_position
     @position = Position.find(params[:id])
   end
