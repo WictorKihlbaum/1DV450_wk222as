@@ -33,4 +33,6 @@ angular
             .icon('infoIcon', 'assets/img/info.svg')
             .icon('editIcon', 'assets/img/edit.svg')
             .icon('deleteIcon', 'assets/img/delete.svg')
+            .icon('helpIcon', 'assets/img/help.svg')
+            .icon('renewIcon', 'assets/img/renew.svg')
     });

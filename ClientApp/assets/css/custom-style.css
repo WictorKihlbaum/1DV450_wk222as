@@ -145,3 +145,11 @@ md-dialog-content {
     z-index: 100;
     background-color: white;
 }
+
+.help-icon {
+    cursor: pointer;
+}
+
+.help-info-section {
+    max-width: 550px;
+}

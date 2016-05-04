@@ -1,5 +1,3 @@
-<!-- TODO: Update event editing -->
-<!-- TODO: BackendAPI check if position exist -->
 
 <!-- Google Map -->
 <ng-map center="sweden"
@@ -59,7 +57,35 @@
     <md-list id="events-list" layout-align="center start">
 
         <md-subheader class="md-no-sticky">
-            Events list
+
+            <span>Events list |</span>
+
+            <!-- Show button/icon for Resource Help info -->
+            <md-icon class="md-secondary help-icon"
+                     ng-click="showHelp()"
+                     aria-label="Show help"
+                     md-svg-icon="helpIcon">
+
+                <!-- Shown when hover over icon -->
+                <md-tooltip md-direction="top">
+                    How do I handle below resources?
+                </md-tooltip>
+            </md-icon>
+
+            |
+
+            <!-- Show button/icon for getting ALL Events -->
+            <md-icon class="md-secondary help-icon"
+                     ng-click="event.getAllEvents()"
+                     aria-label="Get all events"
+                     md-svg-icon="renewIcon">
+
+                <!-- Shown when hover over icon -->
+                <md-tooltip md-direction="top">
+                    Show all events! (Reset the list)
+                </md-tooltip>
+            </md-icon>
+
         </md-subheader>
 
         <!-- List ALL Events -->

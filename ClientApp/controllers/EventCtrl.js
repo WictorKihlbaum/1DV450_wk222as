@@ -31,11 +31,6 @@ angular
         ];
 
 
-        /*NgMap.getMap().then(function(map) {
-            self.map = map;
-            console.log(map);
-        });*/
-
         /* Fills its purpose when editing events.
            This enables the edit-fields to be filled with the old values. */
         if (eventService.event) {
@@ -134,7 +129,17 @@ angular
                 controllerAs: 'event',
                 templateUrl: 'partials/event-info.tmpl.html',
                 parent: angular.element(document.body),
-                clickOutsideToClose:true
+                clickOutsideToClose: true
+            });
+        };
+
+        $scope.showHelp = () => {
+            $mdDialog.show({
+                controller: 'Event',
+                controllerAs: 'event',
+                templateUrl: 'partials/resource-help-info.tmpl.html',
+                parent: angular.element(document.body),
+                clickOutsideToClose: true
             });
         };
 
@@ -318,39 +323,42 @@ angular
 
         self.getEventsByTags = () => {
             const amountOfTags = self.tags.length;
-            let events = self.eventsSaved;
-            let allTagsPresent = [];
-            let notAllTagsPresent = [];
 
-            for (let event of events) {
-                let tagsFound = 0;
+            if (amountOfTags > 0) {
+                let events = self.eventsSaved;
+                let allTagsPresent = [];
+                let notAllTagsPresent = [];
 
-                for (let tag of self.tags) {
-                    if (event.tags.find(x => x.name == tag))
-                        tagsFound += 1;
-                }
+                for (let event of events) {
+                    let tagsFound = 0;
 
-                if (tagsFound > 0) {
-                    if (self.userWantsAllTagsPresent() &&
-                        amountOfTags == tagsFound) {
-                        allTagsPresent.push(event);
-                    } else {
-                        notAllTagsPresent.push(event);
+                    for (let tag of self.tags) {
+                        if (event.tags.find(x => x.name == tag))
+                            tagsFound += 1;
+                    }
+
+                    if (tagsFound > 0) {
+                        if (self.userWantsAllTagsPresent() &&
+                            amountOfTags == tagsFound) {
+                            allTagsPresent.push(event);
+                        } else {
+                            notAllTagsPresent.push(event);
+                        }
                     }
                 }
-            }
 
-            if (self.userWantsAllTagsPresent()) {
-                events = allTagsPresent;
-            } else {
-                events = notAllTagsPresent;
-            }
+                if (self.userWantsAllTagsPresent()) {
+                    events = allTagsPresent;
+                } else {
+                    events = notAllTagsPresent;
+                }
 
-            $scope.events = events;
+                $scope.events = events;
 
-            if (events.length == 0) {
-                const message = 'No events found';
-                self.showNotifyMessage(message);
+                if (events.length == 0) {
+                    const message = 'No events found';
+                    self.showNotifyMessage(message);
+                }
             }
         };
 
