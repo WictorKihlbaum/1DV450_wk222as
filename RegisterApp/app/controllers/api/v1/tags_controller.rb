@@ -12,8 +12,16 @@ class API::V1::TagsController < API::APIController
     render_response(@tag, :ok)
   end
 
+  def create
+    
+  end
+
   def set_tag
     @tag = Tag.find(params[:id])
+  end
+
+  def tag_params
+    params.require(:tag).permit(:name)
   end
 
 end

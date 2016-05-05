@@ -58,6 +58,11 @@ md-toast.md-notify-toast-theme .md-toast-content {
     color: #4183D7;
 }
 
+md-toast.md-error-toast-theme .md-toast-content {
+    background-color: #F1A9A0;
+    color: #D64541;
+}
+
 md-list-item:nth-child(odd) {
     background-color: #E4F1FE;
 }

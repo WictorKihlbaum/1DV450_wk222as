@@ -153,7 +153,7 @@ angular
                 controllerAs: 'event',
                 templateUrl: 'partials/create.tmpl.html',
                 parent: angular.element(document.body),
-                clickOutsideToClose:true
+                clickOutsideToClose: true
             });
         };
 
@@ -178,6 +178,10 @@ angular
                                 });
                         }
                     });
+            } else {
+                const message = `Event could not be created.
+                Please fill in all missing fields and try again.`;
+                self.showErrorMessage(message);
             }
         };
 
@@ -223,6 +227,10 @@ angular
                                 });
                         }
                     });
+            } else {
+                const message = `Event could not be updated.
+                Please fill in all missing fields and try again.`;
+                self.showErrorMessage(message);
             }
         };
 
@@ -275,6 +283,16 @@ angular
                     .textContent(message)
                     .position('top')
                     .theme('success-toast')
+                    .hideDelay(5000)
+            );
+        };
+
+        self.showErrorMessage = message => {
+            $mdToast.show(
+                $mdToast.simple()
+                    .textContent(message)
+                    .position('top')
+                    .theme('error-toast')
                     .hideDelay(5000)
             );
         };
