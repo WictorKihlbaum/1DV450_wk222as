@@ -25,7 +25,7 @@
                        name="categoryField"
                        aria-label="Create event category"
                        ng-model="event.categoryCreate"
-                       md-maxlength="15" />
+                       md-maxlength="25" />
 
                 <!-- Category error messages -->
                 <div ng-messages="eventForm.categoryField.$error">
@@ -33,7 +33,7 @@
                         * Category is required.
                     </div>
                     <div ng-message="md-maxlength">
-                        * Category is to long. Max length is 15 chars.
+                        * Category is to long. Max length is 25 chars.
                     </div>
                 </div>
             </md-input-container>
@@ -85,8 +85,9 @@
                 </div>
             </md-input-container>
 
+            <!-- Coordinates (latitude & longitude) input fields -->
             <div id="coordinates" ng-if="positionOption == 'Coordinates'">
-                <!-- Latitude input -->
+                <!-- Latitude input field -->
                 <md-input-container>
                     <label>Latitude</label>
                     <input type="text"
@@ -103,7 +104,7 @@
                     </div>
                 </md-input-container>
 
-                <!-- Longitude input -->
+                <!-- Longitude input field -->
                 <md-input-container>
                     <label>Longitude</label>
                     <input type="text"

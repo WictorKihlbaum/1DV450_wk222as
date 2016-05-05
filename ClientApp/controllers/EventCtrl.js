@@ -171,7 +171,7 @@ angular
                                 .then(res => {
                                     if (res.status == 201) {
                                         const message = 'Event has been successfully created!';
-                                        self.showSuccessMessage(message);
+                                        self.showUserMessage(message, 'success');
                                         self.closeEventDialog();
                                         $route.reload();
                                     }
@@ -181,7 +181,7 @@ angular
             } else {
                 const message = `Event could not be created.
                 Please fill in all missing fields and try again.`;
-                self.showErrorMessage(message);
+                self.showUserMessage(message, 'error');
             }
         };
 
@@ -222,7 +222,7 @@ angular
                                         self.closeEventDialog();
                                         $route.reload();
                                         const message = 'Event has been successfully updated!';
-                                        self.showSuccessMessage(message);
+                                        self.showUserMessage(message, 'success');
                                     }
                                 });
                         }
@@ -230,7 +230,7 @@ angular
             } else {
                 const message = `Event could not be updated.
                 Please fill in all missing fields and try again.`;
-                self.showErrorMessage(message);
+                self.showUserMessage(message, 'error');
             }
         };
 
@@ -267,7 +267,7 @@ angular
                 .then(res => {
                     if (res.status == 204) {
                         const message = 'Event has been successfully deleted!';
-                        self.showSuccessMessage(message);
+                        self.showUserMessage(message, 'success');
                         self.getAllEvents();
                     }
                 });
@@ -277,32 +277,12 @@ angular
             $mdDialog.hide();
         };
 
-        self.showSuccessMessage = message => {
+        self.showUserMessage = (message, theme) => {
             $mdToast.show(
                 $mdToast.simple()
                     .textContent(message)
                     .position('top')
-                    .theme('success-toast')
-                    .hideDelay(5000)
-            );
-        };
-
-        self.showErrorMessage = message => {
-            $mdToast.show(
-                $mdToast.simple()
-                    .textContent(message)
-                    .position('top')
-                    .theme('error-toast')
-                    .hideDelay(5000)
-            );
-        };
-
-        self.showNotifyMessage = message => {
-            $mdToast.show(
-                $mdToast.simple()
-                    .textContent(message)
-                    .position('top')
-                    .theme('notify-toast')
+                    .theme(`${theme}-toast`)
                     .hideDelay(5000)
             );
         };
@@ -339,7 +319,7 @@ angular
                         $scope.events = events;
                     } else if (res.status == 404) {
                         const message = 'No events found';
-                        self.showNotifyMessage(message);
+                        self.showUserMessage(message, 'notify');
                     }
                 });
         };
@@ -388,7 +368,7 @@ angular
 
                 if (events.length == 0) {
                     const message = 'No events found';
-                    self.showNotifyMessage(message);
+                    self.showUserMessage(message, 'notify');
                 }
             }
         };

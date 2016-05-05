@@ -39,38 +39,6 @@ section {
     max-width: 960px;
 }
 
-#events-container {
-    /*background-color: #EEE;*/
-    /*float: left;*/
-}
-
-md-toast {
-    left: calc(50vw - 150px);
-}
-
-md-toast.md-success-toast-theme .md-toast-content {
-    background-color: #C8F7C5;
-    color: #26A65B;
-}
-
-md-toast.md-notify-toast-theme .md-toast-content {
-    background-color: #E4F1FE;
-    color: #4183D7;
-}
-
-md-toast.md-error-toast-theme .md-toast-content {
-    background-color: #F1A9A0;
-    color: #D64541;
-}
-
-md-list-item:nth-child(odd) {
-    background-color: #E4F1FE;
-}
-
-md-list-item:nth-child(even) {
-    background-color: white;
-}
-
 input[type="email"],
 input[type="password"] {
     height: 55px;
@@ -100,10 +68,6 @@ input[type="password"] {
     background-color: aqua;
 }
 
-.error-container {
-    padding: 15px 0;
-}
-
 md-dialog-content {
     padding: 15px 35px;
 }
@@ -124,14 +88,6 @@ md-dialog-content {
 
 #sort-span {
     margin-right: 5px;
-}
-
-.map-custom-marker {
-    width: 25px;
-}
-
-.map-custom-marker:hover {
-    cursor: pointer;
 }
 
 .help-icon {
@@ -165,3 +121,57 @@ md-input-container {
 #event-edit-dialog {
     width: 560px;
 }
+
+#search-method-input {
+    width: 300px;
+}
+
+#login-dialog {
+    width: 400px;
+}
+
+/* ----- Toasts ----- */
+
+md-toast {
+    left: calc(50vw - 150px);
+}
+
+md-toast.md-success-toast-theme .md-toast-content {
+    background-color: #C8F7C5;
+    color: #26A65B;
+}
+
+md-toast.md-notify-toast-theme .md-toast-content {
+    background-color: #FDE3A7;
+    color: #F39C12;
+}
+
+md-toast.md-error-toast-theme .md-toast-content {
+    background-color: #F1A9A0;
+    color: #D64541;
+}
+
+/* ----- Google Map ----- */
+
+.map-custom-marker {
+    width: 25px;
+}
+
+.map-custom-marker:hover {
+    cursor: pointer;
+}
+
+/* ----- Event list ----- */
+
+md-list-item:nth-child(odd) {
+    background-color: #E4F1FE;
+}
+
+md-list-item:nth-child(even) {
+    background-color: white;
+}
+
+
+/*.error-container {
+    padding: 15px 0;
+}*/

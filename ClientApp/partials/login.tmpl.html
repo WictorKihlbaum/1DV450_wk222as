@@ -1,18 +1,23 @@
 <!-- HTML-Template for Login -->
 
-<md-dialog>
+<md-dialog id="login-dialog">
     <md-toolbar>
         <div class="md-toolbar-tools">
             <h2>Login user</h2>
             <span flex></span>
+
             <!-- Close button for dialog -->
-            <md-button class="md-icon-button" ng-click="login.closeLoginDialog()">
-                <md-icon md-svg-src="assets/img/close.svg" aria-label="Close dialog"></md-icon>
+            <md-button class="md-icon-button"
+                       ng-click="login.closeLoginDialog()">
+
+                <md-icon md-svg-src="assets/img/close.svg"
+                         aria-label="Close dialog"></md-icon>
             </md-button>
         </div>
     </md-toolbar>
 
-    <md-dialog-content layout="column" layout-align="center center">
+    <md-dialog-content layout="column"
+                       layout-align="center center">
 
         <!-- Login form -->
         <form name="loginForm"
@@ -29,12 +34,14 @@
 
                 <!-- Email error messages -->
                 <div ng-messages="loginForm.emailField.$error">
-                    <div ng-message="required">* Email address is required.</div>
-                    <div ng-message="email">* Email address is invalid.</div>
+                    <div ng-message="required">
+                        * Email address is required.
+                    </div>
+                    <div ng-message="email">
+                        * Email address is invalid.
+                    </div>
                 </div>
             </md-input-container>
-
-            <br />
 
             <!-- Password input field -->
             <md-input-container>
@@ -48,8 +55,6 @@
                     <div ng-message="required">* Password is required.</div>
                 </div>
             </md-input-container>
-
-            <br />
 
             <!-- Login button -->
             <md-button class="md-raised md-primary"
