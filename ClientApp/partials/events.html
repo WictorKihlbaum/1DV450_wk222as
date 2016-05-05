@@ -1,24 +1,6 @@
 
 <!-- Google Map -->
-<ng-map center="sweden"
-        zoom="5"
-        id="main-map">
-
-    <custom-marker ng-repeat="e in events"
-                   on-click="showEventFromMap(e)"
-                   position="{{e.position.address}}">
-
-        <img src="assets/img/map-marker.png"
-             class="map-custom-marker" />
-
-        <!-- Shown when hover over marker -->
-        <md-tooltip md-direction="top">
-            {{e.category}} (Click to open info)
-        </md-tooltip>
-    </custom-marker>
-
-</ng-map>
-
+<div ng-include src="'partials/google-map.html'"></div>
 
 <div id="events-container">
 
@@ -151,46 +133,44 @@
     </md-list>
 </div>
 
-<div>
-    <!-- Search Methods Field -->
-    <div id="choose-search-method"
-         class="search-methods" flex>
 
-        <h1 class="md-title"
-            id="search-methods-topic">
-            Search events by a specific method
-        </h1>
+<!-- Search Methods Field -->
+<div id="choose-search-method"
+     class="search-methods" flex>
 
-        <md-input-container id="search-method-input">
-            <label>Search methods</label>
+    <h1 class="md-title"
+        id="search-methods-topic">
+        Search events by a specific method
+    </h1>
 
-            <md-select ng-model="selectedMethod"
-                       md-selected-text="getSelectedMethod()">
+    <md-input-container id="search-method-input">
+        <label>Search methods</label>
 
-                <md-optgroup label="methods">
+        <md-select ng-model="selectedMethod"
+                   md-selected-text="getSelectedMethod()">
 
-                    <md-option ng-value="method"
-                               ng-repeat="method in searchMethods">
-                        {{method}}
-                    </md-option>
-                </md-optgroup>
-            </md-select>
-        </md-input-container>
-    </div>
+            <md-optgroup label="methods">
 
-    <!-- TODO: Implement error handling for all search methods. -->
-    <!-- SEARCH METHODS PARTIALS -->
-
-    <!-- Search Nearby Events -->
-    <div ng-include src="'partials/search-methods/nearby.html'"
-         ng-if="selectedMethod.includes('nearby')"></div>
-
-    <!-- Search Events by Tags -->
-    <div ng-include src="'partials/search-methods/tags.html'"
-         ng-if="selectedMethod.includes('tags')"></div>
-
-    <!-- Search Events by Parameters -->
-    <div ng-include src="'partials/search-methods/params.html'"
-         ng-if="selectedMethod.includes('parameters')"></div>
-
+                <md-option ng-value="method"
+                           ng-repeat="method in searchMethods">
+                    {{method}}
+                </md-option>
+            </md-optgroup>
+        </md-select>
+    </md-input-container>
 </div>
+
+<!-- TODO: Implement error handling for all search methods. -->
+<!-- SEARCH METHODS PARTIALS -->
+
+<!-- Search Nearby Events -->
+<div ng-include src="'partials/search-methods/nearby.html'"
+     ng-if="selectedMethod.includes('nearby')"></div>
+
+<!-- Search Events by Tags -->
+<div ng-include src="'partials/search-methods/tags.html'"
+     ng-if="selectedMethod.includes('tags')"></div>
+
+<!-- Search Events by Parameters -->
+<div ng-include src="'partials/search-methods/params.html'"
+     ng-if="selectedMethod.includes('parameters')"></div>

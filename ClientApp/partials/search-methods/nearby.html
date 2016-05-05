@@ -42,7 +42,7 @@
             <!-- Latitude input field -->
             <md-input-container>
                 <label>Latitude</label>
-                <input type="text"
+                <input type="number"
                        required
                        name="latitudeField"
                        aria-label="Fill in latitude"
@@ -59,7 +59,7 @@
             <!-- Longitude input field -->
             <md-input-container>
                 <label>Longitude</label>
-                <input type="text"
+                <input type="number"
                        required
                        name="longitudeField"
                        aria-label="Fill in longitude"
@@ -77,7 +77,7 @@
         <!-- Search distance -->
         <md-input-container>
             <label>Search distance (Km)</label>
-            <input type="text"
+            <input type="number"
                    name="distanceField"
                    aria-label="Fill in distance"
                    ng-model="event.distance" />
