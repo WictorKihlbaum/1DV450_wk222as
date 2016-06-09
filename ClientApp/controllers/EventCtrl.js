@@ -165,7 +165,13 @@ angular
                     .then(res => {
                         // Then create the new event when the position ID has been returned.
                         if (res.status == 200 || res.status == 201) {
-                            params['positionID'] = res.data.position.id;
+
+                            if (res.status == 200) {
+                                params['positionID'] = res.data.position.id;
+                            } else {
+                                params['positionID'] = res.data.id;
+                            }
+
                             eventService.createEvent(params)
                                 .then(res => {
                                     if (res.status == 201) {
@@ -213,7 +219,12 @@ angular
                 eventService.createPosition(params)
                     .then(res => {
                         if (res.status == 200 || res.status == 201) {
-                            params['positionID'] = res.data.position.id;
+
+                            if (res.status == 200) {
+                                params['positionID'] = res.data.position.id;
+                            } else {
+                                params['positionID'] = res.data.id;
+                            }
 
                             eventService.editEvent(params)
                                 .then(res => {

@@ -71,6 +71,9 @@ angular
                     'position_id': params.positionID
                 }
             };
+
+            console.log(data);
+
             const config = {
                 method: 'POST',
                 headers: {
@@ -91,6 +94,7 @@ angular
                     'longitude': params.longitude
                 }
             };
+
             const config = {
                 method: 'POST',
                 headers: {

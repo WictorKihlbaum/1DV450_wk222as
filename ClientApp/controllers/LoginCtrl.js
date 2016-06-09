@@ -11,8 +11,8 @@ angular
             const token = res.data.jwt ? res.data.jwt : null;
             if (token) {
                 self.userEmail = res.config.data.auth.email;
-                user.getAllCreators().then(res2 => {
-                    const creator = res2.data.creators.find(element => element.email == self.userEmail);
+                user.getAllCreators().then(secondRes => {
+                    const creator = secondRes.data.find(element => element.email == self.userEmail);
                     $window.localStorage['currentUserID'] = creator.id;
                     self.showUserMessage(`Welcome ${creator.name}!`);
                 });
