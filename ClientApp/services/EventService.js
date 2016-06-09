@@ -10,7 +10,7 @@ angular
         self.getAllEvents = () => {
             const req = {
                 method: 'GET',
-                url: 'http://localhost:3000/api/v1/events',
+                url: API.baseURL + '/api/v1/events',
                 headers: {
                     'X-APIKey': API.apiKey
                 }
@@ -21,7 +21,7 @@ angular
         self.getNearbyEvents = params => {
             const req = {
                 method: 'GET',
-                url: 'http://localhost:3000/api/v1/events',
+                url: API.baseURL + API.eventsPath,
                 params: {
                     address: params.address,
                     lat: params.latitude,

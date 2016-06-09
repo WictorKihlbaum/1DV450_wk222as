@@ -23,7 +23,7 @@ angular
         self.getAllCreators = () => {
             const req = {
                 method: 'GET',
-                url: 'http://localhost:3000/api/v1/creators',
+                url: API.baseURL + '/api/v1/creators',
                 headers: {
                     'X-APIKey': API.apiKey
                 }

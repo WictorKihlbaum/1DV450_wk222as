@@ -1,7 +1,7 @@
 angular
     .module('app', ['ngMaterial', 'ngMessages', 'ngRoute', 'ngResource', 'ngMap', 'angularMoment'])
     .constant('API', {
-        'baseURL': 'http://localhost:3000',
+        'baseURL': 'http://webbramverk-registerapp.herokuapp.com',
         'eventsPath': '/api/v1/events',
         'apiKey': '4089210b1b572b3b688bdf8abeb19516',
         'format': 'application/json'

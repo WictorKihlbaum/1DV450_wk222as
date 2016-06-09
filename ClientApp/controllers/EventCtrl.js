@@ -44,11 +44,10 @@ angular
         self.getAllEvents = () => {
             eventService.getAllEvents()
                 .then(result => {
-                    const events = result.data.events;
+                    const events = result.data;
                     $scope.events = events;
                     self.eventsSaved = events;
                     $scope.latestEventAdded = events[0].created_at;
-                    // TODO: Maybe move to service instead.
                     self.saveAllCreators(events);
                     self.saveAllCategories(events);
                     self.saveAllPositions(events);
