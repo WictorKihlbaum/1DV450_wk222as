@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="Rails RegisterApp: test" uuid="56c9ed7c-7ec0-41e5-b75d-08bc23e2617b" />
+    <data-source name="Rails RegisterApp: development" uuid="39b13ac4-20ea-43a3-bab3-bf814e1ac363">
+      <auth-required>false</auth-required>
+    </data-source>
+  </component>
+</project>

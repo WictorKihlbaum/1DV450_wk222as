@@ -1,5 +1,6 @@
 class EventSerializer < ActiveModel::Serializer
 
+  include Rails.application.routes.url_helpers
   attributes :id, :category, :description, :created_at, :updated_at, :links
 
   has_one :creator
